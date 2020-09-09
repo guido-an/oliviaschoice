@@ -1,63 +1,59 @@
-const express = require("express");
-const passport = require('passport');
-const router = express.Router();
-const User = require("../models/User");
+const express = require('express')
+const passport = require('passport')
+const router = express.Router()
+const User = require('../models/User')
 
 // Bcrypt to encrypt passwords
-const bcrypt = require("bcrypt");
-const bcryptSalt = 10;
+const bcrypt = require('bcrypt')
+const bcryptSalt = 10
 
+router.post('/signup', (req, res, next) => {
+  const { firstName, lastName, email, password } = req.body
 
-router.get("/login", (req, res, next) => {
-  res.render("auth/login", { "message": req.flash("error") });
-});
-
-router.post("/login", passport.authenticate("local", {
-  successRedirect: "/",
-  failureRedirect: "/auth/login",
-  failureFlash: true,
-  passReqToCallback: true
-}));
-
-router.get("/signup", (req, res, next) => {
-  res.render("auth/signup");
-});
-
-router.post("/signup", (req, res, next) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  if (username === "" || password === "") {
-    res.render("auth/signup", { message: "Indicate username and password" });
-    return;
+  if (email === '' || password === '') {
+    res.status(400).json({ message: 'Per favore indica email e password.' })
+    return
   }
 
-  User.findOne({ username }, "username", (err, user) => {
+  if (firstName === '' || lastName === '') {
+    res.status(400).json({ message: 'Per favore indica nome e cognome.' })
+    return
+  }
+
+  User.findOne({ email }, 'email', (err, user) => {
     if (user !== null) {
-      res.render("auth/signup", { message: "The username already exists" });
-      return;
+      res.status(400).json({ message: 'The email already exists' })
+      return
     }
 
-    const salt = bcrypt.genSaltSync(bcryptSalt);
-    const hashPass = bcrypt.hashSync(password, salt);
+    const salt = bcrypt.genSaltSync(bcryptSalt)
+    const hashPass = bcrypt.hashSync(password, salt)
 
     const newUser = new User({
-      username,
+      email,
       password: hashPass
-    });
+    })
 
     newUser.save()
-    .then(() => {
-      res.redirect("/");
-    })
-    .catch(err => {
-      res.render("auth/signup", { message: "Something went wrong" });
-    })
-  });
-});
+      .then(() => {
+        res.status(200).json(user)
+      })
+      .catch(err => {
+        res.status(400).send({ message: 'Something went wrong' })
+      })
+  })
+})
 
-router.get("/logout", (req, res) => {
-  req.logout();
-  res.redirect("/");
-});
+router.post('/login', passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/auth/login',
+  failureFlash: true,
+  passReqToCallback: true
+}))
 
-module.exports = router;
+router.get('/logout', (req, res) => {
+  req.logout()
+  res.redirect('/')
+})
+
+module.exports = router

@@ -11,9 +11,10 @@ const path = require('path')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const flash = require('connect-flash')
+const cors = require('cors')
 
 mongoose
-  .connect('mongodb://localhost/server', { useNewUrlParser: true })
+  .connect('mongodb://localhost/pharmashop', { useNewUrlParser: true })
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
@@ -31,6 +32,11 @@ app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
+
+app.use(cors({
+  origin: [process.env.CLIENT_URL],
+  credentials: true
+}))
 
 // // Express View engine setup
 
