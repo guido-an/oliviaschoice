@@ -7,6 +7,7 @@ const User = require('../models/User')
 const bcrypt = require('bcrypt')
 const bcryptSalt = 10
 
+// SIGNUP
 router.post('/signup', (req, res, next) => {
   const { firstName, lastName, email, password } = req.body
 
@@ -44,16 +45,37 @@ router.post('/signup', (req, res, next) => {
   })
 })
 
-router.post('/login', passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/auth/login',
-  failureFlash: true,
-  passReqToCallback: true
-}))
+// LOGIN
+router.post('/login', (req, res) => {
+  let currentUser
+  User.findOne({ email: req.body.email })
+    .then(user => {
+      if (!user) {
+        res.status(401).json({
+          errorMessage: "The email doesn't exist"
+        })
+        return
+      }
+      currentUser = user
+      return bcrypt.compare(req.body.password, user.password)
+    })
+    .then(passwordCorrect => {
+      if (passwordCorrect) {
+        req.session.currentUser = currentUser
+        res.status(200).json({ message: 'Loggedin succesfully', currentUser })
+      } else {
+        res.status(401).send({
+          errorMessage: 'Incorrect password'
+        })
+      }
+    })
+})
 
+// LOGOUT
 router.get('/logout', (req, res) => {
-  req.logout()
-  res.redirect('/')
+  req.session.destroy(err => {
+    res.status(200).json({ message: 'Logged out' })
+  })
 })
 
 module.exports = router
