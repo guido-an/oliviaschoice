@@ -1,11 +1,11 @@
-import Layout from '../components/layout'
+import React, { useContext } from 'react'
 
 const Index = () => {
   return (
-    <Layout>
+    <div>
       <h1>Welcome to Next Application</h1>
       <a href='http://localhost:5000/auth/logout'>Logout</a>
-    </Layout>
+    </div>
   )
 }
 export default Index

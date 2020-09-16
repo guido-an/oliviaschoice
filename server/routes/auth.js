@@ -31,13 +31,16 @@ router.post('/signup', (req, res, next) => {
     const hashPass = bcrypt.hashSync(password, salt)
 
     const newUser = new User({
+      firstName,
+      lastName,
       email,
       password: hashPass
     })
 
     newUser.save()
       .then(() => {
-        res.status(200).json(user)
+        req.session.currentUser = newUser
+        res.status(200).json(newUser)
       })
       .catch(err => {
         res.status(400).send({ message: 'Something went wrong' })
@@ -69,6 +72,17 @@ router.post('/login', (req, res) => {
         })
       }
     })
+})
+
+/// LOGGEDIN
+router.get('/loggedin', async (req, res) => {
+  try {
+    const user = req.session.currentUser
+    console.log(user)
+    res.status(200).json({ user })
+  } catch (err) {
+    res.json({ message: 'Unauthorized' })
+  }
 })
 
 // LOGOUT

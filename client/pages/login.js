@@ -30,14 +30,14 @@ const Login = () => {
   }
 
   return (
-    <Layout>
+    <div>
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <input type='email' value={email} placeholder='*Email' required onChange={(e) => setEmail(e.target.value)} />
         <input type='password' placeholder='*Password' required onChange={(e) => setPassword(e.target.value)} />
         <button>Login</button>
       </form>
-    </Layout>
+    </div>
   )
 }
 export default Login
