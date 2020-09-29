@@ -20,8 +20,6 @@ const Signup = () => {
       }
       await signup(user)
       setAppUser(user)
-      localStorage.setItem('profile', JSON.stringify(user))
-      // localStorage.setItem(user._id, 'id')
     } catch (err) {
       console.log(err)
     }
