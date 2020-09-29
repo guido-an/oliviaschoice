@@ -23,7 +23,7 @@ router.post('/signup', (req, res, next) => {
 
   User.findOne({ email }, 'email', (err, user) => {
     if (user !== null) {
-      res.status(400).json({ message: 'The email already exists' })
+      res.status(400).json({ message: 'Questa email è già esistente.' })
       return
     }
 
@@ -43,7 +43,7 @@ router.post('/signup', (req, res, next) => {
         res.status(200).json(newUser)
       })
       .catch(err => {
-        res.status(400).send({ message: 'Something went wrong' })
+        res.status(400).send({ message: 'Qualcosa è andato storto' })
       })
   })
 })
@@ -55,7 +55,7 @@ router.post('/login', (req, res) => {
     .then(user => {
       if (!user) {
         res.status(401).json({
-          errorMessage: "The email doesn't exist"
+          errorMessage: 'Questa email non esiste'
         })
         return
       }
@@ -68,7 +68,7 @@ router.post('/login', (req, res) => {
         res.status(200).json({ message: 'Loggedin succesfully', currentUser })
       } else {
         res.status(401).send({
-          errorMessage: 'Incorrect password'
+          errorMessage: 'Password non corretta'
         })
       }
     })
