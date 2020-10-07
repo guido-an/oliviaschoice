@@ -20,7 +20,7 @@ const UserContextProvider = props => {
 
   const checkIfLoggedIn = async () => {
     const { data } = await service.get('/auth/loggedin')
-    console.log(data, 'data')
+    console.log(data, 'user')
     return data.user
   }
 

@@ -29,11 +29,11 @@ const Signup = () => {
     <div>
       <h1>Signup</h1>
       <form onSubmit={handleSubmit}>
-        <input type='text' value={firstName} placeholder='*Nome' required onChange={(e) => setFirstName(e.target.value)} />
-        <input type='text' value={lastName} placeholder='*Cognome' required onChange={(e) => setLastName(e.target.value)} />
-        <input type='text' value={email} placeholder='*Email' required onChange={(e) => setEmail(e.target.value)} />
+        <input type='text' value={firstName} placeholder='*Nome' onChange={(e) => setFirstName(e.target.value)} required />
+        <input type='text' value={lastName} placeholder='*Cognome' onChange={(e) => setLastName(e.target.value)} required />
+        <input type='text' value={email} placeholder='*Email' onChange={(e) => setEmail(e.target.value)} required />
         {/* <input type='email' value={email} placeholder='*Email' required onChange={(e) => setEmail(e.target.value)} /> */}
-        <input type='password' placeholder='*Password' required onChange={(e) => setPassword(e.target.value)} />
+        <input type='password' placeholder='*Password' onChange={(e) => setPassword(e.target.value)} required />
         <button>Signup</button>
       </form>
     </div>
