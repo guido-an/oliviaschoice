@@ -3,37 +3,80 @@ const router = express.Router()
 const axios = require('axios')
 const Product = require('../models/Product')
 
+// when we call getProductsFromAPI() should update everything (no code) and set available to true
+// when we call the API we just cache the products with true
+
 let productsCache = []
 
 const cacheProductsInServer = async () => {
-  const products = await Product.find()
-  productsCache = products
-  console.log('CACHING')
+  try {
+    const products = await Product.find({ available: true })
+    productsCache = products
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 cacheProductsInServer()
-
 const getProductsFromAPI = async () => {
+  console.log('getProductsFromAPI()')
   try {
-    await Product.deleteMany()
     const response = await axios.get(process.env.API_URL)
-    const productsFromAPI = response.data // Get products from API
-    productsFromAPI.forEach(async product => { // Create products in database
-      const name = product.MG87_DESCART
-      await Product.create({ name })
+    const productsFromAPI = response.data
+    productsFromAPI.forEach(async product => {
+      const dbProduct = await Product.findOne({
+        codeArticle: product.MG66_CODART.replace(/\s/g, '')
+      })
+      if (!dbProduct) {
+        await Product.create({
+          name: product.MG87_DESCART,
+          codeArticle: product.MG66_CODART.replace(/\s/g, ''),
+          price: Number(product.LI10_PREZZO),
+          brandName: product.MG64_DESCRMARCA,
+          effectiveStock: Number(product.MG70_QGIACEFF)
+        })
+      } else {
+        await Product.findOneAndUpdate(
+          { name: product.MG87_DESCART },
+          {
+            available: true,
+            price: Number(product.LI10_PREZZO),
+            brandName: product.MG64_DESCRMARCA,
+            effectiveStock: Number(product.MG70_QGIACEFF)
+          }
+        )
+      }
     })
   } catch (err) {
     console.log(err)
   }
 }
 
-setInterval(async () => {
-  var date = new Date() // Create a Date object to find out what time it is
-  if (date.getHours() === 8 && date.getMinutes() === 0) { // Check the time
-    await getProductsFromAPI()
-    await cacheProductsInServer()
-  }
-}, 60000) // Check each minute (to be changed)
+// 'BLO.15-0103-01'
+
+const setAvailableToFalse = async () => {
+  console.log('setAvailableToFalse')
+  const products = await Product.find()
+  products.map(async product => {
+    await Product.findByIdAndUpdate({ _id: product._id }, { available: false }, { new: true })
+  })
+}
+
+setAvailableToFalse()
+getProductsFromAPI()
+
+// setInterval(async () => {
+//   var date = new Date()
+//   await setAvailableToFalse()
+//   await getProductsFromAPI()
+//   console.log('running set interval')
+//   // await cacheProductsInServer()
+//   // if (date.getHours() === 8 && date.getMinutes() === 0) {
+//   //   await setAvailableToFalse()
+//   //   await getProductsFromAPI()
+//   //   await cacheProductsInServer()
+//   // }
+// }, 600) // Check each minute (to be changed)
 
 router.get('/api/products', async (req, res) => {
   try {

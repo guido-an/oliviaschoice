@@ -2,7 +2,13 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const productSchema = new Schema({
-  name: String
+  name: String,
+  codeArticle: String,
+  quantity: String,
+  available: { type: Boolean, default: true },
+  price: Number,
+  brandName: String,
+  effectiveStock: Number
 }, {
   timestamps: {
     createdAt: 'created_at',
