@@ -19,7 +19,6 @@ const cacheProductsInServer = async () => {
 
 cacheProductsInServer()
 const getProductsFromAPI = async () => {
-  console.log('getProductsFromAPI()')
   try {
     const response = await axios.get(process.env.API_URL)
     const productsFromAPI = response.data
@@ -62,8 +61,8 @@ const setAvailableToFalse = async () => {
   })
 }
 
-setAvailableToFalse()
-getProductsFromAPI()
+// setAvailableToFalse()
+// getProductsFromAPI()
 
 // setInterval(async () => {
 //   var date = new Date()
@@ -78,11 +77,38 @@ getProductsFromAPI()
 //   // }
 // }, 600) // Check each minute (to be changed)
 
+// GET ALL PRODUCTS
 router.get('/api/products', async (req, res) => {
+  console.log(req.cookies, 'cookeis')
   try {
     res.status(200).send(productsCache)
   } catch (err) {
     res.status(500).send('Something went wrong on this call: /api/products')
+  }
+})
+
+// GET SINGLE PRODUCT
+router.get('/api/product/:id', async (req, res) => {
+  try {
+    const product = await Product.findById({ _id: req.params.id })
+    res.status(200).send(product)
+  } catch (err) {
+    res.status(500).send('Something went wrong on this call: /api/products')
+  }
+})
+
+// ADD PRODUCT TO SESSION
+router.get('/api/session-cart/:id', async (req, res) => {
+  try {
+    const product = await Product.findById({ _id: req.params.id })
+    if (!req.session.products) {
+      req.session.products = []
+    }
+    console.log(product, 'product')
+    req.session.products = [...req.session.products, product]
+    console.log(req.session.products, 'req.session.products')
+  } catch (e) {
+    console.log(e)
   }
 })
 

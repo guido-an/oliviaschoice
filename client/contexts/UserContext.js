@@ -20,7 +20,6 @@ const UserContextProvider = props => {
 
   const checkIfLoggedIn = async () => {
     const { data } = await service.get('/auth/loggedin')
-    console.log(data, 'user')
     return data.user
   }
 
@@ -28,7 +27,6 @@ const UserContextProvider = props => {
     try {
       const res = await checkIfLoggedIn()
       setUser(res)
-      console.log(res, 'res')
     } catch (err) {
       setUser(null)
     }
@@ -39,13 +37,6 @@ const UserContextProvider = props => {
       {props.children}
     </UserContext.Provider>
   )
-}
-
-UserContextProvider.getInitialProps = async (ctx) => {
-  const res = await fetch('https://api.github.com/repos/vercel/next.js')
-  const json = await res.json()
-  console.log(json)
-  return { stars: json.stargazers_count }
 }
 
 export default UserContextProvider
