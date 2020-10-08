@@ -46,9 +46,25 @@ const CartContextProvider = props => {
 
   // it needs to be called when addToCart finish executing
   addProductToLocalStorage()
+  const updateCart = (productInCart, quantityFromInput) => {
+    const updateArray = productsInCart.map(product => {
+      if (product._id === productInCart._id) {
+        product.boughtQuantity = Number(quantityFromInput)
+      }
+      return product
+    })
+    setProductsInCart(updateArray)
+
+    // productsInCart && productsInCart.forEach(productInCart => {
+    //   if (productInCart._id === product._id) {
+    //     productIsInCart = true
+    //     product.boughtQuantity = Number(productInCart.boughtQuantity) + Number(quantityFromInput)
+    //   }
+    // })
+  }
 
   return (
-    <CartContext.Provider value={{ productsInCart, addToCart }}>
+    <CartContext.Provider value={{ productsInCart, setProductsInCart, addToCart, updateCart }}>
       {props.children}
     </CartContext.Provider>
   )
