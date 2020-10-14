@@ -10,7 +10,9 @@ const service = axios.create({
 
 const CartContextProvider = props => {
   const [productsInCart, setProductsInCart] = useState([])
+  const [totalPrice, setTotalPrice] = useState(0)
   const [renderPage, setRenderPage] = useState(false) // without this localStorage in addProductToLocalStorage would be undefined (rendered on the server)
+  const [shippingInfo, setShippingInfo] = useState(null) // for getting shipping info on checkout page
 
   useEffect(() => {
     const productsFromLocalStorage = JSON.parse(localStorage.getItem('productsInCart'))
@@ -54,17 +56,21 @@ const CartContextProvider = props => {
       return product
     })
     setProductsInCart(updateArray)
+  }
 
-    // productsInCart && productsInCart.forEach(productInCart => {
-    //   if (productInCart._id === product._id) {
-    //     productIsInCart = true
-    //     product.boughtQuantity = Number(productInCart.boughtQuantity) + Number(quantityFromInput)
-    //   }
-    // })
+  const calculateTotalPrice = () => {
+    if (!productsInCart) {
+      return
+    }
+    let sumPrice = 0
+    productsInCart.forEach(product => {
+      sumPrice += product.boughtQuantity * product.price
+    })
+    setTotalPrice(sumPrice)
   }
 
   return (
-    <CartContext.Provider value={{ productsInCart, setProductsInCart, addToCart, updateCart }}>
+    <CartContext.Provider value={{ productsInCart, totalPrice, shippingInfo, setProductsInCart, addToCart, updateCart, setTotalPrice, setShippingInfo, calculateTotalPrice }}>
       {props.children}
     </CartContext.Provider>
   )

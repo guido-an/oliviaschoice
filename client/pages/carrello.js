@@ -3,29 +3,23 @@ import { CartContext } from '../contexts/CartContext'
 import Link from 'next/link'
 
 const Carrello = () => {
-  const { updateCart, productsInCart, setProductsInCart } = useContext(CartContext)
-  const [totalPrice, setTotalPrice] = useState(0)
+  let { updateCart, totalPrice, productsInCart, setProductsInCart, calculateTotalPrice } = useContext(CartContext)
 
   useEffect(() => {
+    if (!productsInCart) {
+      setProductsInCart(productsInCart = [])
+    }
     productsInCart.forEach(product => {
       document.getElementById(product._id).value = product.boughtQuantity
     })
     calculateTotalPrice()
-  }, [productsInCart])
+  }, [productsInCart, totalPrice])
 
   const removeProduct = product => {
     const updateArray = productsInCart.filter(element => {
       return element._id !== product._id
     })
     setProductsInCart(updateArray)
-  }
-
-  const calculateTotalPrice = () => {
-    let sumPrice = 0
-    productsInCart.forEach(product => {
-      sumPrice += product.boughtQuantity * product.price
-      setTotalPrice(sumPrice)
-    })
   }
 
   const exceedQuantity = singleProduct => {
@@ -61,7 +55,7 @@ const Carrello = () => {
         )
       })}
       <h2>Total price: {totalPrice}</h2>
-      <button id='checkout-btn'>Concludi ordine</button>
+      <Link href='/checkout'><button id='checkout-btn'>Concludi ordine</button></Link>
     </div>
   )
 }

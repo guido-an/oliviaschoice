@@ -29,6 +29,11 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/carrello.js"
     ],
+    "/pagamento": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/pagamento.js"
+    ],
     "/prodotto/[id]": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
