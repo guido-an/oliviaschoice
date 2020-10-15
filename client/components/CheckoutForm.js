@@ -18,7 +18,7 @@ export default function CheckoutForm () {
 
   useEffect(() => {
     const productsFromLocalStorage = JSON.parse(localStorage.getItem('productsInCart'))
-
+    alert('payment intent')
     // Create PaymentIntent as soon as the page loads
     window
       .fetch(process.env.APP_API + '/create-payment-intent', {
@@ -62,6 +62,7 @@ export default function CheckoutForm () {
     ev.preventDefault()
     setProcessing(true)
     const payload = await stripe.confirmCardPayment(clientSecret, {
+      receipt_email: 'test@gmail.com',
       payment_method: {
         card: elements.getElement(CardElement)
       }

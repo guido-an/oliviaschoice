@@ -1,10 +1,17 @@
 import { useContext, useState } from 'react'
 import { CartContext } from '../contexts/CartContext'
+import { UserContext } from '../contexts/UserContext'
 import Link from 'next/link'
+import axios from 'axios'
+
+const service = axios.create({
+  baseURL: process.env.APP_API,
+  withCredentials: true
+})
 
 const Checkout = () => {
-  const { totalPrice, setShippingInfo } = useContext(CartContext)
-  //   const [totalPrice, setTotalPrice] = useState(0)
+  const { totalPrice, productsInCart, shippingInfo, setShippingInfo } = useContext(CartContext)
+  const { user } = useContext(UserContext)
 
   const [form, setForm] = useState({
     firstName: '',
@@ -20,13 +27,23 @@ const Checkout = () => {
   })
 
   const handleSubmit = async e => {
+    console.log(user, 'user checkout')
     e.preventDefault()
     try {
-      console.log(form)
       setShippingInfo(form)
+      createOrder()
     } catch (err) {
       console.log(err)
     }
+  }
+  const createOrder = async () => {
+    await service.post('/create-order', {
+      user: user._id,
+      shippingInfo,
+      totalPrice,
+      paid: false,
+      productsInCart
+    })
   }
 
   return (

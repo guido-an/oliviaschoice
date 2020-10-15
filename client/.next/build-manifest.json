@@ -29,15 +29,15 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/carrello.js"
     ],
+    "/checkout": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/checkout.js"
+    ],
     "/pagamento": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/pagamento.js"
-    ],
-    "/prodotto/[id]": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/prodotto/[id].js"
     ]
   },
   "ampFirstPages": []

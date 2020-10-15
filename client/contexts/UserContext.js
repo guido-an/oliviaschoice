@@ -10,9 +10,15 @@ const service = axios.create({
 
 const UserContextProvider = props => {
   const [user, setUser] = useState({})
+  // console.log(user, 'user context')
 
   const signup = async user => {
     const data = await service.post('/auth/signup', user)
+    return data
+  }
+
+  const login = async user => {
+    const data = await service.post('/auth/login', user)
     return data
   }
 
@@ -33,7 +39,7 @@ const UserContextProvider = props => {
   }
 
   return (
-    <UserContext.Provider value={{ user, signup, setAppUser, checkIfLoggedIn, fetchUser }}>
+    <UserContext.Provider value={{ user, signup, login, setAppUser, checkIfLoggedIn, fetchUser }}>
       {props.children}
     </UserContext.Provider>
   )

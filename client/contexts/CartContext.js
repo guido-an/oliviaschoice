@@ -33,6 +33,9 @@ const CartContextProvider = props => {
       if (productInCart._id === product._id) {
         productIsInCart = true
         product.boughtQuantity = Number(productInCart.boughtQuantity) + Number(quantityFromInput)
+        if (product.boughtQuantity > product.effectiveStock) { // to avoid adding
+          product.boughtQuantity = product.effectiveStock
+        }
       }
     })
     if (!productsInCart) {

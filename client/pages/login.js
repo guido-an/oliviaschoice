@@ -1,20 +1,11 @@
-import Layout from '../components/layout'
-import React, { useState } from 'react'
-import axios from 'axios'
-
-const service = axios.create({
-  baseURL: 'http://localhost:5000/',
-  withCredentials: true
-})
+import React, { useState, useContext } from 'react'
+import { UserContext } from '../contexts/UserContext'
 
 const Login = () => {
+  const { login } = useContext(UserContext)
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
-  const loginService = async user => {
-    const data = await service.post('/auth/login', user)
-    return data
-  }
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -23,7 +14,7 @@ const Login = () => {
         email,
         password
       }
-      await loginService(user)
+      await login(user)
     } catch (err) {
       console.log(err)
     }
