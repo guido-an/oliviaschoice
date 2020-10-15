@@ -48,13 +48,16 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 
-const index = require('./routes/index')
-app.use('/', index)
+const api = require('./routes/api')
+app.use('/api', api)
 
 const authRoutes = require('./routes/auth')
 app.use('/auth', authRoutes)
 
 const stripeRoutes = require('./routes/stripe')
 app.use('/', stripeRoutes)
+
+const indexRoutes = require('./routes/index')
+app.use('/', indexRoutes)
 
 module.exports = app
