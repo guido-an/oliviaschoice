@@ -4,8 +4,12 @@ import {
   useStripe,
   useElements
 } from '@stripe/react-stripe-js'
+import axios from 'axios'
 
-// import { CartContext } from '../contexts/CartContext'
+const service = axios.create({ // to update the order
+  baseURL: process.env.APP_API,
+  withCredentials: true
+})
 
 export default function CheckoutForm () {
   const [succeeded, setSucceeded] = useState(false)
@@ -18,7 +22,6 @@ export default function CheckoutForm () {
 
   useEffect(() => {
     const productsFromLocalStorage = JSON.parse(localStorage.getItem('productsInCart'))
-    alert('payment intent')
     // Create PaymentIntent as soon as the page loads
     window
       .fetch(process.env.APP_API + '/create-payment-intent', {
@@ -74,7 +77,13 @@ export default function CheckoutForm () {
       setError(null)
       setProcessing(false)
       setSucceeded(true)
+      // Our code
+      var orderId = localStorage.getItem('orderId')
+      service.post('/update-order', {
+        _id: orderId
+      })
     }
+    // end
   }
   return (
     <form id='payment-form' onSubmit={handleSubmit}>

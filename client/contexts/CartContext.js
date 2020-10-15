@@ -62,6 +62,8 @@ const CartContextProvider = props => {
   }
 
   const calculateTotalPrice = () => {
+    console.log('calculate price')
+    console.log(productsInCart, 'productsIn cart cart context')
     if (!productsInCart) {
       return
     }

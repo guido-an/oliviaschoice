@@ -3,9 +3,6 @@ import { Elements } from '@stripe/react-stripe-js'
 import CheckoutForm from '../components/CheckoutForm'
 import { useContext, useEffect, useState } from 'react'
 import { CartContext } from '../contexts/CartContext'
-// import { UserContext } from '../contexts/UserContext'
-import axios from 'axios'
-import Link from 'next/link'
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
@@ -14,11 +11,10 @@ import Link from 'next/link'
 const promise = loadStripe(process.env.STRIPE_PK)
 
 const Pagamento = () => {
-  const { productsInCart, shippingInfo, totalPrice, calculateTotalPrice } = useContext(CartContext)
-  // const { user } = useContext(UserContext)
+  const { productsInCart, totalPrice, calculateTotalPrice } = useContext(CartContext)
   useEffect(() => {
     calculateTotalPrice()
-  }, [])
+  }, [productsInCart])
 
   return (
     <div>

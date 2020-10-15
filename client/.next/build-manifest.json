@@ -33,11 +33,6 @@
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/checkout.js"
-    ],
-    "/pagamento": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/pagamento.js"
     ]
   },
   "ampFirstPages": []

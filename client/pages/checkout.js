@@ -37,13 +37,15 @@ const Checkout = () => {
     }
   }
   const createOrder = async () => {
-    await service.post('/create-order', {
+    const response = await service.post('/create-order', {
       user: user._id,
       shippingInfo,
       totalPrice,
       paid: false,
       productsInCart
     })
+    const orderId = response.data.orderId
+    localStorage.setItem('orderId', orderId) // So later if the order succeed we can update it to paid: true
   }
 
   return (
