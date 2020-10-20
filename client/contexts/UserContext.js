@@ -10,7 +10,6 @@ const service = axios.create({
 
 const UserContextProvider = props => {
   const [user, setUser] = useState({})
-  // console.log(user, 'user context')
 
   const signup = async user => {
     const data = await service.post('/auth/signup', user)

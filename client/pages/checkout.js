@@ -38,7 +38,6 @@ const Checkout = () => {
   }
   const createOrder = async () => {
     const response = await service.post('/create-order', {
-      user: user._id,
       shippingInfo,
       totalPrice,
       paid: false,

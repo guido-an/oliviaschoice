@@ -50,6 +50,7 @@ router.post('/signup', (req, res, next) => {
 
 // LOGIN
 router.post('/login', (req, res) => {
+  console.log(req.body, 'req.body')
   let currentUser
   User.findOne({ email: req.body.email })
     .then(user => {
@@ -78,7 +79,7 @@ router.post('/login', (req, res) => {
 router.get('/loggedin', async (req, res) => {
   try {
     const user = req.session.currentUser
-    console.log(user)
+    console.log(user, 'user')
     res.status(200).json({ user })
   } catch (err) {
     res.json({ message: 'Unauthorized' })
