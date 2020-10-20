@@ -7,7 +7,9 @@ const userSchema = new Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   shippingInfo: [Object],
-  billingAddress: String
+  billingAddress: String,
+  orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }],
+
 }, {
   timestamps: {
     createdAt: 'created_at',
