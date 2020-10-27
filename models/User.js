@@ -9,7 +9,7 @@ const userSchema = new Schema({
   shippingInfo: [Object],
   billingAddress: String,
   orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }],
-
+  admin: Boolean
 }, {
   timestamps: {
     createdAt: 'created_at',

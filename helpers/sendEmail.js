@@ -23,27 +23,27 @@
 
 // module.exports = sendEmail
 
-const nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer')
 
-function sendEmail(fromEmail, toEmail, title, message) {
-    console.log('SENDEMAIL')
-  let transporter = nodemailer.createTransport({
+function sendEmail (fromEmail, toEmail, title, message) {
+  console.log('SENDEMAIL')
+  const transporter = nodemailer.createTransport({
     service: 'Gmail',
     secure: true, // use TLS
     auth: {
-      user: 'federico.barriola@gmail.com',
-      pass: 'tumadreen.4',
-    },
-  });
+      user: 'service email',
+      pass: '*****'
+    }
+  })
 
   transporter.sendMail({
     // email to the USER
-    from: 'federico.barriola@gmail.com',
-    to: 'carucciguido@gmail.com',
+    from: '',
+    to: '',
     subject: 'test email',
     text: 'This is the text',
-    html: 'this is the message field',
-  });
+    html: 'this is the message field'
+  })
 }
 
 module.exports = sendEmail
