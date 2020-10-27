@@ -8,8 +8,6 @@ const Layout = (props) => {
   const { user, fetchUser } = useContext(UserContext)
   const { productsInCart } = useContext(CartContext)
 
-  console.log(user, 'user')
-
   useEffect(() => {
     // Create an scoped async function in the hook
     async function fetchAppUser () {

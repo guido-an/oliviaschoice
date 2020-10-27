@@ -22,7 +22,6 @@ const CartContextProvider = props => {
 
   const addProductToLocalStorage = () => {
     if (renderPage) {
-      console.log('add to local storage', productsInCart)
       localStorage.setItem('productsInCart', JSON.stringify(productsInCart))
     }
   }

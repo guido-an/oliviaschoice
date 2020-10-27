@@ -7,7 +7,7 @@ const Signup = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const { signup, setAppUser } = useContext(UserContext)
+  const { signup, setUser } = useContext(UserContext)
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -18,8 +18,9 @@ const Signup = () => {
         firstName,
         lastName
       }
-      await signup(user)
-      setAppUser(user)
+      const res = await signup(user)
+      console.log(res)
+      setUser(res.data.currentUser)
     } catch (err) {
       console.log(err)
     }

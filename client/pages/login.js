@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { UserContext } from '../contexts/UserContext'
 
 const Login = () => {
-  const { login, setAppUser } = useContext(UserContext)
+  const { login, setUser } = useContext(UserContext)
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -14,8 +14,8 @@ const Login = () => {
         email,
         password
       }
-      await login(user)
-      setAppUser(user)
+      const res = await login(user)
+      setUser(res.data.currentUser)
     } catch (err) {
       console.log(err)
     }

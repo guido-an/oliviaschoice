@@ -21,7 +21,10 @@ const UserContextProvider = props => {
     return data
   }
 
-  const setAppUser = user => setUser(user)
+  const updateUser = async (form) => {
+    const data = await service.post('/user/update', form)
+    return data
+  }
 
   const checkIfLoggedIn = async () => {
     const { data } = await service.get('/auth/loggedin')
@@ -31,14 +34,33 @@ const UserContextProvider = props => {
   const fetchUser = async () => {
     try {
       const res = await checkIfLoggedIn()
+      console.log(res, 'res')
       setUser(res)
     } catch (err) {
       setUser(null)
     }
   }
 
+  const getOrders = async () => {
+    try {
+      const res = await service.get('/user/orders')
+      return res.data.orders
+    } catch (err) {
+      setUser(null)
+    }
+  }
+
+  const getSingleOrder = async (id) => {
+    try {
+      const res = await service.get('/user/order/' + id)
+      return res.data.order
+    } catch (err) {
+      setUser(null)
+    }
+  }
+
   return (
-    <UserContext.Provider value={{ user, signup, login, setAppUser, checkIfLoggedIn, fetchUser }}>
+    <UserContext.Provider value={{ user, signup, login, updateUser, setUser, checkIfLoggedIn, fetchUser, getOrders, getSingleOrder }}>
       {props.children}
     </UserContext.Provider>
   )

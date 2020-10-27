@@ -60,4 +60,10 @@ app.use('/', stripeRoutes)
 const indexRoutes = require('./routes/index')
 app.use('/', indexRoutes)
 
+const adminRoutes = require('./routes/admin')
+app.use('/admin', adminRoutes)
+
+const userRoutes = require('./routes/user')
+app.use('/user', userRoutes)
+
 module.exports = app
