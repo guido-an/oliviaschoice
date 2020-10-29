@@ -86,7 +86,6 @@ router.get('/loggedin', async (req, res) => {
   }
 })
 
-
 // LOGOUT
 router.get('/logout', (req, res) => {
   req.session.destroy(err => {
