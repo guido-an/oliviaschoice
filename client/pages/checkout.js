@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import { CartContext } from '../contexts/CartContext'
 import { UserContext } from '../contexts/UserContext'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 import axios from 'axios'
 
 const service = axios.create({
@@ -10,8 +10,10 @@ const service = axios.create({
 })
 
 const Checkout = () => {
-  const { totalPrice, productsInCart, shippingInfo, setShippingInfo } = useContext(CartContext)
+  const { totalPrice, productsInCart } = useContext(CartContext)
   const { user } = useContext(UserContext)
+
+  const router = useRouter()
 
   const [form, setForm] = useState({
     firstName: '',
@@ -27,18 +29,17 @@ const Checkout = () => {
   })
 
   const handleSubmit = async e => {
-    console.log(user, 'user checkout')
     e.preventDefault()
     try {
-      setShippingInfo(form)
       createOrder()
+      router.push('/pagamento')
     } catch (err) {
       console.log(err)
     }
   }
   const createOrder = async () => {
     const response = await service.post('/create-order', {
-      shippingInfo,
+      shippingInfo: form,
       totalPrice,
       paid: false,
       productsInCart
@@ -50,19 +51,20 @@ const Checkout = () => {
   return (
     <div>
       <h1>Checkout</h1>
-      <form onClick={handleSubmit}>
-        <input type='text' value={form.firstName} placeholder='* Nome' required onChange={(e) => setForm({ ...form, firstName: e.target.value })} />
-        <input type='text' value={form.lastName} placeholder='* Cognome' required onChange={(e) => setForm({ ...form, lastName: e.target.value })} />
-        <input type='text' value={form.vatNumber} placeholder='* P.IVA / Codice Fiscale' required onChange={(e) => setForm({ ...form, vatNumber: e.target.value })} />
-        <input type='text' value={form.streetAddress} placeholder='* Indirizzo' required onChange={(e) => setForm({ ...form, streetAddress: e.target.value })} />
-        <input type='text' value={form.streetAddress} placeholder='* Città' required onChange={(e) => setForm({ ...form, city: e.target.value })} />
+      <form onSubmit={handleSubmit}>
+        {/* put back required */}
+        <input type='text' value={form.firstName} placeholder='* Nome' onChange={(e) => setForm({ ...form, firstName: e.target.value })} />
+        <input type='text' value={form.lastName} placeholder='* Cognome' onChange={(e) => setForm({ ...form, lastName: e.target.value })} />
+        <input type='text' value={form.vatNumber} placeholder='* P.IVA / Codice Fiscale' onChange={(e) => setForm({ ...form, vatNumber: e.target.value })} />
+        <input type='text' value={form.streetAddress} placeholder='* Indirizzo' onChange={(e) => setForm({ ...form, streetAddress: e.target.value })} />
+        <input type='text' value={form.city} placeholder='* Città' onChange={(e) => setForm({ ...form, city: e.target.value })} />
         {/* we need list of provincies here */}
-        <input type='text' value={form.province} placeholder='* Provincia' required onChange={(e) => setForm({ ...form, province: e.target.value })} />
-        <input type='text' value={form.zipCode} placeholder='* C.A.P.' required onChange={(e) => setForm({ ...form, zipCode: e.target.value })} />
-        <input type='text' value={form.telephone} placeholder='* Telefono' required onChange={(e) => setForm({ ...form, telephone: e.target.value })} />
-        <input type='email' value={form.email} placeholder='* Email' required onChange={(e) => setForm({ ...form, email: e.target.value })} />
-        <input type='textarea' value={form.additionalNotes} placeholder='Note aggiuntive ' required onChange={(e) => setForm({ ...form, additionalNotes: e.target.value })} />
-        <Link href='/pagamento'><button>Prosegui al pagamento</button></Link>
+        <input type='text' value={form.province} placeholder='* Provincia' onChange={(e) => setForm({ ...form, province: e.target.value })} />
+        <input type='text' value={form.zipCode} placeholder='* C.A.P.' onChange={(e) => setForm({ ...form, zipCode: e.target.value })} />
+        <input type='text' value={form.telephone} placeholder='* Telefono' onChange={(e) => setForm({ ...form, telephone: e.target.value })} />
+        <input type='email' value={form.email} placeholder='* Email' onChange={(e) => setForm({ ...form, email: e.target.value })} />
+        <input type='textarea' value={form.additionalNotes} placeholder='Note aggiuntive ' onChange={(e) => setForm({ ...form, additionalNotes: e.target.value })} />
+        <button>Prosegui al pagamento</button>
       </form>
     </div>
   )

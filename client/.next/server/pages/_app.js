@@ -714,11 +714,7 @@ const CartContextProvider = props => {
     0: renderPage,
     1: setRenderPage
   } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false); // without this localStorage in addProductToLocalStorage would be undefined (rendered on the server)
-
-  const {
-    0: shippingInfo,
-    1: setShippingInfo
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null); // for getting shipping info on checkout page
+  // const [shippingInfo, setShippingInfo] = useState(null) // for getting shipping info on checkout page
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     const productsFromLocalStorage = JSON.parse(localStorage.getItem('productsInCart'));
@@ -772,8 +768,6 @@ const CartContextProvider = props => {
   };
 
   const calculateTotalPrice = () => {
-    console.log(productsInCart, 'productsIn cart cart context');
-
     if (!productsInCart) {
       return;
     }
@@ -789,12 +783,10 @@ const CartContextProvider = props => {
     value: {
       productsInCart,
       totalPrice,
-      shippingInfo,
       setProductsInCart,
       addToCart,
       updateCart,
       setTotalPrice,
-      setShippingInfo,
       calculateTotalPrice
     }
   }, props.children);

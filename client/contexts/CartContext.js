@@ -12,7 +12,7 @@ const CartContextProvider = props => {
   const [productsInCart, setProductsInCart] = useState([])
   const [totalPrice, setTotalPrice] = useState(0)
   const [renderPage, setRenderPage] = useState(false) // without this localStorage in addProductToLocalStorage would be undefined (rendered on the server)
-  const [shippingInfo, setShippingInfo] = useState(null) // for getting shipping info on checkout page
+  // const [shippingInfo, setShippingInfo] = useState(null) // for getting shipping info on checkout page
 
   useEffect(() => {
     const productsFromLocalStorage = JSON.parse(localStorage.getItem('productsInCart'))
@@ -61,7 +61,6 @@ const CartContextProvider = props => {
   }
 
   const calculateTotalPrice = () => {
-    console.log(productsInCart, 'productsIn cart cart context')
     if (!productsInCart) {
       return
     }
@@ -73,7 +72,7 @@ const CartContextProvider = props => {
   }
 
   return (
-    <CartContext.Provider value={{ productsInCart, totalPrice, shippingInfo, setProductsInCart, addToCart, updateCart, setTotalPrice, setShippingInfo, calculateTotalPrice }}>
+    <CartContext.Provider value={{ productsInCart, totalPrice, setProductsInCart, addToCart, updateCart, setTotalPrice, calculateTotalPrice }}>
       {props.children}
     </CartContext.Provider>
   )

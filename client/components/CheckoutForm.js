@@ -11,7 +11,6 @@ const service = axios.create({ // to update the order
   withCredentials: true
 })
 
-
 export default function CheckoutForm () {
   const [succeeded, setSucceeded] = useState(false)
   const [error, setError] = useState(null)
@@ -83,9 +82,9 @@ export default function CheckoutForm () {
       service.post('/update-order', {
         _id: orderId
       })
-      localStorage.removeItem('productsInCart') 
+      localStorage.removeItem('productsInCart')
       localStorage.removeItem('orderId')
-      window.location.assign("/");
+      window.location.assign('/')
     }
     // end
   }
