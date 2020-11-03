@@ -13,6 +13,7 @@ const Profilo = () => {
     VAT: '',
     streetAddress: '',
     city: '',
+    province: '',
     zipCode: ''
   })
 
@@ -28,11 +29,12 @@ const Profilo = () => {
         VAT: form.VAT || user.VAT,
         streetAddress: form.streetAddress || user.shippingInfo && user.shippingInfo.streetAddress,
         city: form.city || user.shippingInfo && user.shippingInfo.city,
+        province: form.province || user.shippingInfo && user.shippingInfo.province,
         zipCode: form.zipCode || user.shippingInfo && user.shippingInfo.zipCode
       }
 
       updateUser(updatedUser)
-      // window.location.reload()
+      window.location.reload()
     } catch (err) {
       console.log(err)
     }
@@ -61,6 +63,8 @@ const Profilo = () => {
         <input type='text' placeholder={user.shippingInfo && user.shippingInfo.streetAddress} onChange={(e) => setForm({ ...form, streetAddress: e.target.value })} />
         <label>Città</label>
         <input type='text' placeholder={user.shippingInfo && user.shippingInfo.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
+        <label>Provincia</label>
+        <input type='text' placeholder={user.shippingInfo && user.shippingInfo.province} onChange={(e) => setForm({ ...form, province: e.target.value })} />
         <label>zip code</label>
         <input type='text' placeholder={user.shippingInfo && user.shippingInfo.zipCode} onChange={(e) => setForm({ ...form, zipCode: e.target.value })} />
 
