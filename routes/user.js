@@ -28,11 +28,12 @@ router.get('/order/:id', async (req, res) => {
 })
 
 router.post('/update', async (req, res) => {
-  const { firstName, lastName, telephone, email, password, VAT, streetAddress, city, zipCode } = req.body
+  const { firstName, lastName, telephone, email, password, VAT, streetAddress, city, province, zipCode } = req.body
 
   const updatedShippingInfo = {
     streetAddress,
     city,
+    province,
     zipCode
   }
   console.log(req.body, 'req.body')
