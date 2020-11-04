@@ -18,11 +18,13 @@ router.get('/orders', checkIfAdmin, async (req, res) => {
   }
 })
 
-// router.get('/total-ordes', (req, res) => {
-//   if (req.session.currentUser && req.session.currentUser.admin === true) {
-//     res.json({ message: 'aca hay ordenes' })
-//   } else {
-//     res.json({ message: 'aca no hay ordenes' })
-//   }
-// })
+router.get('/list-of-users', checkIfAdmin, async (req, res) => {
+  try {
+    const users = await User.find()
+    res.status(200).json({ users })
+  } catch (e) {
+    console.error(e)
+  }
+})
+
 module.exports = router
