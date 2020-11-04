@@ -1,5 +1,6 @@
 
 const checkIfAdmin = (req, res, next) => {
+  console.log(req.session.currentUser, 'admin user')
   if (req.session.currentUser && req.session.currentUser.admin === true) {
     next()
   } else {

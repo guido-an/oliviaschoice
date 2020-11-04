@@ -23,6 +23,7 @@ const UserContextProvider = props => {
   }
 
   const updateUser = async (updatedUser) => {
+    console.log(updatedUser, 'updatedUser from context')
     const data = await service.post('/user/update', updatedUser)
     return data
   }
