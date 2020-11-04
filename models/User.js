@@ -9,6 +9,7 @@ const userSchema = new Schema({
   shippingInfo: [Object],
   billingAddress: String,
   orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }],
+  resetToken: String,
   admin: Boolean
 }, {
   timestamps: {
