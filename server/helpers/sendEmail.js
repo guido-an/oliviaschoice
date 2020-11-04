@@ -25,7 +25,7 @@
 
 const nodemailer = require('nodemailer')
 
-function sendEmail (fromEmail, toEmail, title, message) {
+function sendEmail (toEmail, title, message) {
   console.log('SENDEMAIL')
   const transporter = nodemailer.createTransport({
     service: 'Gmail',

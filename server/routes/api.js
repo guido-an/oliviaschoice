@@ -18,6 +18,7 @@ const cacheProductsInServer = async () => {
 }
 
 cacheProductsInServer()
+
 const getProductsFromAPI = async () => {
   try {
     const response = await axios.get(process.env.API_URL)
@@ -61,8 +62,8 @@ const setAvailableToFalse = async () => {
   })
 }
 
-// setAvailableToFalse()
-// getProductsFromAPI()
+/* setAvailableToFalse()
+getProductsFromAPI() */
 
 // setInterval(async () => {
 //   var date = new Date()
