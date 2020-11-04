@@ -58,7 +58,7 @@ const Carrello = () => {
         ? <div>
           <h2>Total price: {totalPrice}</h2>
           <Link href='/checkout'><button id='checkout-btn'>Concludi ordine</button></Link>
-          </div>
+        </div>
         : <p>Non ci sono prodotti nel carrello <Link href='/'>Ritorna alla home</Link></p>}
 
     </div>
