@@ -35,6 +35,7 @@ const Profilo = () => {
 
   const handleSubmit = async e => {
     e.preventDefault()
+
     try {
       const updatedUser = {
         firstName: form.firstName || user.firstName,
@@ -48,9 +49,10 @@ const Profilo = () => {
         province: form.province || user.shippingInfo && user.shippingInfo.province,
         zipCode: form.zipCode || user.shippingInfo && user.shippingInfo.zipCode
       }
+      console.log(updatedUser, 'updatedUser')
 
       updateUser(updatedUser)
-      window.location.reload()
+      // window.location.reload()
     } catch (err) {
       console.log(err)
     }

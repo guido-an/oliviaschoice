@@ -2,6 +2,10 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js",
-  "/user/profilo": "pages/user/profilo.js"
+  "/login": "pages/login.js",
+  "/user/profilo": "pages/user/profilo.js",
+  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js",
+  "/admin/private": "pages/admin/private.js",
+  "/admin/utenti": "pages/admin/utenti.js",
+  "/admin/utenti/[id]": "pages/admin/utenti/[id].js"
 }
