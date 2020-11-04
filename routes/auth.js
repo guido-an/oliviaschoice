@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../models/User')
-const async = require('async')
 const crypto = require('crypto')
+const sendEmail = require('../helpers/sendEmail')
 
 // Bcrypt to encrypt passwords
 const bcrypt = require('bcrypt')
@@ -87,32 +87,29 @@ router.get('/loggedin', async (req, res) => {
 })
 
 router.post('/forgotpasswordResponse', async (req, res, next) => {
-
-  const email= req.body.email;
-  const title  = "Reset Your Password" 
+  const email = req.body.email
+  const title = 'Reset Your Password'
   const cryptoToken = crypto.randomBytes(25)
   const token = cryptoToken.toString('hex')
   const user = await User.findOneAndUpdate({ email: email },
     {
       resetToken: token
     }
-    , {useFindAndModify: false}
-    , function(err) {  
-      if (err) throw err;  
-      console.log(err);  
-  })
-  const message = 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +  
-  'Please click on the following link, or paste this into your browser to complete the process:\n\n' +  
-   process.env.CLIENT_URL + '/user/reset/' + token + '\n\n' +  
+    , { useFindAndModify: false }
+    , function (err) {
+      if (err) throw err
+      console.log(err)
+    })
+  const message = 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+  'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+   process.env.CLIENT_URL + '/user/reset/' + token + '\n\n' +
   'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-
+  // sendEmail(email, title, message)
   console.log(message)
-  sendEmail(email, title, message)
-  
 })
 
 router.post('/reset/:token', async (req, res) => {
-  if(req.body.password === req.body.repetPassword){
+  if (req.body.password === req.body.repetPassword) {
     const token = req.params.token
     const salt = bcrypt.genSaltSync(bcryptSalt)
     const password = bcrypt.hashSync(req.body.password, salt)
@@ -122,16 +119,14 @@ router.post('/reset/:token', async (req, res) => {
         password: password,
         resetToken: null
       }
-      , {useFindAndModify: false}
-      , function(err) {  
-        if (err) throw err;  
-        console.log(err);  
-    })
+      , { useFindAndModify: false }
+      , function (err) {
+        if (err) throw err
+        console.log(err)
+      })
     console.log(user)
-  } 
+  }
 })
-
-
 
 // LOGOUT
 router.get('/logout', (req, res) => {
