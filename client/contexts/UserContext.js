@@ -11,6 +11,7 @@ const service = axios.create({
 const UserContextProvider = props => {
   const [user, setUser] = useState({})
 
+  console.log(user, 'user from context')
   const signup = async user => {
     const data = await service.post('/auth/signup', user)
     return data
@@ -21,8 +22,8 @@ const UserContextProvider = props => {
     return data
   }
 
-  const updateUser = async (form) => {
-    const data = await service.post('/user/update', form)
+  const updateUser = async (updatedUser) => {
+    const data = await service.post('/user/update', updatedUser)
     return data
   }
 
@@ -34,7 +35,6 @@ const UserContextProvider = props => {
   const fetchUser = async () => {
     try {
       const res = await checkIfLoggedIn()
-      console.log(res, 'res')
       setUser(res)
     } catch (err) {
       setUser(null)
@@ -60,7 +60,18 @@ const UserContextProvider = props => {
   }
 
   return (
-    <UserContext.Provider value={{ user, signup, login, updateUser, setUser, checkIfLoggedIn, fetchUser, getOrders, getSingleOrder }}>
+    <UserContext.Provider value={{
+      user,
+      signup,
+      login,
+      updateUser,
+      setUser,
+      checkIfLoggedIn,
+      fetchUser,
+      getOrders,
+      getSingleOrder
+    }}
+    >
       {props.children}
     </UserContext.Provider>
   )
