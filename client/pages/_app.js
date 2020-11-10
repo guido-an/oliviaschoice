@@ -17,6 +17,34 @@ class MyApp extends App {
             </Layout>
           </ProductContextProvider>
         </CartContextProvider>
+        <style jsx global>{`
+                html,
+                body {
+                  padding: 0;
+                  margin: 0;
+                  font-family: 'Poppins', sans-serif;
+                  overflow-x: hidden;
+                  overscroll-behavior: none;
+                  scroll-behavior: smooth;
+                }
+
+                h1, h2, h3 {
+                  color: #222
+                }
+
+                p {
+                  color: #777
+                }
+
+                a {
+                  text-decoration: none
+                }
+               
+                * {
+                  box-sizing: border-box;
+                }
+            `}
+        </style>
       </UserContextProvider>
     )
   }
