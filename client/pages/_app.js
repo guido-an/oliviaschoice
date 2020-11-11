@@ -36,6 +36,10 @@ class MyApp extends App {
                   color: #777
                 }
 
+                ul {
+                    list-style: none;
+                }
+
                 a {
                   text-decoration: none
                 }

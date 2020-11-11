@@ -1,12 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Link from 'next/link'
 import HamburgerMenu from 'react-hamburger-menu'
-import logo, { search } from '../images/oliviaschoice-logo.png'
 import logoMobile from '../images/oliviaschoice-logo-mobile.png'
-import cartIcon from '../images/shopping-cart-icon.png'
-import NavBarSearch from '../components/NavBarSearch'
+import cartIcon from '../images/icons/shopping-cart-icon.png'
+import userIcon from '../images/icons/user-icon.png'
+import NavBarSearch from './NavBarSearch'
+import { CartContext } from '../contexts/CartContext'
+
 const Navbar = ({ user }) => {
   const [mobileMenu, setMobileMenu] = useState(false)
+
+  const { productsInCart } = useContext(CartContext)
 
   const closeMobileMenuOnClik = () => {
     if (mobileMenu) {
@@ -28,11 +32,14 @@ const Navbar = ({ user }) => {
           <Link href='/carrello'>
             <img
               className='cart-icon-mobile'
-              width='24px'
-              height='24px'
+              width='20px'
+              height='20px'
               src={cartIcon}
             />
           </Link>
+          <div className='products-in-cart'>
+            <Link href='/carrello'><a>{productsInCart.length}</a></Link>
+          </div>
 
           <HamburgerMenu
             isOpen={mobileMenu}
@@ -55,12 +62,24 @@ const Navbar = ({ user }) => {
             <li><Link href='/offerta'><a>Offerta</a></Link></li>
             <li><Link href='#'><a>Prodotti</a></Link></li>
             <li><Link href='/faq'><a>Faq</a></Link></li>
-            <li><Link href='/contatti'><a>Contatti</a></Link></li>
+            <li style={{
+              marginBottom: '20px'
+            }}
+            ><Link href='/contatti'><a>Contatti</a></Link>
+            </li>
+
             {!user
-              ? <p>
-                <Link href='/login'><a className='profile-link'>Accedi</a></Link> o <Link href='/signup'><a className='profile-link'>Registrati</a></Link>
-              </p>
-              : <Link href='/'>Profilo</Link>}
+              ? <span>
+                <img className='user-icon' src={userIcon} alt='user-icon' />
+                <Link href='/login'><a className='profile-link'>Accedi</a></Link> <span>|</span> <Link href='/signup'><a className='profile-link'>Registrati</a></Link>
+                </span>
+              : <div>
+                <img className='user-icon' src={userIcon} alt='user-icon' />
+                <Link href='/user/profilo'>
+                  <a className='profile-link'>Il mio account</a>
+                </Link>
+                </div>}
+
           </ul>}
       </div>
       <div className='desktop-menu'>
@@ -74,26 +93,31 @@ const Navbar = ({ user }) => {
         </ul>
       </div>
       <div className='icons-desktop-right'>
-        <div
-          className='search-bar-desktop' style={{
-            position: 'relative',
-            top: '33px'
-          }}
-        >
+        <div className='search-bar-desktop'>
           <NavBarSearch />
         </div>
         <div>
-          <Link href='/carrello'>
+          <Link href='/user/profilo'><a><img src={userIcon} /></a></Link>
+        </div>
+        <Link href='/carrello'>
+          <a>
             <img
               className='cart-icon-desktop'
               src={cartIcon}
-              width='24px'
-              height='24px'
+              width='20px'
+              height='20px'
             />
-          </Link>
+          </a>
+        </Link>
+        <div className='products-in-cart'>
+          <Link href='/carrello'><a>{productsInCart.length}</a></Link>
         </div>
       </div>
       <style jsx>{`
+
+              .desktop-menu, .icons-desktop-right {
+                 display: none
+               }
                 .navbar {
                  overflow: hidden;
                  position: fixed;
@@ -103,14 +127,10 @@ const Navbar = ({ user }) => {
                  background-color: #fff;
                }
                .logo {
-                 cursor: pointer
+                 cursor: pointer;
+                 width: 110px
                }
-               .desktop-menu {
-                 display: none
-               }
-               .cart-icon-desktop, .search-bar-desktop {
-                 display: none
-               }
+                
                .navbar-top-mobile {
                  display: flex;
                  justify-content: space-between
@@ -122,23 +142,25 @@ const Navbar = ({ user }) => {
                .cart-icon-mobile {
                  position: relative;
                  right: 15px;
-                 bottom: 3px;
-                 margin-left: 20px
+                 margin-left: 25px
                }
               
-                ul {
-                    color: #fff;
-                    list-style: none;
-                }
                 ul li {
                     padding: 8px 0;
                 }
                 ul li a {
-                    color: #777;
+                    color: #222;
+                    font-weight: 500;
                 }
                 ul li a:hover {
                   color: #8c2b2f;
                   border-bottom: 2px solid #8c2b2f
+                }
+
+                .user-icon {
+                  margin-right: 10px;
+                  top: 2px;
+                  position: relative
                 }
 
                 .profile-link{
@@ -147,9 +169,26 @@ const Navbar = ({ user }) => {
                   font-size: 15px;
                 }
 
+                .products-in-cart{
+                    background-color: #8c2b2f;
+                    height: 18px;
+                    width: 18px;
+                    border-radius: 50%;
+                    margin-right: 5px;
+                    position: relative;
+                    top: 10px;
+                    right: 14px
+                  }
+                  .products-in-cart a {
+                    font-size: 10px;
+                    position: relative;
+                    bottom: 5px;
+                    left: 6px;
+                    color: #fff;
+                  }
 
         
-                @media(min-width: 968px){
+                @media(min-width: 1295px){
                   .burger-icon-container, mobile-menu {
                     display: none
                   }
@@ -158,6 +197,10 @@ const Navbar = ({ user }) => {
                     justify-content: space-between;
                     padding: 0 80px;
                   }
+
+                  .logo {
+                     width: 130px
+                   }
                 
                   .mobile-menu {
                     display: none
@@ -167,15 +210,20 @@ const Navbar = ({ user }) => {
                   }
                   .desktop-menu ul {
                     display: flex;
+                    margin-right: 140px
                   }
                   .desktop-menu ul {
                     display: flex;
                   }
                   .desktop-menu ul li {
-                    padding:  17px 23px;
+                    padding:  17px 20px;
                   }
                   .icons-desktop-right {
                   display: flex;
+                  width: 300px;
+                  position: relative;
+                  top: 30px;
+                  justify-content: space-evenly
                 }
                 .icons-desktop-right:hover {
                   cursor: pointer
@@ -183,13 +231,23 @@ const Navbar = ({ user }) => {
                   .cart-icon-desktop {
                    display: block;
                    position: relative;
-                   top: 30px;
-                   margin-left: 20px
+                   right: 10px
                   }
                   .search-bar-desktop {
-                    display: block
+                    display: block;
+                    margin-right: 10px
                   }
-                 
+                  .profile-link {
+                    font-size: 14px;
+                    position: relative;
+                
+                  }
+                  .products-in-cart{
+                    position: relative;
+                    top: 10px;
+                    right: 30px 
+                  }
+                  
                 }
             `}
       </style>
