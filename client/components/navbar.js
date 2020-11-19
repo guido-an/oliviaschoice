@@ -4,7 +4,7 @@ import HamburgerMenu from 'react-hamburger-menu'
 import logoMobile from '../images/oliviaschoice-logo-mobile.png'
 import cartIcon from '../images/icons/shopping-cart-icon.png'
 import userIcon from '../images/icons/user-icon.png'
-import NavBarSearch from './NavBarSearch'
+import NavBarSearch from './helpers/NavBarSearch'
 import { CartContext } from '../contexts/CartContext'
 
 const Navbar = ({ user }) => {
@@ -67,7 +67,6 @@ const Navbar = ({ user }) => {
             }}
             ><Link href='/contatti'><a>Contatti</a></Link>
             </li>
-
             {!user
               ? <span>
                 <img className='user-icon' src={userIcon} alt='user-icon' />
@@ -125,6 +124,7 @@ const Navbar = ({ user }) => {
                  width: 100%;
                  padding: 10px 10px;
                  background-color: #fff;
+                 z-index: 99
                }
                .logo {
                  cursor: pointer;
@@ -216,7 +216,7 @@ const Navbar = ({ user }) => {
                     display: flex;
                   }
                   .desktop-menu ul li {
-                    padding:  17px 20px;
+                    padding:  17px 19px;
                   }
                   .icons-desktop-right {
                   display: flex;
