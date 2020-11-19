@@ -33,7 +33,8 @@ const getProductsFromAPI = async () => {
           codeArticle: product.MG66_CODART.replace(/\s/g, ''),
           price: Number(product.LI10_PREZZO),
           brandName: product.MG64_DESCRMARCA,
-          effectiveStock: Number(product.MG70_QGIACEFF)
+          effectiveStock: Number(product.MG70_QGIACEFF),
+          description: product.descrizioneEstesa
         })
       } else {
         await Product.findOneAndUpdate(
@@ -42,7 +43,8 @@ const getProductsFromAPI = async () => {
             available: true,
             price: Number(product.LI10_PREZZO),
             brandName: product.MG64_DESCRMARCA,
-            effectiveStock: Number(product.MG70_QGIACEFF)
+            effectiveStock: Number(product.MG70_QGIACEFF),
+            description: product.descrizioneEstesa
           }
         )
       }
@@ -61,9 +63,8 @@ const setAvailableToFalse = async () => {
     await Product.findByIdAndUpdate({ _id: product._id }, { available: false }, { new: true })
   })
 }
-
-/* setAvailableToFalse()
-getProductsFromAPI() */
+setAvailableToFalse()
+getProductsFromAPI()
 
 // setInterval(async () => {
 //   var date = new Date()
