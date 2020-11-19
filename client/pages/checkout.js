@@ -71,42 +71,42 @@ const Checkout = () => {
         <input
           type='text'
           placeholder={user && user.firstName}
-          required={user && user.firstName ? 'false' : true}
+          required={!(user && user.firstName)}
           onChange={(e) => setForm({ ...form, firstName: e.target.value })}
         />
         <label>Cognome</label>
         <input
           type='text'
           placeholder={user && user.lastName}
-          required={user && user.lastName ? 'false' : true}
+          required={!(user && user.lastName)}
           onChange={(e) => setForm({ ...form, lastName: e.target.value })}
         />
         <label>P.IVA/Codice fiscale</label>
         <input
           type='text'
           placeholder={user && user.VAT}
-          required={user && user.VAT ? 'false' : true}
+          required={!(user && user.VAT)}
           onChange={(e) => setForm({ ...form, VAT: e.target.value })}
         />
         <label>Indirizzo</label>
         <input
           type='text'
           placeholder={user && user.shippingInfo && user.shippingInfo.streetAddress}
-          required={user && user.shippingInfo && user.shippingInfo.streetAddress ? 'false' : true}
+          required={!(user && user.shippingInfo && user.shippingInfo.streetAddress)}
           onChange={(e) => setForm({ ...form, streetAddress: e.target.value })}
         />
         <label>Città</label>
         <input
           type='text'
           placeholder={user && user.shippingInfo && user.shippingInfo.city}
-          required={user && user.shippingInfo && user.shippingInfo.city ? 'false' : true}
+          required={!(user && user.shippingInfo && user.shippingInfo.city)}
           onChange={(e) => setForm({ ...form, city: e.target.value })}
         />
         <label>Provincia</label>
         <input
           type='text'
           placeholder={user && user.shippingInfo && user.shippingInfo.province}
-          required={user && user.shippingInfo && user.shippingInfo.province ? 'false' : true}
+          required={!(user && user.shippingInfo && user.shippingInfo.province)}
           onChange={(e) => setForm({ ...form, province: e.target.value })}
         />
         {/* check zip code */}
@@ -114,7 +114,7 @@ const Checkout = () => {
         <input
           type='text'
           placeholder={user && user.shippingInfo && user.shippingInfo.zipCode}
-          required={user && user.shippingInfo && user.shippingInfo.zipCode ? 'false' : true}
+          required={!(user && user.shippingInfo && user.shippingInfo.zipCode)}
           onChange={(e) => setForm({ ...form, zipCode: e.target.value })}
         />
         <label>Telefono</label>
@@ -127,7 +127,7 @@ const Checkout = () => {
         <input
           type='email'
           placeholder={user && user.email}
-          required={user && user.email ? 'false' : true}
+          required={!(user && user.email)}
           onChange={(e) => setForm({ ...form, email: e.target.value })}
         />
         <label>Note aggiuntive</label>
