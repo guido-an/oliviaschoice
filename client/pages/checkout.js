@@ -31,7 +31,8 @@ const Checkout = () => {
   const handleSubmit = async e => {
     e.preventDefault()
     try {
-      createOrder()
+      const createOder = await createOrder()
+      debugger
       router.push('/pagamento')
     } catch (err) {
       console.log(err)
@@ -56,6 +57,7 @@ const Checkout = () => {
       paid: false,
       productsInCart
     })
+    desbugger
     const orderId = response.data.orderId
     localStorage.setItem('orderId', orderId) // So later if the order succeed we can update it to paid: true
   }
