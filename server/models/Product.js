@@ -9,7 +9,8 @@ const productSchema = new Schema({
   price: Number,
   brandName: String,
   effectiveStock: Number,
-  description: String
+  description: String,
+  category: String
 }, {
   timestamps: {
     createdAt: 'created_at',

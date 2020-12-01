@@ -20,6 +20,7 @@ const cacheProductsInServer = async () => {
 cacheProductsInServer()
 
 const getProductsFromAPI = async () => {
+  console.log('getting products')
   try {
     const response = await axios.get(process.env.API_URL)
     const productsFromAPI = response.data
@@ -28,15 +29,19 @@ const getProductsFromAPI = async () => {
         codeArticle: product.MG66_CODART.replace(/\s/g, '')
       })
       if (!dbProduct) {
+        console.log('CREATING')
+
         await Product.create({
           name: product.MG87_DESCART,
           codeArticle: product.MG66_CODART.replace(/\s/g, ''),
           price: Number(product.LI10_PREZZO),
           brandName: product.MG64_DESCRMARCA,
           effectiveStock: Number(product.MG70_QGIACEFF),
-          description: product.descrizioneEstesa
+          description: product.descrizioneEstesa,
+          category: product.categoria
         })
       } else {
+        console.log('UDPDATING')
         await Product.findOneAndUpdate(
           { name: product.MG87_DESCART },
           {
@@ -44,7 +49,8 @@ const getProductsFromAPI = async () => {
             price: Number(product.LI10_PREZZO),
             brandName: product.MG64_DESCRMARCA,
             effectiveStock: Number(product.MG70_QGIACEFF),
-            description: product.descrizioneEstesa
+            description: product.descrizioneEstesa,
+            category: product.categoria
           }
         )
       }

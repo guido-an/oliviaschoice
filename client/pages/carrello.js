@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { CartContext } from '../contexts/CartContext'
 import Link from 'next/link'
 
@@ -58,7 +58,7 @@ const Carrello = () => {
         ? <div>
           <h2>Total price: {totalPrice}</h2>
           <Link href='/checkout'><button id='checkout-btn'>Concludi ordine</button></Link>
-        </div>
+          </div>
         : <p>Non ci sono prodotti nel carrello <Link href='/'>Ritorna alla home</Link></p>}
 
     </div>

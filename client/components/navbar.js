@@ -1,7 +1,8 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import Link from 'next/link'
 import HamburgerMenu from 'react-hamburger-menu'
 import logoMobile from '../images/oliviaschoice-logo-mobile.png'
+import ocLogo from '../images/oc-logo.png'
 import cartIcon from '../images/icons/shopping-cart-icon.png'
 import userIcon from '../images/icons/user-icon.png'
 import NavBarSearch from './helpers/NavBarSearch'
@@ -9,6 +10,20 @@ import { CartContext } from '../contexts/CartContext'
 
 const Navbar = ({ user }) => {
   const [mobileMenu, setMobileMenu] = useState(false)
+  const [scroll, setScroll] = useState(false) // stateCheck for Scroll
+
+  const listenScrollEvent = () => {
+    if (window.scrollY > 200) {
+      // Scroll check / you can define your scroll in pixels eg.200
+      setScroll(true) // if windowScroll to predifined position setState 'true'
+    } else {
+      setScroll(false) // if windowNOTScrolled or set back to its starting postion setState 'false'
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', listenScrollEvent) // add event listner
+  })
 
   const { productsInCart } = useContext(CartContext)
 
@@ -21,11 +36,23 @@ const Navbar = ({ user }) => {
     <nav className='navbar'>
       <div className='navbar-top-mobile'>
         <Link href='/'>
-          <img
-            className='logo'
-            src={logoMobile}
-            alt='logo-olivias-choice-mobile'
-          />
+          {!scroll
+            ? <img
+              className='logo'
+              src={logoMobile}
+              alt='logo-olivias-choice-mobile'
+              />
+            : <img
+              style={{
+                marginTop: '10px'
+              }}
+              className='logo'
+              src={ocLogo}
+              alt='logo-olivias-choice-iniziali'
+              width='152px'
+              height='57px'
+              />}
+
         </Link>
         <div className='burger-icon-container'>
           <NavBarSearch />
@@ -71,13 +98,13 @@ const Navbar = ({ user }) => {
               ? <span>
                 <img className='user-icon' src={userIcon} alt='user-icon' />
                 <Link href='/login'><a className='profile-link'>Accedi</a></Link> <span>|</span> <Link href='/signup'><a className='profile-link'>Registrati</a></Link>
-                </span>
+              </span>
               : <div>
                 <img className='user-icon' src={userIcon} alt='user-icon' />
                 <Link href='/user/profilo'>
                   <a className='profile-link'>Il mio account</a>
                 </Link>
-                </div>}
+              </div>}
 
           </ul>}
       </div>
@@ -124,7 +151,8 @@ const Navbar = ({ user }) => {
                  width: 100%;
                  padding: 10px 10px;
                  background-color: #fff;
-                 z-index: 99
+                 z-index: 99;
+              
                }
                .logo {
                  cursor: pointer;
