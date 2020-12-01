@@ -18,13 +18,13 @@ const Index = () => {
     <div>
       <h1>Welcome to Next Application</h1>
       <a href={`${process.env.APP_API}/auth/logout`}>Logout</a>
-      {products && products.map(product =>
+      {/* {products && products.map(product =>
         <div key={product._id}>
           <Link href='/prodotto/[id]' as={`/prodotto/${encodeURIComponent(product._id)}`}>
             <p>{product.name}</p>
           </Link>
         </div>
-      )}
+      )} */}
     </div>
   )
 }
