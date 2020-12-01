@@ -51,6 +51,7 @@ router.post('/signup', (req, res, next) => {
 
 // LOGIN
 router.post('/login', (req, res) => {
+  console.log(req.body, 'req.body')
   let currentUser
   User.findOne({ email: req.body.email })
     .then(user => {
