@@ -57,7 +57,7 @@ const UsersList = () => {
 
   return (
     <div>
-      <h1>UsersList</h1>
+      <h1>Utenti</h1>
       {displayUsers()}
     </div>
   )
