@@ -20,6 +20,7 @@ const cacheProductsInServer = async () => {
 cacheProductsInServer()
 
 const getProductsFromAPI = async () => {
+  console.log('getting products')
   try {
     const response = await axios.get(process.env.API_URL)
     const productsFromAPI = response.data
@@ -28,21 +29,28 @@ const getProductsFromAPI = async () => {
         codeArticle: product.MG66_CODART.replace(/\s/g, '')
       })
       if (!dbProduct) {
+        console.log('CREATING')
+
         await Product.create({
           name: product.MG87_DESCART,
           codeArticle: product.MG66_CODART.replace(/\s/g, ''),
           price: Number(product.LI10_PREZZO),
           brandName: product.MG64_DESCRMARCA,
-          effectiveStock: Number(product.MG70_QGIACEFF)
+          effectiveStock: Number(product.MG70_QGIACEFF),
+          description: product.descrizioneEstesa,
+          category: product.categoria
         })
       } else {
+        console.log('UDPDATING')
         await Product.findOneAndUpdate(
           { name: product.MG87_DESCART },
           {
             available: true,
             price: Number(product.LI10_PREZZO),
             brandName: product.MG64_DESCRMARCA,
-            effectiveStock: Number(product.MG70_QGIACEFF)
+            effectiveStock: Number(product.MG70_QGIACEFF),
+            description: product.descrizioneEstesa,
+            category: product.categoria
           }
         )
       }
@@ -61,9 +69,8 @@ const setAvailableToFalse = async () => {
     await Product.findByIdAndUpdate({ _id: product._id }, { available: false }, { new: true })
   })
 }
-
-/* setAvailableToFalse()
-getProductsFromAPI() */
+setAvailableToFalse()
+getProductsFromAPI()
 
 // setInterval(async () => {
 //   var date = new Date()
@@ -93,6 +100,36 @@ router.get('/product/:id', async (req, res) => {
   try {
     const product = await Product.findById({ _id: req.params.id })
     res.status(200).send(product)
+  } catch (err) {
+    res.status(500).send('Something went wrong on this call: /api/products')
+  }
+})
+
+// UPDATE SINGLE PRODUCT
+router.post('/product/update', async (req, res) => {
+  try {
+    const code = req.body.name.slice(0,-6)
+    console.log("code", code)
+    const product = await Product.findOne({ codeArticle: code })
+    console.log("roiduct", product)
+    const arraycontainsturtles = (product.images.length);
+    console.log(arraycontainsturtles, "array")
+    const imgNumber = req.body.name.charAt(req.body.name.length-5)
+    console.log(imgNumber, "array")
+    
+    if (product.images[0] != undefined){
+      if (arraycontainsturtles >= imgNumber ){
+        res.status(200).send("image exist")
+      }else{
+        console.log('existe')
+        await Product.findOneAndUpdate({ codeArticle: code }, { $push: { images: req.body.url } })
+        res.status(200).send("image exist")
+      }
+    }else{
+      console.log("imagen no existe, create new")
+      const updateProduct = await Product.findOneAndUpdate({ codeArticle: code }, { images: req.body.url })
+        res.status(200).send(updateProduct)
+    }
   } catch (err) {
     res.status(500).send('Something went wrong on this call: /api/products')
   }

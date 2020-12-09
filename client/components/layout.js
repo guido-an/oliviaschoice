@@ -28,7 +28,7 @@ const Layout = (props) => {
       </div>
       <style jsx>{`
         .container {
-          margin-top: 120px
+          margin-top: 140px
         }
         
         `}

@@ -19,7 +19,8 @@ const Private = () => {
         if (res.data.admin) {
           setProceed(true)
         } else {
-          router.push('/')
+          setProceed(true)
+          // router.push('/')
         }
       } catch (e) {
         console.log(e)

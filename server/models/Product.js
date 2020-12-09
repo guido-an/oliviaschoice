@@ -8,7 +8,10 @@ const productSchema = new Schema({
   available: { type: Boolean, default: true },
   price: Number,
   brandName: String,
-  effectiveStock: Number
+  effectiveStock: Number,
+  images: Array,
+  description: String,
+  category: String
 }, {
   timestamps: {
     createdAt: 'created_at',
