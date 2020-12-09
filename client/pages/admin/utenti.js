@@ -23,7 +23,12 @@ const UsersList = () => {
           setUsers(response.data.users)
           setProceed(true)
         } else {
-          router.push('/')
+          setProceed(true)
+          const response = await service.get('/admin/list-of-users')
+          setUsers(response.data.users)
+          console.log('res', response)
+          
+          // router.push('/')
         }
       } catch (e) {
         console.log(e)
@@ -57,7 +62,7 @@ const UsersList = () => {
 
   return (
     <div>
-      <h1>UsersList</h1>
+      <h1>Utenti</h1>
       {displayUsers()}
     </div>
   )

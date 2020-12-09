@@ -5,8 +5,8 @@
   "devFiles": [],
   "ampDevFiles": [],
   "lowPriorityFiles": [
-    "static/87PoCak8RZbGDZSExourR/_buildManifest.js",
-    "static/87PoCak8RZbGDZSExourR/_ssgManifest.js"
+    "static/uMREk9KfncRYkvSg-mcOk/_buildManifest.js",
+    "static/uMREk9KfncRYkvSg-mcOk/_ssgManifest.js"
   ],
   "pages": {
     "/": [
@@ -45,7 +45,7 @@
       "static/chunks/framework.cb05d56be993eb6b088a.js",
       "static/chunks/274768a6dabbdb2df06678961284ef7d8eddaf49.d18b4cd5b9181f9df943.js",
       "static/chunks/8b22c7c8bad61843e67d3f9d42b5a125f9983b62.25697dd395a8d49c1bf6.js",
-      "static/chunks/pages/admin/image-upload-7ef6a4784927eea0d641.js"
+      "static/chunks/pages/admin/image-upload-dfe58e7637b2496ba221.js"
     ],
     "/admin/private": [
       "static/chunks/main-8772b49a908a56331ac3.js",
@@ -54,7 +54,7 @@
       "static/chunks/274768a6dabbdb2df06678961284ef7d8eddaf49.d18b4cd5b9181f9df943.js",
       "static/chunks/8b22c7c8bad61843e67d3f9d42b5a125f9983b62.25697dd395a8d49c1bf6.js",
       "static/chunks/a904e24bae4069b78332171ed8ab4814faa792d9.510cfda4ab6718d0c484.js",
-      "static/chunks/pages/admin/private-40ad48c66e2e3ca0c72f.js"
+      "static/chunks/pages/admin/private-8793de4f879a9e100baf.js"
     ],
     "/admin/utenti": [
       "static/chunks/main-8772b49a908a56331ac3.js",
@@ -63,7 +63,7 @@
       "static/chunks/274768a6dabbdb2df06678961284ef7d8eddaf49.d18b4cd5b9181f9df943.js",
       "static/chunks/8b22c7c8bad61843e67d3f9d42b5a125f9983b62.25697dd395a8d49c1bf6.js",
       "static/chunks/a904e24bae4069b78332171ed8ab4814faa792d9.510cfda4ab6718d0c484.js",
-      "static/chunks/pages/admin/utenti-627a3a42df64a15d3934.js"
+      "static/chunks/pages/admin/utenti-dc319e564b9e64d446bf.js"
     ],
     "/admin/utenti/[id]": [
       "static/chunks/main-8772b49a908a56331ac3.js",
@@ -72,7 +72,7 @@
       "static/chunks/274768a6dabbdb2df06678961284ef7d8eddaf49.d18b4cd5b9181f9df943.js",
       "static/chunks/8b22c7c8bad61843e67d3f9d42b5a125f9983b62.25697dd395a8d49c1bf6.js",
       "static/chunks/a904e24bae4069b78332171ed8ab4814faa792d9.510cfda4ab6718d0c484.js",
-      "static/chunks/pages/admin/utenti/[id]-f03e3af217521987c784.js"
+      "static/chunks/pages/admin/utenti/[id]-d89963e91125bbad095f.js"
     ],
     "/carrello": [
       "static/chunks/main-8772b49a908a56331ac3.js",
