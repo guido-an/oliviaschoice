@@ -57,8 +57,8 @@ app.use('/auth', authRoutes)
 const stripeRoutes = require('./routes/stripe')
 app.use('/', stripeRoutes)
 
-const indexRoutes = require('./routes/index')
-app.use('/', indexRoutes)
+const orderRoutes = require('./routes/order')
+app.use('/', orderRoutes)
 
 const adminRoutes = require('./routes/admin')
 app.use('/admin', adminRoutes)
