@@ -10,6 +10,7 @@
   ],
   "pages": {
     "/": [
+<<<<<<< HEAD
       "static/chunks/main-8772b49a908a56331ac3.js",
       "static/chunks/webpack-e067438c4cf4ef2ef178.js",
       "static/chunks/framework.cb05d56be993eb6b088a.js",
@@ -17,6 +18,11 @@
       "static/chunks/8b22c7c8bad61843e67d3f9d42b5a125f9983b62.25697dd395a8d49c1bf6.js",
       "static/chunks/a904e24bae4069b78332171ed8ab4814faa792d9.510cfda4ab6718d0c484.js",
       "static/chunks/pages/index-fb0224f46730bdcddbdc.js"
+=======
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/index.js"
+>>>>>>> master
     ],
     "/_app": [
       "static/chunks/main-8772b49a908a56331ac3.js",
@@ -83,6 +89,7 @@
       "static/chunks/a904e24bae4069b78332171ed8ab4814faa792d9.510cfda4ab6718d0c484.js",
       "static/chunks/pages/carrello-e3b08da6099e4e3e9ffa.js"
     ],
+<<<<<<< HEAD
     "/checkout": [
       "static/chunks/main-8772b49a908a56331ac3.js",
       "static/chunks/webpack-e067438c4cf4ef2ef178.js",
@@ -168,6 +175,12 @@
       "static/chunks/8b22c7c8bad61843e67d3f9d42b5a125f9983b62.25697dd395a8d49c1bf6.js",
       "static/chunks/a904e24bae4069b78332171ed8ab4814faa792d9.510cfda4ab6718d0c484.js",
       "static/chunks/pages/user/reset/password-d2b14d896eefdaee6d89.js"
+=======
+    "/login": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/chunks/pages/login.js"
+>>>>>>> master
     ]
   },
   "ampFirstPages": []

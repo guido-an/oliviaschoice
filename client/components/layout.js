@@ -20,12 +20,19 @@ const Layout = (props) => {
   return (
     <div>
       <Head>
-        <title>Hello Next.js</title>
+        <title>Olivia's Choice</title>
       </Head>
-      <Navbar />
+      <Navbar user={user} />
       <div className='container'>
         {props.children}
       </div>
+      <style jsx>{`
+        .container {
+          margin-top: 140px
+        }
+        
+        `}
+      </style>
     </div>
   )
 }

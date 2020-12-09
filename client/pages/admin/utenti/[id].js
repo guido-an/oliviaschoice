@@ -24,10 +24,7 @@ const { id } = router.query;
           setUser(response.data.user)
           setProceed(true)
         } else {
-          const response = await service.get('/user/' + id)
-          setUser(response.data.user)
-          setProceed(true)
-          // router.push('/')
+          router.push('/')
         }
       } catch (e) {
         console.log(e)

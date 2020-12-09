@@ -23,12 +23,7 @@ const UsersList = () => {
           setUsers(response.data.users)
           setProceed(true)
         } else {
-          setProceed(true)
-          const response = await service.get('/admin/list-of-users')
-          setUsers(response.data.users)
-          console.log('res', response)
-          
-          // router.push('/')
+          router.push('/')
         }
       } catch (e) {
         console.log(e)

@@ -88,7 +88,11 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
+<<<<<<< HEAD
 /******/ 	return __webpack_require__(__webpack_require__.s = 18);
+=======
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+>>>>>>> master
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -204,6 +208,7 @@ module.exports = __webpack_require__("/a9y");
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "TqRt":
 /***/ (function(module, exports) {
 
@@ -214,6 +219,14 @@ function _interopRequireDefault(obj) {
 }
 
 module.exports = _interopRequireDefault;
+=======
+/***/ 2:
+/*!************************************!*\
+  !*** multi next/dist/pages/_error ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> master
 
 /***/ }),
 
