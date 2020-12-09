@@ -28,6 +28,11 @@ class MyApp extends App {
                   scroll-behavior: smooth;
                 }
 
+                :root {
+                --main-color: #8c2b2f;
+                --container-padding: 40px 10px 60px;
+                  }
+
                 h1, h2, h3 {
                   color: #222
                 }
@@ -42,6 +47,18 @@ class MyApp extends App {
 
                 a {
                   text-decoration: none
+                }
+
+                button:focus,
+                input:focus {
+                  outline:0;
+                  }
+
+             
+
+                strong {
+                  color: #222;
+                  font-weight: 400
                 }
 
                 .overtitle {
@@ -73,18 +90,117 @@ class MyApp extends App {
                   box-sizing: border-box;
                 }
 
-                @media(min-width: 968px){
-                  .overtitle {
-                  font-size: 18px;
-                  top: 20px
-                }
-                .title-section {
-                  font-size: 28px
-                }
-                .description-section {
-                  width: 50%;
-                  margin: 0 auto 40px
-                }
+
+                {/* INPUT STYLING */}
+                          
+
+                .input-wrapper {
+                   display: flex;
+                   margin-bottom: 20px;
+               }
+               
+               .input-wrapper div:nth-child(2) {
+                   position: relative;
+                   left: 10px;
+                   font-weight: 400;
+                   color: #777;
+                   font-size: 16px;
+               }
+               
+               .switch {
+                   position: relative;
+                   display: inline-block;
+               }
+               
+               .switch-input {
+                   display: none;
+               }
+               
+               .switch-label {
+                   display: block;
+                   width: 48px;
+                   height: 24px;
+                   text-indent: -150%;
+                   clip: rect(0 0 0 0);
+                   color: transparent;
+                   user-select: none;
+               }
+               
+               .switch-label::before, .switch-label::after {
+                   content: "";
+                   display: block;
+                   position: absolute;
+                   cursor: pointer;
+               }
+               
+               .switch-label::before {
+                   width: 100%;
+                   height: 25px;
+                   background-color: #dedede;
+                   border-radius: 9999em;
+                   -webkit-transition: background-color 0.25s ease;
+                   transition: background-color 0.25s ease;
+               }
+               
+               .switch-label::after {
+                   top: 0;
+                   left: 0;
+                   width: 24px;
+                   height: 24px;
+                   border-radius: 50%;
+                   background-color: #fff;
+                   box-shadow: 0 0 2px rgba(0, 0, 0, 0.45);
+                   -webkit-transition: left 0.25s ease;
+                   transition: left 0.25s ease;
+               }
+               
+               .switch-input:checked+.switch-label::before {
+                   background-color: var(--main-color);
+               }
+               
+               .switch-input:checked+.switch-label::after {
+                   left: 24px;
+               }
+
+
+               .category-name {
+               font-size: 14px;
+               position: relative;
+               bottom: 12px;
+               white-space: nowrap
+             }
+
+               
+               .wrapper-categories {
+                 padding: var(--container-padding);
+      
+               }
+
+               ::-webkit-scrollbar {
+                       width: 0px;
+                       background: transparent; /* make scrollbar transparent */
+                   }
+                                  
+               
+               @media only screen and (min-width: 600px) {
+
+               
+                  :root {
+                   --container-padding: 60px 80px 80px;
+                   --container-margin: 120px 85px;
+                   }
+                   
+                   .overtitle {
+                   font-size: 18px;
+                   top: 20px;
+                   }
+                   .title-section {
+                   font-size: 28px;
+                   }
+                   .description-section {
+                   width: 50%;
+                   margin: 0 auto 40px;
+                   } 
                 }
             `}
         </style>

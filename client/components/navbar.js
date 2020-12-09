@@ -65,7 +65,7 @@ const Navbar = ({ user }) => {
             />
           </Link>
           <div className='products-in-cart'>
-            <Link href='/carrello'><a>{productsInCart.length}</a></Link>
+            <Link href='/carrello'><a>{productsInCart ? productsInCart.length : 0}</a></Link>
           </div>
 
           <HamburgerMenu
@@ -136,7 +136,7 @@ const Navbar = ({ user }) => {
           </a>
         </Link>
         <div className='products-in-cart'>
-          <Link href='/carrello'><a>{productsInCart.length}</a></Link>
+          <Link href='/carrello'><a>{productsInCart ? productsInCart.length : 0}</a></Link>
         </div>
       </div>
       <style jsx>{`
