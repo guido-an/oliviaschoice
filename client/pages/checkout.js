@@ -32,6 +32,7 @@ const Checkout = () => {
     try {
       setShippingInfo(form)
       createOrder()
+      router.push('/pagamento')
     } catch (err) {
       console.log(err)
     }
