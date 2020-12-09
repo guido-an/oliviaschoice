@@ -10,7 +10,7 @@ const service = axios.create({
 
 const imageUpload = () => {
   const [images, setImages] = React.useState([]);
-  const maxNumber = 69;
+  const maxNumber = 1000;
 
   const onChange = (imageList) => {
     setImages(imageList);
@@ -66,6 +66,83 @@ const imageUpload = () => {
 
   return (
     <div className="App">
+        <style jsx>{`
+            .upload-btn{
+                background: #fff;
+                border-radius: 10px;
+                width: 79%;
+                padding: 3%;
+                font-size: 20px;
+                margin-bottom: 25px;
+            }
+
+            .remove-btn{
+                background: #f44336;
+                border-radius: 10px;
+                width: 20%;
+                padding: 3% 0;
+                font-size: 20px;
+                border-color: red;
+                color: #fff;
+            }
+
+            .image-item{
+                text-align: center;
+            }
+
+            img{
+                width: 400px;
+            }
+
+            .image-item__btn-wrapper{
+                position: relative;
+                top: 20px;
+                margin-right: auto;
+                text-align: right;
+                margin-left: auto;
+                width: 400px;
+            }
+
+            .remove-image {
+                position: absolute;
+                top: -30px;
+                right: -10px;
+                border-radius: 10em;
+                padding: 2px 6px 3px;
+                text-decoration: none;
+                font: 700 21px/20px sans-serif;
+                background: #555;
+                border: 3px solid #fff;
+                color: #FFF;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 2px 4px rgba(0,0,0,0.3);
+                  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+                  -webkit-transition: background 0.5s;
+                  transition: background 0.5s;
+            }
+            .remove-image:hover {
+                 background: #E54E4E;
+                  padding: 3px 7px 5px;
+                  top: -31px;
+                right: -11px;
+            }
+            .remove-image:active {
+                 background: #E54E4E;
+                  top: -30px;
+                right: -11px;
+            }
+
+            .save-btn{
+                position: -webkit-sticky; /* Safari */
+                position: sticky;
+                bottom: 10px;
+                background: #008CBA;
+                color: #fff;
+                padding: 10px 50px;
+                border-color: #008CBA;
+                border-radius: 10px;
+                font-size: 20px;
+            }
+`       }</style>
       <ImageUploading
         multiple
         value={images}
@@ -84,26 +161,28 @@ const imageUpload = () => {
           // write your building UI
           <div className="upload__image-wrapper">
             <button
+            className="upload-btn"
               style={isDragging ? { color: "red" } : undefined}
               onClick={onImageUpload}
               {...dragProps}
             >
-              Click or Drop here
+              Click or Drop here the images
             </button>
             &nbsp;
-            <button onClick={onImageRemoveAll}>Remove all images</button>
+            <button className="remove-btn" onClick={onImageRemoveAll}>Remove all images</button>
             {imageList.map((image, index) => (
               <div key={index} className="image-item">
-                <img src={image["data_url"]} alt="" width="100" />
+                <p>{image.name}</p>
                 <div className="image-item__btn-wrapper">
-                  <button onClick={() => onImageRemove(index)}>Remove</button>
+                  <button className="remove-image" onClick={() => onImageRemove(index)}>X</button>
                 </div>
+                <img src={image["data_url"]} alt="" width="100" />             
               </div>
             ))}
           </div>
         )}
       </ImageUploading>
-      <button onClick={() => onImageSave()}>Save</button>
+      <button className="save-btn" onClick={() => onImageSave()}>Save</button>
     </div>
   );
 }

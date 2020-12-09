@@ -1,7 +1,23 @@
 {
   "/_app": "pages/_app.js",
+  "/about": "pages/about.html",
+  "/admin/image-upload": "pages/admin/image-upload.html",
+  "/admin/private": "pages/admin/private.html",
+  "/admin/utenti": "pages/admin/utenti.html",
+  "/admin/utenti/[id]": "pages/admin/utenti/[id].html",
+  "/carrello": "pages/carrello.html",
+  "/checkout": "pages/checkout.html",
+  "/": "pages/index.html",
+  "/login": "pages/login.html",
+  "/pagamento": "pages/pagamento.html",
+  "/prodotto/[id]": "pages/prodotto/[id].html",
+  "/signup": "pages/signup.html",
+  "/user/ordine/[id]": "pages/user/ordine/[id].html",
+  "/user/ordini": "pages/user/ordini.html",
+  "/user/profilo": "pages/user/profilo.html",
+  "/user/reset/[token]": "pages/user/reset/[token].html",
+  "/user/reset/password": "pages/user/reset/password.html",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/user/profilo": "pages/user/profilo.js",
-  "/checkout": "pages/checkout.js"
+  "/404": "pages/404.html"
 }
