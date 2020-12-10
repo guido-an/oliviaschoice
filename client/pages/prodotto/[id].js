@@ -108,6 +108,11 @@ const Product = () => {
              position: relative;
              right: 130px;
            }
+
+           #add-to-cart-btn:hover {
+            box-shadow: 0px 6px 15px 0 rgba(0,0,0,0.3);
+            color: #f7f7f7
+           }
            
            #add-to-cart-btn:disabled {
              background-color: #f7f7f7;
