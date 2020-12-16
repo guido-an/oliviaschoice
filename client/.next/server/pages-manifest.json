@@ -2,6 +2,7 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/carrello": "pages/carrello.js",
-  "/": "pages/index.js"
+  "/elettromedicali": "pages/elettromedicali.js",
+  "/prodotto/[id]": "pages/prodotto/[id].js",
+  "/carrello": "pages/carrello.js"
 }

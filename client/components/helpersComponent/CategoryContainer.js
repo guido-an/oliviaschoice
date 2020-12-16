@@ -1,4 +1,4 @@
-import ButtonRed from '../helpers/ButtonRed'
+import ButtonRed from './ButtonRed'
 const CategoryContainer = ({ title, img, link }) => {
   return (
 

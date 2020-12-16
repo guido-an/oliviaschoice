@@ -6,42 +6,30 @@ import ProductsList from '../components/categories/ProductsList'
 import Footer from '../components/Footer'
 import { filterByCategory, service, onCategoryChange } from '../components/categories/helpersFunctions/helpersFunctions'
 
-const Elettromedicali = () => {
+
+const MammaEBimbo = () => {
   const [products, setProducts] = useState([])
   const [productsToDisplay, setProductsToDisplay] = useState([])
   const [categoriesSelected, setCategoriesSelected] = useState([])
-  const [totalProducts, setTotalProducts] = useState(false)
 
   //   Start subcategories
-  const [accessoriAerosol, setAccessoriAerosol] = useState([])
-  const [accessoriCaraffa, setAccessoriCaraffa] = useState([])
-  const [idropulsori, setIdropulsori] = useState([])
-  const [accessorIdropulsori, setAccessorIdropulsori] = useState([])
-  const [accessoriMisuratoridiPressione, setAccessoriMisuratoridiPressione] = useState([])
-  //   const [accessoriAerosol, setAaccessoriAerosol] = useState([])
-  const [bilance, setBilance] = useState([])
-  const [caraffa, setCaraffa] = useState([])
-  const [misuratoriDiPressione, setMisuratoriDiPressione] = useState([])
-  const [termometri, setTermometri] = useState([])
+  const [igieneCura, setIgieneCura] = useState([])
+  const [balsamoLabbra, setBalsamoLabbra] = useState([])
+  const [accessori, setAccessori] = useState([])
+  const [giochi, setGiochi] = useState([])
   //   End subcategories
 
-  const categories = ['Accessori Aerosol', 'Accessori Caraffa', 'Idropulsori', 'Accessori Idropulsori', 'Accessori Misuratori Di Pressione', 'Bilance', 'Caraffa', 'Misuratori Di Pressione', 'Termometri']
+  const categories = ['Igiene e Cura', 'Balsamo e Labbra', 'Accessori', 'Giochi']
 
   useEffect(() => {
     async function getProducts () {
       try {
-        const response = await service.get('/api/category-products/1')
+        const response = await service.get('/api/category-products/2')
         setProducts(response.data)
-        setAccessoriAerosol(filterByCategory(response.data, '1.1'))
-        setAccessoriCaraffa(filterByCategory(response.data, '1.2'))
-        setIdropulsori(filterByCategory(response.data, '1.3'))
-        setAccessorIdropulsori(filterByCategory(response.data, '1.4'))
-        setAccessoriMisuratoridiPressione(filterByCategory(response.data, '1.5'))
-        // setAaccessoriAerosol(filterByCategory(response.data, '1.6'))
-        setBilance(filterByCategory(response.data, '1.7'))
-        setCaraffa(filterByCategory(response.data, '1.8'))
-        setMisuratoriDiPressione(filterByCategory(response.data, '1.9'))
-        setTermometri(filterByCategory(response.data, '1.10'))
+        setIgieneCura(filterByCategory(response.data, '2.1'))
+        setBalsamoLabbra(filterByCategory(response.data, '2.2'))
+        setAccessori(filterByCategory(response.data, '2.3'))
+        setGiochi(filterByCategory(response.data, '2.4'))
         const newArray = products.filter(product => {
           if (categoriesSelected.includes(product.category)) {
             return product
@@ -56,21 +44,23 @@ const Elettromedicali = () => {
     getProducts()
   }, [categoriesSelected])
 
-  return (    
+  return (
     <div>
       <PageTitle
-        title='Elettromedicali'
+        title='Mamma e Bimbo'
         subtitle='Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, alias.'
       />      
       <div className="category-page-container">    
         <div className='wrapper-categories'>
+        {/* name and onChange to be changed for each category */}
           {categories.map((category, i = 1) => {
-            return <div key={i} className='input-wrapper'>
+            return (
+            <div key={i} className='input-wrapper'>
               <div className='switch'>
                 <input
-                  onChange={onCategoryChange}
-                  name={`1.${i + 1}`}
-                  id={`switch-${i + 1}`}
+                  onChange={(e) => onCategoryChange(e, setCategoriesSelected, categoriesSelected)}
+                  name={`2.${i + 1}`}
+                  id={`switch-${i +1}`}
                   type='checkbox'
                   className='switch-input'
                 />
@@ -78,16 +68,18 @@ const Elettromedicali = () => {
                   {category}
                 </label>
               </div>
-              <div><p className="category-name">{category}</p></div>
-                   </div>
+              <div>
+                  <p className="category-name">{category}</p>
+              </div>
+           </div>
+            )
           })}
-
         </div>
            {categoriesSelected.length < 1 ? 
             <ProductsList products={products}/> 
             :
             <ProductsList products={productsToDisplay}/>
-           } 
+           }
        </div>
       <Footer/>
            <style jsx>{`
@@ -105,4 +97,4 @@ const Elettromedicali = () => {
     </div>
   )
 }
-export default Elettromedicali
+export default MammaEBimbo

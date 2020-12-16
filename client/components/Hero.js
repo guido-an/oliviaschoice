@@ -1,4 +1,4 @@
-import ButtonRed from './helpers/ButtonRed'
+import ButtonRed from './helpersComponent/ButtonRed'
 import Link from 'next/link'
 const Hero = () => {
   return (

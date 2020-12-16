@@ -1,28 +1,28 @@
-import  Link  from 'next/link'
+import Link from 'next/link'
 import testImg from '../../images/test-prodotto.jpg'
 import arrow from '../../images/icons/arrow-right.png'
 
 const ProductList = ({ products }) => {
-   return(
-       <div className="products-list-container">
-       
-       {products.map(product => {
-               return (
-                 <div key={product._id} className="product-container">
-                    <img src={testImg} width="200" height="200px"/>
-                    <p className="product-title">{product.name}</p>
-                    <p>{product.price} €</p>
-                    <Link href={'/prodotto/' + product._id}>
-                      <a>Scopri di più</a>
-                     </Link>
-                    <Link href={'/prodotto/' + product._id}>
-                       <img className="arrow" src={arrow}></img>
-                    </Link>
-                 </div>
-               ) 
-             })}
-           
-             <style jsx>{`
+  return (
+    <div className='products-list-container'>
+
+      {products.map(product => {
+        return (
+          <div key={product._id} className='product-container'>
+            <img src={testImg} width='200' height='200px' />
+            <p className='product-title'>{product.name}</p>
+            <p>{product.price} €</p>
+            <Link href={'/prodotto/' + product._id}>
+              <a>Scopri di più</a>
+            </Link>
+            <Link href={'/prodotto/' + product._id}>
+              <img className='arrow' src={arrow} />
+            </Link>
+          </div>
+        )
+      })}
+
+      <style jsx>{`
 
                .products-list-container {
                  position: relative;
@@ -74,9 +74,9 @@ const ProductList = ({ products }) => {
                 
                  }
                  `}
-             </style>
-       </div>
-   )
+      </style>
+    </div>
+  )
 }
 
 export default ProductList

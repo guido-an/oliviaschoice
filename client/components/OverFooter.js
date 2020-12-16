@@ -1,4 +1,4 @@
-import ButtonWhite from '../components/helpers/ButtonWhite'
+import ButtonWhite from './helpersComponent/ButtonWhite'
 
 const OverFooter = () => {
   return (

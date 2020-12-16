@@ -1,24 +1,23 @@
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from 'react'
+import Link from 'next/link'
 import Footer from "../../components/Footer";
 import OverFooter from "../../components/OverFooter";
 import { CartContext } from '../../contexts/CartContext'
 import { ProductContext } from '../../contexts/ProductContext'
 import testImg from '../../images/test-prodotto.jpg'
 
-
 function createMarkup (text) { return { __html: text } };
-
 
 const Product = () => {
   const router = useRouter();
   const { id } = router.query; // Destructuring our router object
   const { addToCart, productsInCart } = useContext(CartContext)
   const { getSingleProduct, singleProduct } = useContext(ProductContext)
-  const [displayExceedMsg, setDisplayExceedMsg] = useState(false)
+  const [addedToCartMsg, setAddedToCartMsg] = useState(false)
+  const [quantity, setQuantity] = useState(1)
 
    useEffect(() => {
-     document.getElementById('quantity').value = 1
       async function fetchProduct () {
         await getSingleProduct(id)
       }
@@ -26,45 +25,60 @@ const Product = () => {
     }, [id])
 
     const increaseQuantity = () => {
-      const inputQty = document.getElementById('quantity').value 
-      document.getElementById('quantity').value = Number(inputQty) + 1
-      exceedQuantity(singleProduct)
+      setQuantity(quantity + 1 )
+      setAddedToCartMsg(false)
     }
 
     const decreaseQuantity = () => {
-      const inputQty = document.getElementById('quantity').value 
-      document.getElementById('quantity').value = Number(inputQty) - 1
-      if(inputQty <= 1) {
-        document.getElementById('quantity').value = 1
-      }
+       quantity > 1 && setQuantity(quantity - 1)
+       setAddedToCartMsg(false)
     }
    
-    const exceedQuantity = (singleProduct) => {
-      if(document.getElementById('quantity').value > singleProduct.effectiveStock){
-        document.getElementById('add-to-cart-btn').disabled = true
-        setDisplayExceedMsg(true)
-      } else {
-        document.getElementById('add-to-cart-btn').disabled = false
-        setDisplayExceedMsg(false)
-      }
+    const addProductToCart = () => {
+       addToCart(singleProduct, quantity)
+       setAddedToCartMsg(true)
     }
 
-    console.log(singleProduct, 'singleProduct')
+    if(!singleProduct){
+      return <p>Loading...</p>
+    } 
     
     return (
         <div>
-      <div className="product-page-container">
-        <img src={testImg} width="90%"></img>
-        <p className="product-title">{singleProduct && singleProduct.name}</p>
-        <p className="product-price">{singleProduct && singleProduct.price} €</p>
-        <div className="product-description" dangerouslySetInnerHTML={createMarkup(singleProduct && singleProduct.description)} />
-        <button className="minus" onClick={decreaseQuantity}>-</button>
-        <input id="quantity" type="number"></input>
-        <button className="plus" onClick={increaseQuantity}>+</button>
-        <button id="add-to-cart-btn" onClick={() => addToCart(singleProduct, document.getElementById('quantity').value)}>Add to cart</button>
-       
-        {displayExceedMsg && <p>Sono rimaste {singleProduct.effectiveStock} unità di questo prodotto</p>}
-     
+           <div className="product-page-container">
+             <div className="img-container">
+                 <img src={testImg} width="300px"></img>
+             </div>
+            <div className="product-container">
+                 <p className="product-title">{singleProduct.name}</p>
+                 <p className="product-price">{singleProduct.price} €</p>
+                <div 
+                 className="product-description" 
+                 dangerouslySetInnerHTML={createMarkup(singleProduct && singleProduct.description)} 
+                 />
+                 <button className="minus" onClick={decreaseQuantity}>-</button>
+                 <input id="quantity" type="number" value={quantity}></input>
+                
+                  <button className="plus" 
+                  onClick={increaseQuantity}>+
+                  </button>
+                 <button id="add-to-cart-btn" 
+                 onClick={addProductToCart}
+                 disabled={quantity > singleProduct.effectiveStock && 'true'}
+                 >
+                 Add to cart
+                 </button>
+                 <p style={{
+                   fontSize: '14px',
+                   marginTop: '20px'
+                 }}>{singleProduct.effectiveStock} unità rimaste</p>
+  
+                 {addedToCartMsg && <div>
+                     <p>Prodotto aggiunto al <Link href="/carrello">carrello</Link></p>
+                  </div>
+                  }
+                 {quantity > singleProduct.effectiveStock && <p>Sono rimaste {singleProduct.effectiveStock} unità di questo prodotto</p>} 
+             </div>
        <style jsx>{`
            
            .product-page-container {
@@ -160,6 +174,21 @@ const Product = () => {
               border: 1px solid #222;
               cursor: pointer
           }
+
+    
+          @media(min-width: 968px){
+            .product-page-container {
+             display:flex;
+           }
+
+           .product-page-container .img-container {
+             width: 40%
+           }
+           .product-page-container .product-container {
+             width: 50%;
+             margin-bottom: 120px
+           }
+          }
            
            `}
         </style>
@@ -173,4 +202,5 @@ const Product = () => {
 
 
 export default Product
+  
   
