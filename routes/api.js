@@ -101,6 +101,7 @@ router.get('/products', async (req, res) => {
 router.get('/product/:id', async (req, res) => {
   try {
     const product = await Product.findById({ _id: req.params.id })
+    console.log(product, 'product')
     res.status(200).send(product)
   } catch (err) {
     res.status(500).send('Something went wrong on this call: /api/products')
@@ -129,6 +130,5 @@ router.get('/category-products/:categoryNum', (req, res) => {
   })
   res.send(productsByCategory)
 })
-
 
 module.exports = router
