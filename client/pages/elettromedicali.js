@@ -56,13 +56,13 @@ const Elettromedicali = () => {
     getProducts()
   }, [categoriesSelected])
 
-  return (    
+  return (
     <div>
       <PageTitle
         title='Elettromedicali'
         subtitle='Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, alias.'
-      />      
-      <div className="category-page-container">    
+      />
+      <div className='category-page-container'>
         <div className='wrapper-categories'>
           {categories.map((category, i = 1) => {
             return <div key={i} className='input-wrapper'>
@@ -78,19 +78,18 @@ const Elettromedicali = () => {
                   {category}
                 </label>
               </div>
-              <div><p className="category-name">{category}</p></div>
-                   </div>
+              <div><p className='category-name'>{category}</p></div>
+            </div>
           })}
 
         </div>
-           {categoriesSelected.length < 1 ? 
-            <ProductsList products={products}/> 
-            :
-            <ProductsList products={productsToDisplay}/>
-           } 
-       </div>
-      <Footer/>
-           <style jsx>{`
+        {categoriesSelected.length < 1 
+            ? <ProductsList products={products} />
+          :
+          <ProductsList products={productsToDisplay} />}
+      </div>
+      <Footer />
+      <style jsx>{`
              @media(min-width: 969px){
               .wrapper-categories {
                  margin: 0 10px;
@@ -101,7 +100,8 @@ const Elettromedicali = () => {
                    padding-right: 60px;
                }
              }             
-          `}</style>  
+          `}
+           </style>
     </div>
   )
 }

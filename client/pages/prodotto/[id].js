@@ -64,7 +64,7 @@ const Product = () => {
                   </button>
                  <button id="add-to-cart-btn" 
                  onClick={addProductToCart}
-                 disabled={quantity > singleProduct.effectiveStock && 'true'}
+                 disabled={quantity > singleProduct.effectiveStock && true}
                  >
                  Add to cart
                  </button>

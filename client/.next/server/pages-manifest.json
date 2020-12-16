@@ -3,7 +3,5 @@
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
   "/prodotto/[id]": "pages/prodotto/[id].js",
-  "/carrello": "pages/carrello.js",
-  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js",
   "/elettromedicali": "pages/elettromedicali.js"
 }

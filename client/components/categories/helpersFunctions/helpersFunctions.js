@@ -1,23 +1,24 @@
 import axios from 'axios'
 
 export const filterByCategory = (array, numCategory) => {
-    const filteredArray = array.filter(product => product.category === numCategory)
-    return filteredArray
-  }
-  
+  const filteredArray = array.filter(product => product.category === numCategory)
+  return filteredArray
+}
+
 export const service = axios.create({
-    baseURL: process.env.APP_API,
-    withCredentials: true
-  })
+  baseURL: process.env.APP_API,
+  withCredentials: true
+})
 
 export const onCategoryChange = (e, updateState, array) => {
-    const { name } = e.target
-    if (e.target.checked) {
-        updateState([...array, name])
-    } else {
-      const newArray = array.filter(category => {
-        return category !== name
-      })
-      updateState(newArray)
-    }
+  const { name } = e.target
+  console.log(array, 'array')
+  if (e.target.checked) {
+    updateState([...array, name])
+  } else {
+    const newArray = array.filter(category => {
+      return category !== name
+    })
+    updateState(newArray)
   }
+}
