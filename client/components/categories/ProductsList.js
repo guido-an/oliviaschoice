@@ -18,6 +18,7 @@ const ProductList = ({ products }) => {
             <Link href={'/prodotto/' + product._id}>
               <img className='arrow' src={arrow} />
             </Link>
+            {product.category}
           </div>
         )
       })}

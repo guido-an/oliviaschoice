@@ -12,7 +12,6 @@ export const service = axios.create({
 
 export const onCategoryChange = (e, updateState, array) => {
   const { name } = e.target
-  console.log(array, 'array')
   if (e.target.checked) {
     updateState([...array, name])
   } else {

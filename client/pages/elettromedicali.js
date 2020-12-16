@@ -68,7 +68,7 @@ const Elettromedicali = () => {
             return <div key={i} className='input-wrapper'>
               <div className='switch'>
                 <input
-                  onChange={onCategoryChange}
+                  onChange={(e) => onCategoryChange(e, setCategoriesSelected, categoriesSelected)}
                   name={`1.${i + 1}`}
                   id={`switch-${i + 1}`}
                   type='checkbox'
@@ -83,10 +83,9 @@ const Elettromedicali = () => {
           })}
 
         </div>
-        {categoriesSelected.length < 1 
-            ? <ProductsList products={products} />
-          :
-          <ProductsList products={productsToDisplay} />}
+        {categoriesSelected.length < 1
+          ? <ProductsList products={products} />
+          : <ProductsList products={productsToDisplay} />}
       </div>
       <Footer />
       <style jsx>{`
@@ -101,7 +100,7 @@ const Elettromedicali = () => {
                }
              }             
           `}
-           </style>
+      </style>
     </div>
   )
 }
