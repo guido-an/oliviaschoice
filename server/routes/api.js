@@ -108,6 +108,36 @@ router.get('/product/:id', async (req, res) => {
   }
 })
 
+// UPDATE SINGLE PRODUCT
+router.post('/product/update', async (req, res) => {
+  try {
+    const code = req.body.name.slice(0,-6)
+    console.log("code", code)
+    const product = await Product.findOne({ codeArticle: code })
+    console.log("roiduct", product)
+    const arraycontainsturtles = (product.images.length);
+    console.log(arraycontainsturtles, "array")
+    const imgNumber = req.body.name.charAt(req.body.name.length-5)
+    console.log(imgNumber, "array")
+    
+    if (product.images[0] != undefined){
+      if (arraycontainsturtles >= imgNumber ){
+        res.status(200).send("image exist")
+      }else{
+        console.log('existe')
+        await Product.findOneAndUpdate({ codeArticle: code }, { $push: { images: req.body.url } })
+        res.status(200).send("image exist")
+      }
+    }else{
+      console.log("imagen no existe, create new")
+      const updateProduct = await Product.findOneAndUpdate({ codeArticle: code }, { images: req.body.url })
+        res.status(200).send(updateProduct)
+    }
+  } catch (err) {
+    res.status(500).send('Something went wrong on this call: /api/products')
+  }
+})
+
 // ADD PRODUCT TO SESSION
 router.get('/session-cart/:id', async (req, res) => {
   try {

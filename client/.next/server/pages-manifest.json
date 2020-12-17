@@ -1,9 +1,0 @@
-{
-  "/_app": "pages/_app.js",
-  "/_document": "pages/_document.js",
-  "/_error": "pages/_error.js",
-  "/elettromedicali": "pages/elettromedicali.js",
-  "/prodotto/[id]": "pages/prodotto/[id].js",
-  "/": "pages/index.js",
-  "/mamma-e-bimbo": "pages/mamma-e-bimbo.js"
-}

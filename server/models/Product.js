@@ -9,6 +9,7 @@ const productSchema = new Schema({
   price: Number,
   brandName: String,
   effectiveStock: Number,
+  images: Array,
   description: String,
   category: String
 }, {
