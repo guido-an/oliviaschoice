@@ -104,7 +104,7 @@ router.get('/product/:id', async (req, res) => {
     console.log(product, 'product')
     res.status(200).send(product)
   } catch (err) {
-    res.status(500).send('Something went wrong on this call: /api/products')
+    res.status(500).send('Something went wrong on this call: /api/product/:id')
   }
 })
 
@@ -159,6 +159,23 @@ router.get('/category-products/:categoryNum', (req, res) => {
     }
   })
   res.send(productsByCategory)
+})
+
+router.get('/search', async (req, res) => {
+  const searchInput = req.query.searchInput
+  try {
+    const products = await Product.find({
+      $or: [
+        ({ name: { $regex: searchInput, $options: 'i' } }),
+        ({ codeArticle: { $regex: searchInput, $options: 'i' } }),
+        ({ brandName: { $regex: searchInput, $options: 'i' } })
+      ]
+    })
+    res.send(products.slice(0, 30))
+  } catch (err) {
+    console.log(err)
+    res.status(500).send('Something went wrong on this call: /api/search')
+  }
 })
 
 module.exports = router
