@@ -5,7 +5,7 @@ import logoMobile from '../images/oliviaschoice-logo-mobile.png'
 import ocLogo from '../images/oc-logo.png'
 import cartIcon from '../images/icons/shopping-cart-icon.png'
 import userIcon from '../images/icons/user-icon.png'
-import NavBarSearch from './helpers/NavBarSearch'
+import NavBarSearch from './helpersComponent/NavBarSearch'
 import { CartContext } from '../contexts/CartContext'
 
 const Navbar = ({ user }) => {
@@ -65,7 +65,7 @@ const Navbar = ({ user }) => {
             />
           </Link>
           <div className='products-in-cart'>
-            <Link href='/carrello'><a>{productsInCart.length}</a></Link>
+            <Link href='/carrello'><a>{productsInCart ? productsInCart.length : 0}</a></Link>
           </div>
 
           <HamburgerMenu
@@ -136,7 +136,7 @@ const Navbar = ({ user }) => {
           </a>
         </Link>
         <div className='products-in-cart'>
-          <Link href='/carrello'><a>{productsInCart.length}</a></Link>
+          <Link href='/carrello'><a>{productsInCart ? productsInCart.length : 0}</a></Link>
         </div>
       </div>
       <style jsx>{`

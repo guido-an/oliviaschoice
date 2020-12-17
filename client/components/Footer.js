@@ -1,5 +1,5 @@
 import logo from '../images/oliviaschoice-logo.png'
-import NavBarSearch from './helpers/NavBarSearch'
+import NavBarSearch from './helpersComponent/NavBarSearch'
 import creditCardsLogo from '../images/credit-cards-logo.png'
 const Footer = () => {
   return (

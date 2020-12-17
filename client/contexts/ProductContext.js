@@ -22,8 +22,10 @@ const ProductContextProvider = props => {
       return
     }
     const response = await service.get(`${process.env.APP_API}/api/product/${id}`)
+    console.log(response, 'response')
     setSingleProduct(response.data)
   }
+
   return (
     <ProductContext.Provider value={{ products, getProducts, getSingleProduct, singleProduct }}>
       {props.children}
