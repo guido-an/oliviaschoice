@@ -43,12 +43,34 @@ const UsersList = () => {
         return
       }
       return (
-        <div key={user._id}>
-          <p>{user.firstName} {user.lastName}</p>
-          <p>Ordini totali: {user.orders.length}</p>
+        <div className="container" key={user._id}>
+           <style jsx>{`
+              .container {
+                display: flex;
+                justify-content: center;
+                flex-direction:row-reverse
+            }
+            p{
+              min-width: 245px;
+              margin-left: 15px;
+              text-align: center;
+            }
+            .container {
+              position: relative;
+              top: 10px
+            }
+            .link-btn{
+              color: rgb(140, 43, 47);
+              font-weight: 500 !important;
+              display: block
+            } 
+        `   }</style>
           <Link href='/admin/utenti/[id]' as={`/admin/utenti/${encodeURIComponent(user._id)}`}>
-              Dettagli
+             <p className="link-btn"> Dettagli</p>
           </Link>
+          <p>Ordini totali: {user.orders.length}</p>
+          <p>{user.firstName} {user.lastName}</p>
+          <p>{user.email}</p>
           {/* <Link href={`/admin/utenti/${user._id}`}>Dettagli</Link> */}
         </div>
       )
@@ -56,9 +78,45 @@ const UsersList = () => {
   }
 
   return (
-    <div>
-      <h1>Utenti</h1>
+    <div className="body">
+      <Link href='/admin/private' as={`/admin/private`}>
+          <p className="link-btn"> Back to private area</p>
+      </Link>
+      <div className="container"><h1>Utenti</h1></div>
+      <div className="container">
+        <p className="titles">Email</p>
+        <p className="titles">Nome</p>
+        <p className="titles">Ordini</p>
+        <p className="titles">> Dettagli</p>
+      </div>
       {displayUsers()}
+      <style jsx>{`
+        .body{
+          justify-content: center;
+          margin: 0 5vw;
+        }
+        .container {
+          display: flex;
+          justify-content: center;
+        }
+        .titles{
+          width: 245px;
+          text-align: center;
+          font-size: 20px;
+          color: rgb(140, 43, 47);
+        }
+        .container {
+          position: relative;
+          top: 10px
+        }
+        .link-btn{
+          color: rgb(140, 43, 47);
+          font-weight: 500 !important;
+          display: block
+          margin-left: 5vw;
+        }
+  `   }</style>
+
     </div>
   )
 }
