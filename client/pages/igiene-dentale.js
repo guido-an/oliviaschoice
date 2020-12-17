@@ -1,0 +1,107 @@
+import React, { useState, useEffect } from 'react'
+import PageTitle from '../components/categories/PageTitle'
+import ProductsList from '../components/categories/ProductsList'
+import Footer from '../components/Footer'
+import { filterByCategory, service, onCategoryChange } from '../components/categories/helpersFunctions/helpersFunctions'
+
+const IgieneDentale = () => {
+  const [products, setProducts] = useState([])
+  const [productsToDisplay, setProductsToDisplay] = useState([])
+  const [categoriesSelected, setCategoriesSelected] = useState([])
+
+  //   Start subcategories
+  const [compressePulenti, setCompressePulenti] = useState([])
+  const [cuscinetti, setCuscinetti] = useState([])
+  const [pastaAdesiva, setPastaAdesiva] = useState([])
+  const [scovolini, setScovolini] = useState([])
+  const [spazzolini, setSpazzolini] = useState([])
+  const [accessori, setAccessori] = useState([])
+  const [colluttorio, setColluttorio] = useState([])
+  const [dentifricio, setDentifricio] = useState([])
+  const [filoInterdentale, setFiloInterdentale] = useState([])
+  //   End subcategories
+
+  const categories = ['Compresse pulenti', 'Cuscinetti', 'Pasta adesiva', 'Scovolini', 'Spazzolini', 'Accessori', 'Colluttorio', 'Dentifricio', 'Filo interdentale']
+
+  useEffect(() => {
+    async function getProducts () {
+      try {
+        const response = await service.get('/api/category-products/6')
+        setProducts(response.data)
+        setCompressePulenti(filterByCategory(response.data, '6.1'))
+        setCuscinetti(filterByCategory(response.data, '6.2'))
+        setPastaAdesiva(filterByCategory(response.data, '6.3'))
+        setScovolini(filterByCategory(response.data, '6.4'))
+        setSpazzolini(filterByCategory(response.data, '6.5'))
+        setAccessori(filterByCategory(response.data, '6.6'))
+        setColluttorio(filterByCategory(response.data, '6.7'))
+        setDentifricio(filterByCategory(response.data, '6.8'))
+        setFiloInterdentale(filterByCategory(response.data, '6.9'))
+        const newArray = products.filter(product => {
+          if (categoriesSelected.includes(product.category)) {
+            return product
+          }
+        })
+        setProductsToDisplay(newArray)
+      } catch (e) {
+        console.error(e)
+      }
+    }
+    // Execute the created function directly
+    getProducts()
+  }, [categoriesSelected])
+
+  return (
+    <div>
+      <PageTitle
+        title='Igiene dentale'
+        subtitle='Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, alias.'
+      />      
+      <div className="category-page-container">    
+        <div className='wrapper-categories'>
+        {/* name to be changed for each category */}
+          {categories.map((category, i = 1) => {
+            return (
+            <div key={i} className='input-wrapper'>
+              <div className='switch'>
+                <input
+                  onChange={(e) => onCategoryChange(e, setCategoriesSelected, categoriesSelected)}
+                  name={`6.${i + 1}`}
+                  id={`switch-${i +1}`}
+                  type='checkbox'
+                  className='switch-input'
+                />
+                <label htmlFor={`switch-${i + 1}`} className='switch-label'>
+                  {category}
+                </label>
+              </div>
+              <div>
+                  <p className="category-name">{category}</p>
+              </div>
+           </div>
+            )
+          })}
+        </div>
+           {categoriesSelected.length < 1 ? 
+            <ProductsList products={products}/> 
+            :
+            <ProductsList products={productsToDisplay}/>
+           }
+       </div>
+      <Footer/>
+           <style jsx>{`
+             @media(min-width: 969px){
+              .wrapper-categories {
+                 margin: 0 10px;
+                 display: flex;
+                 overflow-x: scroll;
+                }
+                .input-wrapper {
+                   padding-right: 60px;
+               }
+             }             
+          `}</style>  
+    </div>
+  )
+}
+export default IgieneDentale

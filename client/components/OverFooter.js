@@ -1,4 +1,4 @@
-import ButtonWhite from '../components/helpers/ButtonWhite'
+import ButtonWhite from './helpersComponent/ButtonWhite'
 
 const OverFooter = () => {
   return (
@@ -14,7 +14,7 @@ const OverFooter = () => {
       <style jsx>{`
           .overfooter {
             margin-top: 140px;
-            padding: 40px 10px 60px;
+            padding: var(--container-padding);
             background-color: #8c2b2f;
           }
             h2, span, p {
@@ -29,8 +29,7 @@ const OverFooter = () => {
 
           @media(min-width: 968px){
             .overfooter {
-                padding: 60px 80px 80px;
-                margin: 120px 85px;
+                margin: var(--container-margin);
                 border-radius: 4px;
                 margin-bottom: 40px;
                 box-shadow: 0px 5px 15px 5px rgba(0,0,0,0.4);
