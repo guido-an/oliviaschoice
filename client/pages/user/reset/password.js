@@ -1,3 +1,4 @@
+
 import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
@@ -15,9 +16,7 @@ const Product = () => {
   const handleSubmit = async e => {
     e.preventDefault()
     try {
-      const response = await service.post(`${process.env.APP_API}/auth/forgotpasswordResponse`, { email })
-      console.log('test', response)
-      debugger
+     const response = await service.post(`${process.env.APP_API}/auth/forgotpasswordResponse`,{email})
     } catch (err) {
       console.log(err)
     }

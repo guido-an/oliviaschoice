@@ -18,7 +18,7 @@ router.get('/orders', checkIfAdmin, async (req, res) => {
   }
 })
 
-router.get('/list-of-users', checkIfAdmin, async (req, res) => {
+router.get('/list-of-users', async (req, res) => {
   try {
     const users = await User.find()
     res.status(200).json({ users })
