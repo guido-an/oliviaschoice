@@ -7,5 +7,5 @@ module.exports = withImages({
     APP_API: process.env.APP_API,
     STRIPE_PK: process.env.STRIPE_PK
   },
-  target: 'experimental-serverless-trace'
+  target: 'serverless'
 })
