@@ -16,13 +16,12 @@ const Navbar = ({ user }) => {
 
   const listenScrollEvent = () => {
     if (window.scrollY > 200) {
-      // Scroll check / you can define your scroll in pixels eg.200
-      setScroll(true) // if windowScroll to predifined position setState 'true'
+      setScroll(true)
     } else {
-      setScroll(false) // if windowNOTScrolled or set back to its starting postion setState 'false'
+      setScroll(false)
     }
   }
-
+  console.log(mobileMenu, 'mobile menu')
   useEffect(() => {
     window.addEventListener('scroll', listenScrollEvent) // add event listner
   })
@@ -82,9 +81,9 @@ const Navbar = ({ user }) => {
         <div className='mobile-menu'>
           {mobileMenu &&
             <ul>
-              <li><Link href='/'><a>Home</a></Link></li>
-              <li><Link href='/chi-siamo'><a>Chi siamo</a></Link></li>
-              <li><Link href='/offerta'><a>Offerta</a></Link></li>
+              <li onClick={() => setMobileMenu(false)}><Link href='/'><a>Home</a></Link></li>
+              <li onClick={() => setMobileMenu(false)}><Link href='/chi-siamo'><a>Chi siamo</a></Link></li>
+              <li onClick={() => setMobileMenu(false)}><Link href='/offerta'><a>Offerta</a></Link></li>
               <li onClick={() => setDropDownMenu((dropDownMenu = !dropDownMenu))}><Link href='#'><a>Prodotti</a></Link></li>
               {dropDownMenu && (
                 <div className='submenu' onClick={() => setMobileMenu(false)}>
@@ -100,10 +99,12 @@ const Navbar = ({ user }) => {
                   <Link href='/integratori'><p>Integratori</p></Link>
                 </div>
               )}
-              <li><Link href='/faq'><a>Faq</a></Link></li>
-              <li style={{
-                marginBottom: '20px'
-              }}
+              <li onClick={() => setMobileMenu(false)}><Link href='/faq'><a>Faq</a></Link></li>
+              <li
+                onClick={() => setMobileMenu(false)}
+                style={{
+                  marginBottom: '20px'
+                }}
               ><Link href='/contatti'><a>Contatti</a></Link>
               </li>
               {!user
@@ -114,7 +115,7 @@ const Navbar = ({ user }) => {
                 : <div>
                   <img className='user-icon' src={userIcon} alt='user-icon' />
                   <Link href='/user/profilo'>
-                    <a className='profile-link'>Il mio account</a>
+                    <a onClick={() => setMobileMenu(false)} className='profile-link'>Il mio account</a>
                   </Link>
                   </div>}
 
@@ -155,16 +156,16 @@ const Navbar = ({ user }) => {
       </nav>
       {dropDownMenuDesktop && (
         <div className='submenu-desktop' onMouseEnter={() => setDropDownMenuDesktop(true)}>
-          <Link href='/elettromedicali'><p>Elettromedicali</p></Link>
-          <Link href='/mamma-e-bimbo'><p>Mamma e bimbo</p></Link>
-          <Link href='/gioielli-anallergici'><p>Gioielli anallergici</p></Link>
-          <Link href='/igiene-e-cosmesi'><p>Igiene e cosmesi</p></Link>
-          <Link href='/viso-e-capelli'><p>Viso e capelli</p></Link>
-          <Link href='/igiene-dentale'><p>Igiene dentale</p></Link>
-          <Link href='/emergenza-covid'><p>Emergenza covid</p></Link>
-          <Link href='/benessere-occhi'><p>Benessere occhi</p></Link>
-          <Link href='/articoli-sanitari'><p>Articoli sanitari</p></Link>
-          <Link href='/integratori'><p>Integratori</p></Link>
+          <Link href='/elettromedicali'><p onClick={() => setDropDownMenuDesktop(false)}>Elettromedicali</p></Link>
+          <Link href='/mamma-e-bimbo'><p onClick={() => setDropDownMenuDesktop(false)}>Mamma e bimbo</p></Link>
+          <Link href='/gioielli-anallergici'><p onClick={() => setDropDownMenuDesktop(false)}>Gioielli anallergici</p></Link>
+          <Link href='/igiene-e-cosmesi'><p onClick={() => setDropDownMenuDesktop(false)}>Igiene e cosmesi</p></Link>
+          <Link href='/viso-e-capelli'><p onClick={() => setDropDownMenuDesktop(false)}>Viso e capelli</p></Link>
+          <Link href='/igiene-dentale'><p onClick={() => setDropDownMenuDesktop(false)}>Igiene dentale</p></Link>
+          <Link href='/emergenza-covid'><p onClick={() => setDropDownMenuDesktop(false)}>Emergenza covid</p></Link>
+          <Link href='/benessere-occhi'><p onClick={() => setDropDownMenuDesktop(false)}>Benessere occhi</p></Link>
+          <Link href='/articoli-sanitari'><p onClick={() => setDropDownMenuDesktop(false)}>Articoli sanitari</p></Link>
+          <Link href='/integratori'><p onClick={() => setDropDownMenuDesktop(false)}>Integratori</p></Link>
         </div>
       )}
       <style jsx>{`

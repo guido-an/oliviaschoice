@@ -74,6 +74,10 @@ const MammaEBimbo = () => {
             )
           })}
         </div>
+        {/* End categories wrapper */}
+        {categoriesSelected.length < 1
+          ? <p className='total-filtered-products'>{products.length} prodotti</p>
+          : <p className='total-filtered-products'>{productsToDisplay.length} prodotti</p>}
         {categoriesSelected.length < 1
           ? <ProductsList products={products} />
           : <ProductsList products={productsToDisplay} />}
@@ -88,6 +92,12 @@ const MammaEBimbo = () => {
                 }
                 .input-wrapper {
                    padding-right: 60px;
+               }
+               .total-filtered-products {
+                 position: relative;
+                 bottom: 40px;
+                 position: relative;
+                 left: 10px
                }
              }             
           `}

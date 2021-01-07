@@ -10,7 +10,7 @@ const Elettromedicali = () => {
   const [products, setProducts] = useState([])
   const [productsToDisplay, setProductsToDisplay] = useState([])
   const [categoriesSelected, setCategoriesSelected] = useState([])
-  const [totalProducts, setTotalProducts] = useState(false)
+  // const [totalProducts, setTotalProducts] = useState(false)
 
   //   Start subcategories
   const [accessoriAerosol, setAccessoriAerosol] = useState([])
@@ -24,7 +24,7 @@ const Elettromedicali = () => {
   const [misuratoriDiPressione, setMisuratoriDiPressione] = useState([])
   const [termometri, setTermometri] = useState([])
   //   End subcategories
-
+  console.log(products.length, 'produtct')
   const categories = ['Accessori Aerosol', 'Accessori Caraffa', 'Idropulsori', 'Accessori Idropulsori', 'Accessori Misuratori Di Pressione', 'Bilance', 'Caraffa', 'Misuratori Di Pressione', 'Termometri']
 
   useEffect(() => {
@@ -81,8 +81,11 @@ const Elettromedicali = () => {
               <div><p className='category-name'>{category}</p></div>
             </div>
           })}
-
         </div>
+        {/* End categories wrapper */}
+        {categoriesSelected.length < 1
+          ? <p className='total-filtered-products'>{products.length} prodotti</p>
+          : <p className='total-filtered-products'>{productsToDisplay.length} prodotti</p>}
         {categoriesSelected.length < 1
           ? <ProductsList products={products} />
           : <ProductsList products={productsToDisplay} />}
@@ -97,6 +100,13 @@ const Elettromedicali = () => {
                 }
                 .input-wrapper {
                    padding-right: 60px;
+               }
+               .total-filtered-products {
+                 position: relative;
+                 bottom: 40px;
+                 position: relative;
+                 left: 10px
+                
                }
              }             
           `}
