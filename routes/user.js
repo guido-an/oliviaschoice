@@ -28,8 +28,7 @@ router.get('/order/:id', async (req, res) => {
 })
 
 router.post('/update', async (req, res) => {
-  const { firstName, lastName, telephone, email, password, VAT, streetAddress, city, province, zipCode } = req.body
-  console.log(password, 'password')
+  const { firstName, lastName, telephone, email, VAT, streetAddress, city, province, zipCode } = req.body
   const updatedShippingInfo = {
     streetAddress,
     city,
@@ -45,39 +44,17 @@ router.post('/update', async (req, res) => {
   req.session.currentUser.shippingInfo = updatedShippingInfo
 
   try {
-    let newPassword = req.session.currentUser.password
-
-    // otherwise was encrypting also the password as empty string
-    if (req.session.currentUser.password !== password) {
-      const salt = bcrypt.genSaltSync(bcryptSalt)
-      const hashPass = bcrypt.hashSync(password, salt)
-      newPassword = hashPass
-      req.session.currentUser.password = hashPass
-    }
-
     await User.findByIdAndUpdate({ _id: req.session.currentUser._id },
       {
         firstName,
         lastName,
         email,
         telephone,
-        password: newPassword,
         VAT,
         shippingInfo: updatedShippingInfo
       })
     res.status(200).json({ message: 'User profile updated' })
-  }
-
-  // try {
-  //   await User.findByIdAndUpdate({ _id: req.session.currentUser._id },
-  //     {
-  //       firstName,
-  //       lastName,
-  //       email
-  //     })
-  //   res.status(200).json({ message: 'User profile updated' })
-  // }
-  catch (e) {
+  } catch (e) {
     console.error(e)
   }
 })

@@ -41,7 +41,7 @@ router.post('/signup', (req, res, next) => {
     newUser.save()
       .then(() => {
         req.session.currentUser = newUser
-        res.status(200).json(newUser)
+        res.status(200).json({ currentUser: newUser })
       })
       .catch(err => {
         res.status(400).send({ message: 'Qualcosa è andato storto' })
