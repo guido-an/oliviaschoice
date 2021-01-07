@@ -43,6 +43,7 @@ const Ordini = () => {
           </Link>
         </div>
       })}
+      {orders.length === 0 && <p>Ancora non è stato effettuato nessun ordine.</p>}
 
     </div>
   )

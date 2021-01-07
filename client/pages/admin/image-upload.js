@@ -1,6 +1,6 @@
-import React from "react";
-import ImageUploading from "react-images-uploading";
-import storage from "../../firebase/index";
+import React from 'react'
+import ImageUploading from 'react-images-uploading'
+import storage from '../../firebase/index'
 import axios from 'axios'
 import Link from 'next/link'
 
@@ -9,56 +9,54 @@ const service = axios.create({
   withCredentials: true
 })
 
-useEffect(() => {
-  // Create an scoped async function in the hook
-  async function checkIfAdmin () {
-    try {
-      const res = await service.get('/admin/get-admin')
-      if (res.data.admin) {
-        setProceed(true)
-      } else {
-        router.push('/')
-      }
-    } catch (e) {
-      console.log(e)
-    }
-  }
-  // Execute the created function directly
-  checkIfAdmin()
-}, [])
-
 const imageUpload = () => {
-  const [images, setImages] = React.useState([]);
-  const maxNumber = 1000;
+  const [images, setImages] = React.useState([])
+  const maxNumber = 1000
 
   const onChange = (imageList) => {
-    setImages(imageList);
-  };
+    setImages(imageList)
+  }
+  React.useEffect(() => {
+    // Create an scoped async function in the hook
+    async function checkIfAdmin () {
+      try {
+        const res = await service.get('/admin/get-admin')
+        if (res.data.admin) {
+          setProceed(true)
+        } else {
+          router.push('/')
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    // Execute the created function directly
+    checkIfAdmin()
+  }, [])
 
   const onImageSave = (e) => {
     // data for submit
-    
+
     const saveImages = images
     saveImages.forEach(image => {
-        handleUpload(image)
-      })
-  };
+      handleUpload(image)
+    })
+  }
 
   const putImageOnProduct = async (url, name) => {
     const response = await service.post('/api/product/update', {
-        url: url,
-        name:name
-      })
-
+      url: url,
+      name: name
+    })
   }
 
   const handleUpload = imageToUpload => {
     if (imageToUpload) {
-      const image = imageToUpload.file;
-      const uploadTask = storage.ref(`images/${image.name}`).put(image);
+      const image = imageToUpload.file
+      const uploadTask = storage.ref(`images/${image.name}`).put(image)
       uploadTask.on(
-        "state_changed",
-       /*  snapshot => {
+        'state_changed',
+        /*  snapshot => {
           // progress function ...
           const progress = Math.round(
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100
@@ -72,16 +70,16 @@ const imageUpload = () => {
         () => {
           // complete function ...
           storage
-            .ref("images")
+            .ref('images')
             .child(image.name)
             .getDownloadURL()
             .then(url => {
-                putImageOnProduct(url, image.name)
-            });
+              putImageOnProduct(url, image.name)
+            })
         }
-      );
+      )
     }
-  };
+  }
 
   return (
     <div>
@@ -170,17 +168,18 @@ const imageUpload = () => {
                   border-radius: 10px;
                   font-size: 20px;
               }
-  `       }</style>
-      <div className="upload-block">
-        <Link href='/admin/private' as={`/admin/private`}>
-            <p className="link-btn"> Back to private area</p>
+  `}
+      </style>
+      <div className='upload-block'>
+        <Link href='/admin/private' as='/admin/private'>
+          <p className='link-btn'> Back to private area</p>
         </Link>
         <ImageUploading
           multiple
           value={images}
           onChange={onChange}
           maxNumber={maxNumber}
-          dataURLKey="data_url"
+          dataURLKey='data_url'
         >
           {({
             imageList,
@@ -191,34 +190,34 @@ const imageUpload = () => {
             dragProps
           }) => (
             // write your building UI
-            <div className="upload__image-wrapper">
+            <div className='upload__image-wrapper'>
               <button
-              className="upload-btn"
-                style={isDragging ? { color: "red" } : undefined}
+                className='upload-btn'
+                style={isDragging ? { color: 'red' } : undefined}
                 onClick={onImageUpload}
                 {...dragProps}
               >
                 Click or Drop here the images
               </button>
               &nbsp;
-              <button className="remove-btn" onClick={onImageRemoveAll}>Remove all images</button>
+              <button className='remove-btn' onClick={onImageRemoveAll}>Remove all images</button>
               {imageList.map((image, index) => (
-                <div key={index} className="image-item">
+                <div key={index} className='image-item'>
                   <p>{image.name}</p>
-                  <div className="image-item__btn-wrapper">
-                    <button className="remove-image" onClick={() => onImageRemove(index)}>X</button>
+                  <div className='image-item__btn-wrapper'>
+                    <button className='remove-image' onClick={() => onImageRemove(index)}>X</button>
                   </div>
-                  <img src={image["data_url"]} alt="" width="100" />             
+                  <img src={image.data_url} alt='' width='100' />
                 </div>
               ))}
             </div>
           )}
         </ImageUploading>
-        <button className="save-btn" onClick={() => onImageSave()}>Save</button> 
+        <button className='save-btn' onClick={() => onImageSave()}>Save</button>
       </div>
-      
+
     </div>
-  );
+  )
 }
 
 export default imageUpload

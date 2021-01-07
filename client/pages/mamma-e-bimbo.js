@@ -68,16 +68,15 @@ const MammaEBimbo = () => {
                   </label>
                 </div>
                 <div>
-                <p className='category-name'>{category}</p>
+                  <p className='category-name'>{category}</p>
                 </div>
               </div>
             )
           })}
         </div>
-        {categoriesSelected.length < 1 
-            ? <ProductsList products={products} />
-          :
-          <ProductsList products={productsToDisplay} />}
+        {categoriesSelected.length < 1
+          ? <ProductsList products={products} />
+          : <ProductsList products={productsToDisplay} />}
       </div>
       <Footer />
       <style jsx>{`
@@ -92,7 +91,7 @@ const MammaEBimbo = () => {
                }
              }             
           `}
-           </style>
+      </style>
     </div>
   )
 }

@@ -14,10 +14,12 @@ export const onCategoryChange = (e, updateState, array) => {
   const { name } = e.target
   if (e.target.checked) {
     updateState([...array, name])
+    console.log(array, 'array')
   } else {
     const newArray = array.filter(category => {
       return category !== name
     })
+    console.log(newArray, 'newArray')
     updateState(newArray)
   }
 }

@@ -11,6 +11,8 @@ import { CartContext } from '../contexts/CartContext'
 const Navbar = ({ user }) => {
   const [mobileMenu, setMobileMenu] = useState(false)
   const [scroll, setScroll] = useState(false) // stateCheck for Scroll
+  let [dropDownMenu, setDropDownMenu] = useState(false)
+  let [dropDownMenuDesktop, setDropDownMenuDesktop] = useState(false)
 
   const listenScrollEvent = () => {
     if (window.scrollY > 200) {
@@ -27,118 +29,144 @@ const Navbar = ({ user }) => {
 
   const { productsInCart } = useContext(CartContext)
 
-  const closeMobileMenuOnClik = () => {
-    if (mobileMenu) {
-      setMobileMenu(false)
-    }
-  }
   return (
-    <nav className='navbar'>
-      <div className='navbar-top-mobile'>
-        <Link href='/'>
-          {!scroll
-            ? <img
-              className='logo'
-              src={logoMobile}
-              alt='logo-olivias-choice-mobile'
+    <div>
+      <nav className='navbar'>
+        <div className='navbar-top-mobile'>
+          <Link href='/'>
+            {!scroll
+              ? <img
+                className='logo'
+                src={logoMobile}
+                alt='logo-olivias-choice-mobile'
               />
-            : <img
-              style={{
-                marginTop: '10px'
-              }}
-              className='logo'
-              src={ocLogo}
-              alt='logo-olivias-choice-iniziali'
-              width='152px'
-              height='57px'
+              : <img
+                style={{
+                  marginTop: '10px'
+                }}
+                className='logo'
+                src={ocLogo}
+                alt='logo-olivias-choice-iniziali'
+                width='152px'
+                height='57px'
               />}
 
-        </Link>
-        <div className='burger-icon-container'>
-          <NavBarSearch />
-          <Link href='/carrello'>
-            <img
-              className='cart-icon-mobile'
-              width='20px'
-              height='20px'
-              src={cartIcon}
+          </Link>
+          <div className='burger-icon-container'>
+            <NavBarSearch />
+            <Link href='/carrello'>
+              <img
+                className='cart-icon-mobile'
+                width='20px'
+                height='20px'
+                src={cartIcon}
+              />
+            </Link>
+            <div className='products-in-cart'>
+              <Link href='/carrello'><a>{productsInCart ? productsInCart.length : 0}</a></Link>
+            </div>
+
+            <HamburgerMenu
+              isOpen={mobileMenu}
+              menuClicked={() => setMobileMenu(!mobileMenu)}
+              width={30}
+              height={18}
+              strokeWidth={3}
+              rotate={0}
+              color='#222'
+              borderRadius={0}
+              animationDuration={0.3}
             />
+          </div>
+        </div>
+        <div className='mobile-menu'>
+          {mobileMenu &&
+            <ul>
+              <li><Link href='/'><a>Home</a></Link></li>
+              <li><Link href='/chi-siamo'><a>Chi siamo</a></Link></li>
+              <li><Link href='/offerta'><a>Offerta</a></Link></li>
+              <li onClick={() => setDropDownMenu((dropDownMenu = !dropDownMenu))}><Link href='#'><a>Prodotti</a></Link></li>
+              {dropDownMenu && (
+                <div className='submenu' onClick={() => setMobileMenu(false)}>
+                  <Link href='/elettromedicali'><p>Elettromedicali</p></Link>
+                  <Link href='/mamma-e-bimbo'><p>Mamma e bimbo</p></Link>
+                  <Link href='/gioielli-anallergici'><p>Gioielli anallergici</p></Link>
+                  <Link href='/igiene-e-cosmesi'><p>Igiene e cosmesi</p></Link>
+                  <Link href='/viso-e-capelli'><p>Viso e capelli</p></Link>
+                  <Link href='/igiene-dentale'><p>Igiene dentale</p></Link>
+                  <Link href='/emergenza-covid'><p>Emergenza covid</p></Link>
+                  <Link href='/benessere-occhi'><p>Benessere occhi</p></Link>
+                  <Link href='/articoli-sanitari'><p>Articoli sanitari</p></Link>
+                  <Link href='/integratori'><p>Integratori</p></Link>
+                </div>
+              )}
+              <li><Link href='/faq'><a>Faq</a></Link></li>
+              <li style={{
+                marginBottom: '20px'
+              }}
+              ><Link href='/contatti'><a>Contatti</a></Link>
+              </li>
+              {!user
+                ? <span>
+                  <img className='user-icon' src={userIcon} alt='user-icon' />
+                  <Link href='/login'><a className='profile-link'>Accedi</a></Link> <span>|</span> <Link href='/signup'><a className='profile-link'>Registrati</a></Link>
+                  </span>
+                : <div>
+                  <img className='user-icon' src={userIcon} alt='user-icon' />
+                  <Link href='/user/profilo'>
+                    <a className='profile-link'>Il mio account</a>
+                  </Link>
+                  </div>}
+
+            </ul>}
+        </div>
+        <div onMouseEnter={() => setDropDownMenuDesktop(false)} onClick={() => setDropDownMenuDesktop(dropDownMenuDesktop = !dropDownMenuDesktop)} className='desktop-menu'>
+          <ul>
+            <li><Link href='/'><a>Home</a></Link></li>
+            <li><Link href='/chi-siamo'><a>Chi siamo</a></Link></li>
+            <li><Link href='/offerta'><a>Offerta</a></Link></li>
+            <li className='prodotti-menu-item' onMouseEnter={() => setDropDownMenuDesktop(true)}><Link href='#'><a>Prodotti</a></Link></li>
+            <li><Link href='/faq'><a>Faq</a></Link></li>
+            <li><Link href='/contatti'><a>Contatti</a></Link></li>
+          </ul>
+        </div>
+
+        <div className='icons-desktop-right'>
+          <div className='search-bar-desktop'>
+            <NavBarSearch />
+          </div>
+          <div>
+            <Link href='/user/profilo'><a><img src={userIcon} /></a></Link>
+          </div>
+          <Link href='/carrello'>
+            <a>
+              <img
+                className='cart-icon-desktop'
+                src={cartIcon}
+                width='20px'
+                height='20px'
+              />
+            </a>
           </Link>
           <div className='products-in-cart'>
             <Link href='/carrello'><a>{productsInCart ? productsInCart.length : 0}</a></Link>
           </div>
-
-          <HamburgerMenu
-            isOpen={mobileMenu}
-            menuClicked={() => setMobileMenu(!mobileMenu)}
-            width={30}
-            height={18}
-            strokeWidth={3}
-            rotate={0}
-            color='#222'
-            borderRadius={0}
-            animationDuration={0.3}
-          />
         </div>
-      </div>
-      <div className='mobile-menu'>
-        {mobileMenu &&
-          <ul onClick={closeMobileMenuOnClik}>
-            <li><Link href='/'><a>Home</a></Link></li>
-            <li><Link href='/chi-siamo'><a>Chi siamo</a></Link></li>
-            <li><Link href='/offerta'><a>Offerta</a></Link></li>
-            <li><Link href='#'><a>Prodotti</a></Link></li>
-            <li><Link href='/faq'><a>Faq</a></Link></li>
-            <li style={{
-              marginBottom: '20px'
-            }}
-            ><Link href='/contatti'><a>Contatti</a></Link>
-            </li>
-            {!user
-              ? <span>
-                <img className='user-icon' src={userIcon} alt='user-icon' />
-                <Link href='/login'><a className='profile-link'>Accedi</a></Link> <span>|</span> <Link href='/signup'><a className='profile-link'>Registrati</a></Link>
-              </span>
-              : <div>
-                <img className='user-icon' src={userIcon} alt='user-icon' />
-                <Link href='/user/profilo'>
-                  <a className='profile-link'>Il mio account</a>
-                </Link>
-              </div>}
-
-          </ul>}
-      </div>
-      <div className='desktop-menu'>
-        <ul>
-          <li><Link href='/'><a>Home</a></Link></li>
-          <li><Link href='/chi-siamo'><a>Chi siamo</a></Link></li>
-          <li><Link href='/offerta'><a>Offerta</a></Link></li>
-          <li><Link href='/#'><a>Prodotti</a></Link></li>
-          <li><Link href='/faq'><a>Faq</a></Link></li>
-          <li><Link href='/contatti'><a>Contatti</a></Link></li>
-        </ul>
-      </div>
-      <div className='icons-desktop-right'>
-        <div className='search-bar-desktop'>
-          <NavBarSearch />
+      </nav>
+      {dropDownMenuDesktop && (
+        <div className='submenu-desktop' onMouseEnter={() => setDropDownMenuDesktop(true)}>
+          <Link href='/elettromedicali'><p>Elettromedicali</p></Link>
+          <Link href='/mamma-e-bimbo'><p>Mamma e bimbo</p></Link>
+          <Link href='/gioielli-anallergici'><p>Gioielli anallergici</p></Link>
+          <Link href='/igiene-e-cosmesi'><p>Igiene e cosmesi</p></Link>
+          <Link href='/viso-e-capelli'><p>Viso e capelli</p></Link>
+          <Link href='/igiene-dentale'><p>Igiene dentale</p></Link>
+          <Link href='/emergenza-covid'><p>Emergenza covid</p></Link>
+          <Link href='/benessere-occhi'><p>Benessere occhi</p></Link>
+          <Link href='/articoli-sanitari'><p>Articoli sanitari</p></Link>
+          <Link href='/integratori'><p>Integratori</p></Link>
         </div>
-        <div>
-          <Link href='/user/profilo'><a><img src={userIcon} /></a></Link>
-        </div>
-        <Link href='/carrello'>
-          <a>
-            <img
-              className='cart-icon-desktop'
-              src={cartIcon}
-              width='20px'
-              height='20px'
-            />
-          </a>
-        </Link>
-        <div className='products-in-cart'>
-          <Link href='/carrello'><a>{productsInCart ? productsInCart.length : 0}</a></Link>
-        </div>
-      </div>
+      )}
       <style jsx>{`
 
               .desktop-menu, .icons-desktop-right {
@@ -151,7 +179,7 @@ const Navbar = ({ user }) => {
                  width: 100%;
                  padding: 10px 10px;
                  background-color: #fff;
-                 z-index: 99;
+                 z-index: 90;
               
                }
                .logo {
@@ -185,6 +213,11 @@ const Navbar = ({ user }) => {
                   border-bottom: 2px solid #8c2b2f
                 }
 
+                .submenu p {
+                  padding-left: 10px;
+                  line-height: 15px
+                }
+
                 .user-icon {
                   margin-right: 10px;
                   top: 2px;
@@ -215,7 +248,6 @@ const Navbar = ({ user }) => {
                     color: #fff;
                   }
 
-        
                 @media(min-width: 1295px){
                   .burger-icon-container, mobile-menu {
                     display: none
@@ -276,10 +308,26 @@ const Navbar = ({ user }) => {
                     right: 30px 
                   }
                   
+                  .submenu-desktop {
+                    z-index: 99;
+                    position: fixed;
+                    background-color: #fff;
+                    border-radius: 4px;
+                    box-shadow: 0px 2px 7px 3px rgba(0,0,0,0.2);
+                    padding: 10px 20px;
+                    top: 60px;
+                    left: 42vw;
+                  }
+
+                  .submenu-desktop p:hover {
+                    color: #222;
+                    cursor: pointer
+                  }
                 }
             `}
       </style>
-    </nav>
+
+    </div>
   )
 }
 export default Navbar

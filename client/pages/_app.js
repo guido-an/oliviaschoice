@@ -1,6 +1,6 @@
 import React from 'react'
 import App from 'next/app'
-import Layout from '../components/Layout'
+import Layout from '../components/layout'
 import UserContextProvider from '../contexts/UserContext'
 import CartContextProvider from '../contexts/CartContext'
 import ProductContextProvider from '../contexts/ProductContext'

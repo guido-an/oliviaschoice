@@ -38,6 +38,7 @@ const Checkout = () => {
     }
   }
   const createOrder = async () => {
+    console.log('creating order')
     const shippingInfo = {
       firstName: form.firstName || user.firstName,
       lastName: form.lastName || user.lastName,
