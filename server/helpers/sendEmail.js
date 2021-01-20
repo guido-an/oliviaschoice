@@ -1,24 +1,33 @@
 const nodemailer = require('nodemailer')
+const templates = require('../templates/template')
 
-function sendEmail () {
+function sendEmail (order) {
+  let totalProducts
+
+  const test = order.productsInCart.forEach(product => {
+    totalProducts += `<p>${product.name}</p>`
+  })
   console.log('SENDING EMAIL')
   const transporter = nodemailer.createTransport({
-    host: 'hostingssd12.netsons.net',
+    host: 'hostingweb31.netsons.net',
     port: 465,
     secure: true, // use TLS
     auth: {
-      user: process.env.NODEMAILER_EMAIL,
+      user: 'info@oliviaschoice.it',
       pass: process.env.NODEMAILER_PSW
     }
   })
 
   transporter.sendMail({
     // email to the USER
-    from: process.env.NODEMAILER_EMAIL,
+    from: 'info@oliviaschoice.it',
     to: 'carucciguido@gmail.com',
-    subject: 'new email',
+    subject: 'Grazie per il tuo ordine',
     text: '',
-    html: 'message'
+    html: templates.templateExample('thanks bla bla bla', totalProducts)
+  }, (error, result) => {
+    if (error) return console.error(error)
+    return console.log(result)
   })
 }
 

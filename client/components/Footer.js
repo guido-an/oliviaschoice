@@ -25,7 +25,7 @@ const Footer = () => {
         </div>
         <div className='footer-info-container'>
           <h3>Credits</h3>
-          <p className='footer-info'><a href='#'>Vanilla Marketing</a></p>
+          <p className='footer-info'><a href='https://www.vanillamarketing.it'>Vanilla Marketing</a></p>
         </div>
       </div>
       <style jsx>{`
