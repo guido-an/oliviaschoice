@@ -18,10 +18,33 @@ const Pagamento = () => {
 
   return (
     <div>
-      <h1>Pagamento: {totalPrice}</h1>
+      <div className="values">
+          <h2>Pagamento</h2>
+        </div>
       <Elements stripe={promise}>
         <CheckoutForm />
       </Elements>
+      <h4 className="total">Pagamento: {totalPrice}</h4>
+      <style jsx>{`
+        .values {
+          margin-top: 140px;
+          padding: 40px 10px 60px;
+          background-color: #8c2b2f;
+          text-align: center;
+      }
+        .values h2  {
+          color: #fff
+      } 
+      .total  {
+        color: #222;
+        font-weight: 500;
+        right: 12vw;
+        position: absolute;
+        top: 530px;
+    } 
+        
+        `}
+      </style>
     </div>
   )
 }

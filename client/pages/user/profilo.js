@@ -57,9 +57,7 @@ const Profilo = () => {
     }
   }
 
-  if (!proceed) {
-    return <p />
-  }
+
 
   return (
     <div>

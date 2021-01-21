@@ -89,8 +89,8 @@ export default function CheckoutForm () {
     // end
   }
   return (
-    <form id='payment-form' onSubmit={handleSubmit}>
-      <CardElement id='card-element' options={cardStyle} onChange={handleChange} />
+    <form className="container" id='payment-form' onSubmit={handleSubmit}>
+      <CardElement className="card"id='card-element' options={cardStyle} onChange={handleChange} />
       <button
         disabled={processing || disabled || succeeded}
         id='submit'
@@ -119,6 +119,31 @@ export default function CheckoutForm () {
           Stripe dashboard.
         </a> Refresh the page to pay again.
       </p>
+      <style jsx>{`
+        button {
+          background-color: #8c2b2f;;
+          color: #fff;
+          border-radius: 4px;
+          border: 1px solid #8c2b2f;;
+          cursor: pointer;
+          height: 40px;
+          width: 180px;
+          margin-top: 30px;
+          letter-spacing: 0.2px;
+          box-shadow: 0px 4px 10px 0 rgba(0,0,0,0.3);
+        }
+        .container{
+          padding: 60px 80px 80px;
+          margin: 120px 85px;
+        }
+
+        .card{
+          width: 60vw;
+        }
+        
+        `}
+      </style>
+
     </form>
   )
 }
