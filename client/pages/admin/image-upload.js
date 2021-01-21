@@ -1,6 +1,6 @@
-import React from 'react'
-import ImageUploading from 'react-images-uploading'
-import storage from '../../firebase/index'
+import React, { useEffect, useState } from 'react'
+import ImageUploading from "react-images-uploading";
+import storage from "../../firebase/index";
 import axios from 'axios'
 import Link from 'next/link'
 
@@ -10,8 +10,26 @@ const service = axios.create({
 })
 
 const imageUpload = () => {
-  const [images, setImages] = React.useState([])
-  const maxNumber = 1000
+  const [images, setImages] = React.useState([]);
+  const maxNumber = 1000;
+  useEffect(() => {
+    // Create an scoped async function in the hook
+    async function checkIfAdmin () {
+      try {
+        const res = await service.get('/admin/get-admin')
+        if (res.data.admin) {
+          setProceed(true)
+        } else {
+          router.push('/')
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    // Execute the created function directly
+    checkIfAdmin()
+  }, [])
+
 
   const onChange = (imageList) => {
     setImages(imageList)
