@@ -35,7 +35,6 @@ const Profilo = () => {
 
   const handleSubmit = async e => {
     e.preventDefault()
-
     try {
       const updatedUser = {
         firstName: form.firstName || user.firstName,
@@ -48,10 +47,8 @@ const Profilo = () => {
         province: form.province || user.shippingInfo && user.shippingInfo.province,
         zipCode: form.zipCode || user.shippingInfo && user.shippingInfo.zipCode
       }
-      console.log(updatedUser, 'updatedUser')
-
       updateUser(updatedUser)
-      // window.location.reload()
+      window.location.reload()
     } catch (err) {
       console.log(err)
     }
@@ -61,19 +58,19 @@ const Profilo = () => {
 
   return (
     <div>
-      <div className="values">
+      <div className='values'>
         <h2>{user.firstName} {user.lastName}</h2>
       </div>
-      
+
       <form onSubmit={handleSubmit}>
-      <div className="block" >  
-        <p><strong>Informazioni</strong></p>
-        <Link href='/user/ordini' as={`/user/ordini`}>
-            <p className="link-btn"> Vai agli ordini</p>
-        </Link>
-      </div>
-        <div className="block" >       
-          <div className="input-box">
+        <div className='block'>
+          <p><strong>Informazioni</strong></p>
+          <Link href='/user/ordini' as='/user/ordini'>
+            <p className='link-btn'> Vai agli ordini</p>
+          </Link>
+        </div>
+        <div className='block'>
+          <div className='input-box'>
             <label>Nome</label>
             <input
               type='text'
@@ -81,15 +78,15 @@ const Profilo = () => {
               onChange={(e) => setForm({ ...form, firstName: e.target.value })}
             />
           </div>
-          <div className="input-box">
+          <div className='input-box'>
             <label>Cognome</label>
             <input
               type='text'
               placeholder={user.lastName}
               onChange={(e) => setForm({ ...form, lastName: e.target.value })}
-            /> 
+            />
           </div>
-          <div className="input-box">
+          <div className='input-box'>
             <label>Telefono</label>
             <input
               type='text'
@@ -97,7 +94,7 @@ const Profilo = () => {
               onChange={(e) => setForm({ ...form, telephone: e.target.value })}
             />
           </div>
-          <div className="input-box">
+          <div className='input-box'>
             <label>Email</label>
             <input
               type='email'
@@ -105,7 +102,7 @@ const Profilo = () => {
               onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
           </div>
-          <div className="input-box">
+          <div className='input-box'>
             <label>P.IVA/Codice fiscale</label>
             <input
               type='text'
@@ -115,8 +112,8 @@ const Profilo = () => {
           </div>
         </div>
         <p><strong>Indirizzo di spedizione</strong></p>
-        <div className="block" >  
-          <div className="input-box">
+        <div className='block'>
+          <div className='input-box'>
             <label>Indirizzo</label>
             <input
               type='text'
@@ -124,7 +121,7 @@ const Profilo = () => {
               onChange={(e) => setForm({ ...form, streetAddress: e.target.value })}
             />
           </div>
-          <div className="input-box">
+          <div className='input-box'>
             <label>Città</label>
             <input
               type='text'
@@ -132,7 +129,7 @@ const Profilo = () => {
               onChange={(e) => setForm({ ...form, city: e.target.value })}
             />
           </div>
-          <div className="input-box">
+          <div className='input-box'>
             <label>Provincia</label>
             <input
               type='text'
@@ -140,7 +137,7 @@ const Profilo = () => {
               onChange={(e) => setForm({ ...form, province: e.target.value })}
             />
           </div>
-          <div className="input-box">
+          <div className='input-box'>
             <label>zip code</label>
             <input
               type='text'

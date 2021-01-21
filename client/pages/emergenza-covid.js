@@ -13,7 +13,7 @@ const EmergenzaCovid = () => {
   const [mascherine, setMascherine] = useState([])
   const [gelMani, setGelMani] = useState([])
   const [visiere, setVisiere] = useState([])
-   //   End subcategories
+  //   End subcategories
 
   const categories = ['Mascherine', 'Gel mani', 'Visiere']
 
@@ -44,40 +44,42 @@ const EmergenzaCovid = () => {
       <PageTitle
         title='Emergenza Covid-19'
         subtitle='Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, alias.'
-      />      
-      <div className="category-page-container">    
+      />
+      <div className='category-page-container'>
         <div className='wrapper-categories'>
-        {/* name to be changed for each category */}
+          {/* name to be changed for each category */}
           {categories.map((category, i = 1) => {
             return (
-            <div key={i} className='input-wrapper'>
-              <div className='switch'>
-                <input
-                  onChange={(e) => onCategoryChange(e, setCategoriesSelected, categoriesSelected)}
-                  name={`7.${i + 1}`}
-                  id={`switch-${i +1}`}
-                  type='checkbox'
-                  className='switch-input'
-                />
-                <label htmlFor={`switch-${i + 1}`} className='switch-label'>
-                  {category}
-                </label>
+              <div key={i} className='input-wrapper'>
+                <div className='switch'>
+                  <input
+                    onChange={(e) => onCategoryChange(e, setCategoriesSelected, categoriesSelected)}
+                    name={`7.${i + 1}`}
+                    id={`switch-${i + 1}`}
+                    type='checkbox'
+                    className='switch-input'
+                  />
+                  <label htmlFor={`switch-${i + 1}`} className='switch-label'>
+                    {category}
+                  </label>
+                </div>
+                <div>
+                  <p className='category-name'>{category}</p>
+                </div>
               </div>
-              <div>
-                  <p className="category-name">{category}</p>
-              </div>
-           </div>
             )
           })}
         </div>
-           {categoriesSelected.length < 1 ? 
-            <ProductsList products={products}/> 
-            :
-            <ProductsList products={productsToDisplay}/>
-           }
-       </div>
-      <Footer/>
-           <style jsx>{`
+        {/* End categories wrapper */}
+        {categoriesSelected.length < 1
+          ? <p className='total-filtered-products'>{products.length} prodotti</p>
+          : <p className='total-filtered-products'>{productsToDisplay.length} prodotti</p>}
+        {categoriesSelected.length < 1
+          ? <ProductsList products={products} />
+          : <ProductsList products={productsToDisplay} />}
+      </div>
+      <Footer />
+      <style jsx>{`
              @media(min-width: 969px){
               .wrapper-categories {
                  margin: 0 10px;
@@ -87,8 +89,15 @@ const EmergenzaCovid = () => {
                 .input-wrapper {
                    padding-right: 60px;
                }
+               .total-filtered-products {
+                 position: relative;
+                 bottom: 40px;
+                 position: relative;
+                 left: 10px
+               }
              }             
-          `}</style>  
+          `}
+      </style>
     </div>
   )
 }

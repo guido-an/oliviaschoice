@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { UserContext } from '../contexts/UserContext'
+import { useRouter } from 'next/router'
 
 const Signup = () => {
   const [firstName, setFirstName] = useState('')
@@ -8,6 +9,8 @@ const Signup = () => {
   const [password, setPassword] = useState('')
 
   const { signup, setUser } = useContext(UserContext)
+
+  const router = useRouter()
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -19,8 +22,9 @@ const Signup = () => {
         lastName
       }
       const res = await signup(user)
-      console.log(res)
+      console.log(res, 'res')
       setUser(res.data.currentUser)
+      router.push('/user/profilo')
     } catch (err) {
       console.log(err)
     }
@@ -30,11 +34,10 @@ const Signup = () => {
     <div>
       <h1>Signup</h1>
       <form onSubmit={handleSubmit}>
-        <input type='text' value={firstName} placeholder='*Nome' onChange={(e) => setFirstName(e.target.value)} required />
-        <input type='text' value={lastName} placeholder='*Cognome' onChange={(e) => setLastName(e.target.value)} required />
-        <input type='text' value={email} placeholder='*Email' onChange={(e) => setEmail(e.target.value)} required />
-        {/* <input type='email' value={email} placeholder='*Email' required onChange={(e) => setEmail(e.target.value)} /> */}
-        <input type='password' placeholder='*Password' onChange={(e) => setPassword(e.target.value)} required />
+        <input type='text' value={firstName} placeholder='* Nome' onChange={(e) => setFirstName(e.target.value)} required />
+        <input type='text' value={lastName} placeholder='* Cognome' onChange={(e) => setLastName(e.target.value)} required />
+        <input type='text' value={email} placeholder='* Email' onChange={(e) => setEmail(e.target.value)} required />
+        <input type='password' placeholder='* Password' onChange={(e) => setPassword(e.target.value)} minlength='6' required />
         <button>Signup</button>
       </form>
     </div>

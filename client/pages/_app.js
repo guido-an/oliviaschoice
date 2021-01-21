@@ -1,6 +1,6 @@
 import React from 'react'
 import App from 'next/app'
-import Layout from '../components/Layout'
+import Layout from '../components/layout'
 import UserContextProvider from '../contexts/UserContext'
 import CartContextProvider from '../contexts/CartContext'
 import ProductContextProvider from '../contexts/ProductContext'
@@ -172,9 +172,17 @@ class MyApp extends App {
 
                
                .wrapper-categories {
-                 padding: var(--container-padding);
-      
+                 padding: 0 10px;
+                 position: relative;
+                 top: 40px
                }
+
+                .total-filtered-products {
+                  padding: 30px 10px 60px;
+                  font-size: 14px
+                 } 
+
+               
 
                ::-webkit-scrollbar {
                        width: 0px;
@@ -201,6 +209,7 @@ class MyApp extends App {
                    width: 50%;
                    margin: 0 auto 40px;
                    } 
+            
                 }
             `}
         </style>

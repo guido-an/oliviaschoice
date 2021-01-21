@@ -72,6 +72,10 @@ const ProductList = ({ products }) => {
                     padding: 10px 20px 40px;
 
                   }
+
+                  .products-list-container {
+                     bottom: 80px
+               }
                 
                  }
                  `}

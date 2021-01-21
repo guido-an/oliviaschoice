@@ -65,7 +65,7 @@ export default function CheckoutForm () {
     ev.preventDefault()
     setProcessing(true)
     const payload = await stripe.confirmCardPayment(clientSecret, {
-      receipt_email: 'test@gmail.com',
+      receipt_email: 'carucciguido@gmail.com',
       payment_method: {
         card: elements.getElement(CardElement)
       }
