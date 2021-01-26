@@ -35,13 +35,13 @@ const Pagamento = () => {
         .values h2  {
           color: #fff
       } 
-      .total  {
-        color: #222;
-        font-weight: 500;
-        right: 12vw;
-        position: absolute;
-        top: 530px;
-    } 
+        .total  {
+          color: #222;
+          font-weight: 500;
+          right: 12vw;
+          position: absolute;
+          top: 530px;
+      } 
         
         `}
       </style>
