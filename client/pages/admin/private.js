@@ -35,12 +35,12 @@ const Private = () => {
   }
 
   return (
-    <div className="container">
-      <Link href='/admin/utenti' as={`/admin/utenti`}>
-          <p className="link-btn"> Lista utenti</p>
+    <div className='container'>
+      <Link href='/admin/utenti' as="/admin/utenti">
+        <p className='link-btn'> Lista utenti</p>
       </Link>
-      <Link href='/admin/image-upload' as={`/admin/image-upload`}>
-          <p className="link-btn"> Image Upload</p>
+      <Link href='/admin/image-upload' as="/admin/image-upload">
+        <p className='link-btn'> Image Upload</p>
       </Link>
       <style jsx>{`
         .body{
@@ -75,7 +75,8 @@ const Private = () => {
           transition: all 0.3s ease 0s;
           margin-right: 20px;
         }
-  `   }</style>
+  ` }
+      </style>
 
     </div>
 
