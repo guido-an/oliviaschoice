@@ -12,7 +12,7 @@ const Mongostore = require('connect-mongo')(session)
 const cors = require('cors')
 
 mongoose
-  .connect('mongodb://localhost/pharmashop', { useNewUrlParser: true })
+  .connect(process.env.MONDODB_URI, { useNewUrlParser: true })
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
@@ -25,13 +25,8 @@ const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.
 
 const app = express()
 
-// app.use(cors({
-//   origin: [process.env.CLIENT_URL],
-//   credentials: true
-// }))
-
 app.use(cors({
-  origin: ['http://localhost:3000'],
+  origin: [process.env.CLIENT_URL],
   credentials: true
 }))
 
@@ -65,5 +60,8 @@ app.use('/admin', adminRoutes)
 
 const userRoutes = require('./routes/user')
 app.use('/user', userRoutes)
+
+const productRoutes = require('./routes/product')
+app.use('/product', productRoutes)
 
 module.exports = app

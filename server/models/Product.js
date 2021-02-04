@@ -11,7 +11,8 @@ const productSchema = new Schema({
   effectiveStock: Number,
   images: Array,
   description: String,
-  category: String
+  category: String,
+  productOfTheMonth: Boolean
 }, {
   timestamps: {
     createdAt: 'created_at',

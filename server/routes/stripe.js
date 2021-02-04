@@ -14,7 +14,9 @@ const calculateOrderAmount = async items => {
       const productPrice = product.price * items[i].boughtQuantity
       totalPrice = totalPrice + productPrice
     }
-    return totalPrice * 100
+    const number = totalPrice * 100
+    const rounded = Math.round(number * 10) / 10
+    return rounded
   } catch (e) {
     console.log(e)
   }
@@ -22,7 +24,6 @@ const calculateOrderAmount = async items => {
 
 router.post('/create-payment-intent', async (req, res) => {
   const { items } = req.body
-
   // Create a PaymentIntent with the order amount and currency
   const paymentIntent = await stripe.paymentIntents.create({
     amount: await calculateOrderAmount(items),

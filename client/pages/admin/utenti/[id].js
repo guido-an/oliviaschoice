@@ -45,23 +45,22 @@ const { id } = router.query;
         <style jsx>{`
               .container {
                 display: flex;
+                position: relative;
+                bottom: 20px
+                
             }
             p{
-              margin-left: 25px;
+              margin-right: 25px;
               text-align: center;
-              color: rgb(140, 43, 47);
               font-weight: 500 !important;
             }
-            .container {
-              position: relative;
-              top: 10px
-            }
+           
         `   }</style>
-        <h1>Dettagli utentee</h1>
-        <div  className="container">
-          <p>{user.firstName} {user.lastName}</p>
-          <p>{user.email}</p>
-          <p>{user.telephone}</p>
+        <h1>Dettagli utente</h1>
+        <div className="container">
+          <p className="user-info">{user.firstName} {user.lastName}</p>
+          <p className="user-info">{user.email}</p>
+          <p className="user-info">{user.telephone}</p>
         </div>
       </div>
     )
@@ -76,20 +75,17 @@ const { id } = router.query;
             }
             p{
               margin-left: 15px;
+              
             }
             .container {
               position: relative;
               top: -10px
             }
-            .link-btn{
-              color: rgb(140, 43, 47);
-              font-weight: 500 !important;
-              display: block
-            } 
-            .title{
-              font-size: 20px;
-              color: #000;
+            .user-info {
+              display: none !Important
             }
+            
+           
           
             p.strong{
               color: #000;
@@ -154,9 +150,9 @@ const { id } = router.query;
           margin-right: 5vw;
         }
         .link-btn{
-          color: rgb(140, 43, 47);
-          font-weight: 500 !important;
-          display: block
+          color: var(--main-color);
+          display: block;
+          cursor: pointer
         }
   `   }</style>
     </div>

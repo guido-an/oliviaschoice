@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 
 const Profilo = () => {
-  const { user, updateUser, checkIfLoggedIn } = useContext(UserContext)
+  const { user, logout, updateUser, checkIfLoggedIn } = useContext(UserContext)
   const [proceed, setProceed] = useState(false)
 
   const router = useRouter()
@@ -35,7 +35,6 @@ const Profilo = () => {
 
   const handleSubmit = async e => {
     e.preventDefault()
-
     try {
       const updatedUser = {
         firstName: form.firstName || user.firstName,
@@ -48,32 +47,36 @@ const Profilo = () => {
         province: form.province || user.shippingInfo && user.shippingInfo.province,
         zipCode: form.zipCode || user.shippingInfo && user.shippingInfo.zipCode
       }
-      console.log(updatedUser, 'updatedUser')
-
       updateUser(updatedUser)
-      // window.location.reload()
+      window.location.reload()
     } catch (err) {
       console.log(err)
     }
   }
 
+  const logoutUser = async () => {
+    await logout()
+    router.push('/login')
+  }
 
-
+  if (!proceed) {
+    return <p>Loading..</p>
+  }
   return (
     <div>
-      <div className="values">
+      <div className='values'>
         <h2>{user.firstName} {user.lastName}</h2>
       </div>
-      
+
       <form onSubmit={handleSubmit}>
-      <div className="block" >  
-        <p><strong>Informazioni</strong></p>
-        <Link href='/user/ordini' as={`/user/ordini`}>
-            <p className="link-btn"> Vai agli ordini</p>
-        </Link>
-      </div>
-        <div className="block" >       
-          <div className="input-box">
+        <div className='block'>
+          <p><strong>Informazioni</strong></p>
+          <Link href='/user/ordini' as='/user/ordini'>
+            <p className='link-btn'> Vai agli ordini</p>
+          </Link>
+        </div>
+        <div className='block'>
+          <div className='input-box'>
             <label>Nome</label>
             <input
               type='text'
@@ -81,15 +84,15 @@ const Profilo = () => {
               onChange={(e) => setForm({ ...form, firstName: e.target.value })}
             />
           </div>
-          <div className="input-box">
+          <div className='input-box'>
             <label>Cognome</label>
             <input
               type='text'
               placeholder={user.lastName}
               onChange={(e) => setForm({ ...form, lastName: e.target.value })}
-            /> 
+            />
           </div>
-          <div className="input-box">
+          <div className='input-box'>
             <label>Telefono</label>
             <input
               type='text'
@@ -97,7 +100,7 @@ const Profilo = () => {
               onChange={(e) => setForm({ ...form, telephone: e.target.value })}
             />
           </div>
-          <div className="input-box">
+          <div className='input-box'>
             <label>Email</label>
             <input
               type='email'
@@ -105,7 +108,7 @@ const Profilo = () => {
               onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
           </div>
-          <div className="input-box">
+          <div className='input-box'>
             <label>P.IVA/Codice fiscale</label>
             <input
               type='text'
@@ -115,8 +118,8 @@ const Profilo = () => {
           </div>
         </div>
         <p><strong>Indirizzo di spedizione</strong></p>
-        <div className="block" >  
-          <div className="input-box">
+        <div className='block'>
+          <div className='input-box'>
             <label>Indirizzo</label>
             <input
               type='text'
@@ -124,7 +127,7 @@ const Profilo = () => {
               onChange={(e) => setForm({ ...form, streetAddress: e.target.value })}
             />
           </div>
-          <div className="input-box">
+          <div className='input-box'>
             <label>Città</label>
             <input
               type='text'
@@ -132,7 +135,7 @@ const Profilo = () => {
               onChange={(e) => setForm({ ...form, city: e.target.value })}
             />
           </div>
-          <div className="input-box">
+          <div className='input-box'>
             <label>Provincia</label>
             <input
               type='text'
@@ -140,7 +143,7 @@ const Profilo = () => {
               onChange={(e) => setForm({ ...form, province: e.target.value })}
             />
           </div>
-          <div className="input-box">
+          <div className='input-box'>
             <label>zip code</label>
             <input
               type='text'
@@ -152,6 +155,10 @@ const Profilo = () => {
 
         <button>Aggiorna</button>
       </form>
+      <p
+        className='logout' onClick={logoutUser}
+      >Logout
+      </p>
       <style jsx>{`
         .values {
             margin-top: 140px;
@@ -159,6 +166,7 @@ const Profilo = () => {
             background-color: #8c2b2f;
             text-align: center;
         }
+        
         .link-btn{
           color: rgb(140, 43, 47);
           font-weight: 500 !important;
@@ -206,6 +214,12 @@ const Profilo = () => {
         label {
           color: #555;
         }
+        .logout {
+          padding: 0 10px;
+          color: #777;
+          font-weight: 500;
+          cursor: pointer
+        }
         @media(min-width:968px){
             .values {
                 padding: 60px 80px 80px;
@@ -227,6 +241,11 @@ const Profilo = () => {
           border: 1px solid #ccc;
           border-radius: 4px;
           box-sizing: border-box;
+        }
+
+        .logout {
+          padding: 0 80px;
+          
         }
 
         @media only screen and (max-width: 868px) {
