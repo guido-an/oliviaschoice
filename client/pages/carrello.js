@@ -25,6 +25,16 @@ const Carrello = () => {
     setProductsInCart(updateArray)
   }
 
+   const increaseQuantity = (product) => {
+    debugger
+    console.log(product)
+
+  }
+
+  const decreaseQuantity = (product) => {
+
+  }
+
   const exceedQuantity = singleProduct => {
     if (document.getElementById(singleProduct._id).value > singleProduct.effectiveStock) {
       document.getElementById('checkout-btn').disabled = true
@@ -64,20 +74,7 @@ const Carrello = () => {
             border: 1px solid #8c2b2f;;
             cursor: pointer;
             height: 40px;
-            width: 180px;
-            margin-top: 30px;
-            letter-spacing: 0.2px;
-            box-shadow: 0px 4px 10px 0 rgba(0,0,0,0.3);
-          }
-
-          button .x {
-            background-color: #8c2b2f;;
-            color: #fff;
-            border-radius: 4px;
-            border: 1px solid #8c2b2f;;
-            cursor: pointer;
-            height: 40px;
-            width: 180px;
+            width: 225px;
             margin-top: 30px;
             letter-spacing: 0.2px;
             box-shadow: 0px 4px 10px 0 rgba(0,0,0,0.3);
@@ -103,10 +100,13 @@ const Carrello = () => {
               font-weight: 300;
             letter-spacing: 0.2px;
             line-height: 26px;
-            margin: 30px 0;
+            margin: auto;
             color: #333;
           }
-          
+          .price{
+            width: 300px;
+          }
+
           .name{
             width: 70% !important;
             font-weight: 700;
@@ -124,7 +124,6 @@ const Carrello = () => {
                   box-shadow: 0px 5px 15px 5px rgba(0,0,0,0.4)
               }
               .container{
-                padding: 60px 80px 80px;
                 margin: 120px 85px;
               }
           }
@@ -147,7 +146,8 @@ const Carrello = () => {
           }
           .product-page-container img {
             display: block;
-            margin: 0 auto
+            margin: 0 auto;
+            width: 120px;
           }
           
           .product-page-container .product-title {
@@ -202,30 +202,70 @@ const Carrello = () => {
             color: #222;
             font-weight: 500;
             padding-left: 15px;
+            width: 100px;
+            margin: auto;
+
           }
 
           ml-3{
             margin left:20px;
           }
           
-          .plus {
+          .close {
               position: relative;
-              right: 142px;
               width: 25px;
-             height: 25px;
+             height: 20px;
              display: inline-block;
              border-radius: 50%;
              border: 1px solid #999;
              color: #fff;
+             right: 30px;
+              top: 20px;
              text-align: center;
-             top: -100px;
-             right: -50px;
           }
-          .plus:hover {
-           color: #888;
+          .close:hover {
+           color: #999;
              border: 1px solid #888;
              cursor: pointer
           }
+
+          .plus {
+            position: relative;
+            position: relative;
+            right: 77px;
+            width: 22px;
+            height: 22px;
+            display: inline-block;
+            border-radius: 50%;
+            border: 1px solid #999;
+            color: #999;
+            background-color: #f7f7f7;
+            text-align: center;
+          }
+          .plus:hover {
+          color: #222;
+            border: 1px solid #2222;
+            cursor: pointer
+          }
+          
+          .minus {
+            width: 25px;
+             height: 22px;
+             display: inline-block;
+             border-radius: 50%;
+             border: 1px solid #999;
+             color: #999;
+             text-align: center;
+             position: relative;
+            right: 55px;
+            top: 35px;
+            background-color: #f7f7f7
+          } 
+          .minus:hover {
+            color: #222;
+            border: 1px solid #2222;
+            cursor: pointer
+        }
 
           .overflow{
             overflow-x: scroll;
@@ -236,23 +276,32 @@ const Carrello = () => {
           .producto{
             display: inline-flex;
             padding: 10px;
-            width: 90%;
+            width: 100%;
+            border-bottom: 0.5px solid rgb(140 43 47 / 16%);
+            
+          }
+          .producto div{
+            margin-right: 10px
           }
 
           .total{
             position: relative;
-            left: 50px;
-            top: 120px;
+            right: 25px;
+            float: right;
           }
           
            .minus {
              width: 25px;
-             height: 25px;
+             height: 22px;
              display: inline-block;
              border-radius: 50%;
              border: 1px solid #999;
              color: #999;
+             background-color: #f7f7f7
              text-align: center;
+             position: relative;
+            right: 55px;
+            top: 35px;
           } 
           .minus:hover {
              color: #222;
@@ -262,17 +311,15 @@ const Carrello = () => {
 
    
          @media(min-width: 968px){
-           .product-page-container {
-            display:flex;
-          }
 
           .product-page-container .img-container {
-            width: 40%
+            width: 20%
           }
           .product-page-container .product-container {
-            width: 35vw;
+            display: flex;
             margin-bottom: 120px
             padding: 10px;
+            width: 80%;
           }
          }
 
@@ -280,10 +327,71 @@ const Carrello = () => {
             .input-box{
               width:100%;
             }
+            p{
+              margin: 0;
+            }
             form {
               margin: 40px 10px;
             }
+
+            .close {
+              position: relative;
+              width: 20px;
+             height: 20px;
+             display: inline-block;
+             border-radius: 50%;
+             border: 1px solid #fff;
+             color: #fff;
+             right: -73px;
+            top: -133px;
+             text-align: center;
           }
+          .close:hover {
+           color: #999;
+             border: 1px solid #888;
+             cursor: pointer
+          }
+
+          .plus {
+            position: relative;
+            position: relative;
+            width: 22px;
+            height: 22px;
+            right: 75px;
+            top: -1px;
+            display: inline-block;
+            border-radius: 50%;
+            border: 1px solid #999;
+            background-color: #f7f7f7 !important;
+            color: #999;
+            text-align: center;
+          }
+          .plus:hover {
+          color: #222;
+            border: 1px solid #222;
+            cursor: pointer
+          }
+          
+          .minus {
+            width: 22px;
+             height: 22px;
+             display: inline-block;
+             border-radius: 50%;
+             border: 1px solid #999;
+             color: #fff;
+             text-align: center;
+             position: relative;
+             right: 120px;
+             top: -1px;
+          } 
+          .minus:hover {
+            color: #999;
+            border: 1px solid #888;
+            cursor: pointer;
+        }
+          }
+
+          
           `}
         </style>
         <div className="values">
@@ -291,7 +399,7 @@ const Carrello = () => {
         </div>
         <div className="container">
           <div className="product-page-container">
-            <div className="overflow">
+            <div className="">
               {productsInCart && productsInCart.map(product => {
                 return (
                   <div className="producto" key={product._id}>
@@ -302,13 +410,18 @@ const Carrello = () => {
                       <Link href='/prodotto/[id]' as={`/prodotto/${encodeURIComponent(product._id)}`}>
                         <p className="name">{product.name}</p>
                       </Link>
-                      <p><strong>Prezzo: </strong>€ {product.price}</p>
-                      <p><strong>Subtotale: </strong>€ {product.price * product.boughtQuantity}</p>
-                      <p><input onChange={() => inputUpdate(product)} type='number' id={product._id} min='1' /></p>
+                      <p className="price" ><strong>Prezzo: </strong>€ {product.price}</p>
+                      <p><strong>unità:</strong></p>
+                      <input onChange={() => inputUpdate(product)} type='number' id={product._id} min='1' />
+                      <button className="minus" onClick={decreaseQuantity(product)}>-</button>
                       <button className="plus" 
+                      onClick={increaseQuantity(product)}>+
+                      </button>
+                      <button className="close" 
                         onClick={() => removeProduct(product)}>x
                       </button>
                         {<p id={`${product._id}-msg`} />}
+                        <p className="price"><strong>Subtotale: </strong>€ {product.price * product.boughtQuantity}</p>
                       </div>
                     </div>
                   )
