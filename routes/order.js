@@ -121,7 +121,7 @@ router.post('/update-order', async (req, res) => {
       { new: true }
     )
     sendEmail(order)
-    postOrderToShippyPro(order)
+    // TO PUT BACK! postOrderToShippyPro(order)
     res.status(200).json({ message: 'Order updated to paid' })
   } catch (err) {
     console.error(err)

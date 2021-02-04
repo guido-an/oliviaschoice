@@ -1,5 +1,7 @@
+
 module.exports = {
-  templateExample: (message, totalProducts) => {
+  templateExample: (order, productsToDisplay) => {
+    console.log(order, 'order from template')
     return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html data-editor-version="2" class="sg-campaigns" xmlns="http://www.w3.org/1999/xhtml"><head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
@@ -102,6 +104,7 @@ module.exports = {
     <!--user entered Head Start--><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>
   body {font-family: 'Poppins', sans-serif;}
 </style><!--End Head user entered-->
+
   </head>
   <body>
     <center class="wrapper" data-link-color="#1188E6" data-body-style="font-size:14px; font-family:inherit; color:#000000; background-color:#f0f0f0;">
@@ -138,21 +141,21 @@ module.exports = {
   <tbody>
     <tr>
       <td style="font-size:6px; line-height:10px; padding:0px 0px 0px 0px;" valign="top" align="left">
-        <img class="max-width" border="0" style="display:block; color:#000000; text-decoration:none; font-family:Helvetica, arial, sans-serif; font-size:16px;" width="140" alt="" data-proportionally-constrained="true" data-responsive="false" src="http://cdn.mcauto-images-production.sendgrid.net/954c252fedab403f/14815610-37b1-409c-ada6-acbc5352d36d/140x40.png" height="40">
+      LOGO
       </td>
     </tr>
   </tbody>
 </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="1995753e-0c64-4075-b4ad-321980b82dfe">
   <tbody>
     <tr>
-      <td style="padding:100px 0px 18px 0px; line-height:36px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: inherit"><span style="color: #222; font-size: 40px; font-family: inherit">Grazie per il tuo ordine!</span></div><div></div></div></td>
+      <td style="padding:100px 0px 18px 0px; line-height:36px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: inherit"><span style="color: #222; font-size: 40px; font-family: inherit">Grazie per il tuo ordine ${order.shippingInfo.firstName}!</span></div><div></div></div></td>
     </tr>
   </tbody>
 </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="2ffbd984-f644-4c25-9a1e-ef76ac62a549">
   <tbody>
     <tr>
-      <td style="padding:18px 20px 20px 0px; line-height:24px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: inherit"><span style="font-size: 24px">Now you can relax. We're workin on</span></div>
-<div style="font-family: inherit; text-align: inherit"><span style="font-size: 24px">getting it to you ASAP!</span></div><div></div></div></td>
+      <td style="padding:18px 20px 20px 0px; line-height:24px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: inherit"><span style="font-size: 16px">Now you can relax. We're workin on getting it to you ASAP!</span></div>
+<div></div></div></td>
     </tr>
   </tbody>
 </table><table border="0" cellpadding="0" cellspacing="0" class="module" data-role="module-button" data-type="button" role="module" style="table-layout:fixed;" width="100%" data-muid="69fc33ea-7c02-45ed-917a-b3b8a6866e89">
@@ -201,10 +204,18 @@ module.exports = {
 </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="264ee24b-c2b0-457c-a9c1-d465879f9935">
   <tbody>
     <tr>
-      <td style="padding:18px 20px 18px 30px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: inherit">Numero Ordine: order._id</div>
+      <td style="padding:18px 20px 18px 30px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: inherit">Numero Ordine: ${order._id}</div>
 <div style="font-family: inherit; text-align: inherit"><br></div>
-<div style="font-family: inherit; text-align: inherit">Indirizzo Spedizione</div>
-<div style="font-family: inherit; text-align: inherit">shippingAddess</div>
+<div style="font-family: inherit; text-align: inherit">
+<p><strong>Indirizzo Spedizione</strong></p>
+<p>${order.shippingInfo.streetAddress}, ${order.shippingInfo.city}, ${order.shippingInfo.zipCode}, ${order.shippingInfo.province} </p>
+<p>${order.shippingInfo.firstName} ${order.shippingInfo.lastName}</p>
+<p>${order.shippingInfo.telephone}</p>
+<p>${order.shippingInfo.email}</p>
+
+
+
+</div>
     </tr>
   </tbody>
 </table><table border="0" cellpadding="0" cellspacing="0" align="center" width="100%" role="module" data-type="columns" style="padding:20px 20px 0px 30px;" bgcolor="#FFFFFF">
@@ -231,7 +242,8 @@ module.exports = {
   <tbody>
    
     <tr>
-    totalProducts
+    <p><strong>Prodotti acquistati</strong></p>
+    ${productsToDisplay}
     </tr>
   </tbody>
 </table></td>
@@ -277,7 +289,6 @@ module.exports = {
               <td style="padding:0px;margin:0px;border-spacing:0;"><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="f404b7dc-487b-443c-bd6f-131ccde745e2.1">
   <tbody>
     <tr>
-      <td style="padding:18px 0px 18px 0px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div>
 <div style="font-family: inherit; text-align: inherit"><br></div>
 <div style="font-family: inherit; text-align: inherit"></div><div></div></div></td>
     </tr>
@@ -302,30 +313,15 @@ module.exports = {
     </tr>
   </tbody>
 </table><table class="module" role="module" data-type="divider" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="f7373f10-9ba4-4ca7-9a2e-1a2ba700deb9.1">
-  <tbody>
-    <tr>
-      <td style="padding:20px 30px 0px 30px;" role="module-content" height="100%" valign="top" bgcolor="">
-        <table border="0" cellpadding="0" cellspacing="0" align="center" width="100%" height="3px" style="line-height:3px; font-size:3px;">
-          <tbody>
-            <tr>
-              <td style="padding:0px 0px 3px 0px;" bgcolor="E7E7E7"></td>
-            </tr>
-          </tbody>
-        </table>
-      </td>
-    </tr>
-  </tbody>
+
 </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="264ee24b-c2b0-457c-a9c1-d465879f9935.1">
   <tbody>
     <tr>
-      <td style="padding:18px 20px 30px 30px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: inherit">Subtotal - $11.98</div>
-<div style="font-family: inherit; text-align: inherit">Taxes - $1.27</div>
-<div style="font-family: inherit; text-align: inherit">Delivery Charges - $1.99</div>
-<div style="font-family: inherit; text-align: inherit">Driver Tips - $2.49</div>
+
 <div style="font-family: inherit; text-align: inherit"><br>
-Totale&nbsp;</div>
+<p style="margin-left: 30px"><strong>Totale&nbsp;</strong></p></div>
 <div style="font-family: inherit; text-align: inherit"><br></div>
-<div style="font-family: inherit; text-align: inherit"><span style="color: #222; font-size: 32px; font-family: inherit">order.totalPrice</span></div><div></div></div></td>
+<div style="font-family: inherit; text-align: inherit"><span style="color: #222; font-size: 32px; font-family: inherit; margin-left: 30px; margin-bottom: 40px">${order.totalPrice}€</span></div><div></div></div></td>
     </tr>
   </tbody>
 </table><table border="0" cellpadding="0" cellspacing="0" align="center" width="100%" role="module" data-type="columns" style="padding:0px 20px 0px 20px;" bgcolor="#0055ff">
@@ -374,7 +370,7 @@ Totale&nbsp;</div>
     </tr>
   </tbody>
 </table><div data-role="module-unsubscribe" class="module" role="module" data-type="unsubscribe" style="background-color:#8C2B2F; color:#ffffff; font-size:12px; line-height:20px; padding:16px 16px 16px 16px; text-align:Center;" data-muid="4e838cf3-9892-4a6d-94d6-170e474d21e5">
-                                          <div class="Unsubscribe--addressLine"><p class="Unsubscribe--senderName" style="font-size:12px; line-height:20px;"><a href="https://www.oliviaschoice.it"><p>www.oliviaschoice.it</p></a></p><p style="font-size:12px; line-height:20px;"><span class="Unsubscribe--senderAddress">{{Sender_Address}}</span>, <span class="Unsubscribe--senderCity">{{Sender_City}}</span>, <span class="Unsubscribe--senderState">{{Sender_State}}</span> <span class="Unsubscribe--senderZip">{{Sender_Zip}}</span></p></div>
+                                          <div class="Unsubscribe--addressLine"><p class="Unsubscribe--senderName" style="font-size:12px; line-height:20px;"><a style="color: #fff" href="https://www.oliviaschoice.it"><p>www.oliviaschoice.it</p></a>
                                         </div><table border="0" cellpadding="0" cellspacing="0" class="module" data-role="module-button" data-type="button" role="module" style="table-layout:fixed;" width="100%" data-muid="e5cea269-a730-4c6b-8691-73d2709adc62">
     <tbody>
     
@@ -400,7 +396,6 @@ Totale&nbsp;</div>
       </div>
     </center>
   
-
 </body></html>`
   }
 }
