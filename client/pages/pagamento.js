@@ -12,19 +12,20 @@ const promise = loadStripe(process.env.STRIPE_PK)
 
 const Pagamento = () => {
   const { productsInCart, totalPrice, calculateTotalPrice } = useContext(CartContext)
+
   useEffect(() => {
     calculateTotalPrice()
   }, [productsInCart])
 
   return (
     <div>
-      <div className="values">
-          <h2>Pagamento</h2>
-        </div>
+      <div className='values'>
+        <h2>Pagamento</h2>
+      </div>
       <Elements stripe={promise}>
         <CheckoutForm />
       </Elements>
-      <h4 className="total">Pagamento: {totalPrice}</h4>
+      <h4 className='total'>Pagamento: {totalPrice}€</h4>
       <style jsx>{`
         .values {
           margin-top: 140px;

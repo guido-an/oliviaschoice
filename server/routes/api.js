@@ -50,9 +50,11 @@ const cacheProductsInServer = async () => {
   try {
     const products = await Product.find({ available: true })
     console.log(products.length, 'products available in database')
-    const productsToCache = products.filter(product => product.effectiveStock >= 1)
-    console.log(productsToCache.length, 'productsToCache')
-    productsCache = productsToCache
+    const productsWithStock = products.filter(product => product.effectiveStock >= 1)
+    // const productsWithPrice = productsWithStock.filter(product => product.price >= 0.1)
+
+    console.log(productsWithStock.length, 'productsWithStock')
+    productsCache = productsWithStock
   } catch (err) {
     console.log(err)
   }

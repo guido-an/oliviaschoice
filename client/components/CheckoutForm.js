@@ -65,11 +65,12 @@ export default function CheckoutForm () {
     ev.preventDefault()
     setProcessing(true)
     const payload = await stripe.confirmCardPayment(clientSecret, {
-      receipt_email: 'carucciguido@gmail.com',
+      receipt_email: 'info@oliviaschoice.it',
       payment_method: {
         card: elements.getElement(CardElement)
       }
     })
+    console.log(payload, 'payload')
     if (payload.error) {
       setError(`Payment failed ${payload.error.message}`)
       setProcessing(false)
@@ -79,18 +80,18 @@ export default function CheckoutForm () {
       setSucceeded(true)
       // Our code
       var orderId = localStorage.getItem('orderId')
-      service.post('/update-order', {
+      await service.post('/update-order', {
         _id: orderId
       })
+
       localStorage.removeItem('productsInCart')
       localStorage.removeItem('orderId')
-      window.location.assign('/')
     }
     // end
   }
   return (
-    <form className="container" id='payment-form' onSubmit={handleSubmit}>
-      <CardElement className="card"id='card-element' options={cardStyle} onChange={handleChange} />
+    <form className='container' id='payment-form' onSubmit={handleSubmit}>
+      <CardElement className='card' id='card-element' options={cardStyle} onChange={handleChange} />
       <button
         disabled={processing || disabled || succeeded}
         id='submit'
@@ -111,13 +112,7 @@ export default function CheckoutForm () {
       )}
       {/* Show a success message upon completion */}
       <p className={succeeded ? 'result-message' : 'result-message hidden'}>
-        Payment succeeded, see the result in your
-        <a
-          href='https://dashboard.stripe.com/test/payments'
-        >
-          {' '}
-          Stripe dashboard.
-        </a> Refresh the page to pay again.
+        {succeeded && <span>Pagamento completato con successo! Riceverai presto un'email di conferma</span>}
       </p>
       <style jsx>{`
         button {
