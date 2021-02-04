@@ -12,7 +12,7 @@ const Navbar = ({ user }) => {
   const [mobileMenu, setMobileMenu] = useState(false)
   const [scroll, setScroll] = useState(false) // stateCheck for Scroll
   let [dropDownMenu, setDropDownMenu] = useState(false)
-  let [dropDownMenuDesktop, setDropDownMenuDesktop] = useState(false)
+  const [dropDownMenuDesktop, setDropDownMenuDesktop] = useState(false)
 
   const listenScrollEvent = () => {
     if (window.scrollY > 200) {
@@ -121,12 +121,24 @@ const Navbar = ({ user }) => {
 
             </ul>}
         </div>
-        <div onMouseEnter={() => setDropDownMenuDesktop(false)} onClick={() => setDropDownMenuDesktop(dropDownMenuDesktop = !dropDownMenuDesktop)} className='desktop-menu'>
+        <div className='desktop-menu' onMouseLeave={() => setDropDownMenuDesktop(false)}>
           <ul>
             <li><Link href='/'><a>Home</a></Link></li>
             <li><Link href='/chi-siamo'><a>Chi siamo</a></Link></li>
             <li><Link href='/offerta'><a>Offerta</a></Link></li>
-            <li className='prodotti-menu-item' onMouseEnter={() => setDropDownMenuDesktop(true)}><Link href='#'><a>Prodotti</a></Link></li>
+            <li
+              className='prodotti-menu-item'
+              onMouseEnter={() => setDropDownMenuDesktop(true)}
+              onClick={() => setDropDownMenuDesktop(!dropDownMenuDesktop)}
+            >Prodotti {!dropDownMenuDesktop ? <span>></span> : <span
+                style={{
+                  transform: 'rotate(90deg)',
+                  display: 'inline-block'
+
+              }}
+                                                               >>
+                                                               </span>}
+            </li>
             <li><Link href='/faq'><a>Faq</a></Link></li>
             <li><Link href='/contatti'><a>Contatti</a></Link></li>
           </ul>
@@ -324,6 +336,7 @@ const Navbar = ({ user }) => {
                     color: #222;
                     cursor: pointer
                   }
+                 
                 }
             `}
       </style>

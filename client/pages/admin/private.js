@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import { UserContext } from '../../contexts/UserContext'
 import Link from 'next/link'
 
 const service = axios.create({
@@ -11,6 +12,8 @@ const service = axios.create({
 const Private = () => {
   const [proceed, setProceed] = useState(false)
   const router = useRouter()
+
+  const { logout } = useContext(UserContext)
 
   useEffect(() => {
     // Create an scoped async function in the hook
@@ -30,18 +33,30 @@ const Private = () => {
     checkIfAdmin()
   }, [])
 
+  const logoutUser = async () => {
+    await logout()
+    router.push('/login')
+  }
+
   if (!proceed) {
-    return <p />
+    return <p>Loading...</p>
   }
 
   return (
-    <div className='container'>
-      <Link href='/admin/utenti' as="/admin/utenti">
-        <p className='link-btn'> Lista utenti</p>
-      </Link>
-      <Link href='/admin/image-upload' as="/admin/image-upload">
-        <p className='link-btn'> Image Upload</p>
-      </Link>
+    <div>
+      <div className='container'>
+        <Link href='/admin/utenti' as='/admin/utenti'>
+          <p className='link-btn'> Lista Utenti</p>
+        </Link>
+        <Link href='/admin/image-upload' as='/admin/image-upload'>
+          <p className='link-btn'> Image Upload</p>
+        </Link>
+        <Link href='/admin/prodotto-in-offerta' as='/admin/prodotto-in-offerta'>
+          <p className='link-btn'>Prodotto In Offerta</p>
+        </Link>
+
+      </div>
+
       <style jsx>{`
         .body{
           justify-content: center;
@@ -62,24 +77,28 @@ const Private = () => {
           top: 10px
         }
         .link-btn{
-          border: 1px solid rgb(140, 43, 47);
           color: rgb(140, 43, 47);
           font-weight: 600;
           font-size: 12px;
           padding: 10px 25px;
-          height: 40px;
           border-radius: 4px;
           letter-spacing: 0.8px;
           box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 10px 0px;
           width: 200px;
           transition: all 0.3s ease 0s;
           margin-right: 20px;
+          cursor: pointer
         }
-  ` }
+  `}
       </style>
-
+      <p
+        style={{
+          textAlign: 'center',
+          marginTop: '120px'
+        }} onClick={logoutUser}
+      >Logout
+      </p>
     </div>
-
   )
 }
 

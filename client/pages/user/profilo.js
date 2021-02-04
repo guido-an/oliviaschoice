@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 
 const Profilo = () => {
-  const { user, updateUser, checkIfLoggedIn } = useContext(UserContext)
+  const { user, logout, updateUser, checkIfLoggedIn } = useContext(UserContext)
   const [proceed, setProceed] = useState(false)
 
   const router = useRouter()
@@ -54,8 +54,14 @@ const Profilo = () => {
     }
   }
 
+  const logoutUser = async () => {
+    await logout()
+    router.push('/login')
+  }
 
-
+  if (!proceed) {
+    return <p>Loading..</p>
+  }
   return (
     <div>
       <div className='values'>
@@ -149,6 +155,10 @@ const Profilo = () => {
 
         <button>Aggiorna</button>
       </form>
+      <p
+        className='logout' onClick={logoutUser}
+      >Logout
+      </p>
       <style jsx>{`
         .values {
             margin-top: 140px;
@@ -156,6 +166,7 @@ const Profilo = () => {
             background-color: #8c2b2f;
             text-align: center;
         }
+        
         .link-btn{
           color: rgb(140, 43, 47);
           font-weight: 500 !important;
@@ -203,6 +214,12 @@ const Profilo = () => {
         label {
           color: #555;
         }
+        .logout {
+          padding: 0 10px;
+          color: #777;
+          font-weight: 500;
+          cursor: pointer
+        }
         @media(min-width:968px){
             .values {
                 padding: 60px 80px 80px;
@@ -224,6 +241,11 @@ const Profilo = () => {
           border: 1px solid #ccc;
           border-radius: 4px;
           box-sizing: border-box;
+        }
+
+        .logout {
+          padding: 0 80px;
+          
         }
 
         @media only screen and (max-width: 868px) {

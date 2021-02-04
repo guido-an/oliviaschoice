@@ -22,8 +22,12 @@ const UserContextProvider = props => {
     return data
   }
 
+  const logout = async user => {
+    const data = await service.get('/auth/logout', user)
+    return data
+  }
+
   const updateUser = async (updatedUser) => {
-    console.log(updatedUser, 'updatedUser from context')
     const data = await service.post('/user/update', updatedUser)
     return data
   }
@@ -65,6 +69,7 @@ const UserContextProvider = props => {
       user,
       signup,
       login,
+      logout,
       updateUser,
       setUser,
       checkIfLoggedIn,

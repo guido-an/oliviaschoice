@@ -1,12 +1,6 @@
 import { createContext, useState, useEffect } from 'react'
-import axios from 'axios'
 
 export const CartContext = createContext()
-
-const service = axios.create({
-  baseURL: process.env.APP_API,
-  withCredentials: true
-})
 
 const CartContextProvider = props => {
   const [productsInCart, setProductsInCart] = useState([])

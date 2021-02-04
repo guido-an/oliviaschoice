@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import ImageUploading from "react-images-uploading";
-import storage from "../../firebase/index";
+import ImageUploading from 'react-images-uploading'
+import storage from '../../firebase/index'
 import axios from 'axios'
 import Link from 'next/link'
 
@@ -10,47 +10,29 @@ const service = axios.create({
 })
 
 const imageUpload = () => {
-  const [images, setImages] = React.useState([]);
-  const maxNumber = 1000;
-  useEffect(() => {
-    // Create an scoped async function in the hook
-    async function checkIfAdmin () {
-      try {
-        const res = await service.get('/admin/get-admin')
-        if (res.data.admin) {
-          setProceed(true)
-        } else {
-          router.push('/')
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    }
-    // Execute the created function directly
-    checkIfAdmin()
-  }, [])
-
+  const [images, setImages] = React.useState([])
+  const maxNumber = 1000
+  // useEffect(() => {
+  //   // Create an scoped async function in the hook
+  //   async function checkIfAdmin () {
+  //     try {
+  //       const res = await service.get('/admin/get-admin')
+  //       if (res.data.admin) {
+  //         setProceed(true)
+  //       } else {
+  //         router.push('/')
+  //       }
+  //     } catch (e) {
+  //       console.log(e)
+  //     }
+  //   }
+  //   // Execute the created function directly
+  //   checkIfAdmin()
+  // }, [])
 
   const onChange = (imageList) => {
     setImages(imageList)
   }
-  React.useEffect(() => {
-    // Create an scoped async function in the hook
-    async function checkIfAdmin () {
-      try {
-        const res = await service.get('/admin/get-admin')
-        if (res.data.admin) {
-          setProceed(true)
-        } else {
-          router.push('/')
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    }
-    // Execute the created function directly
-    checkIfAdmin()
-  }, [])
 
   const onImageSave = (e) => {
     // data for submit
@@ -106,14 +88,14 @@ const imageUpload = () => {
                 margin: 0 5vw;
               }
               .link-btn{
-                color: rgb(140, 43, 47);
-                font-weight: 500 !important;
+                color: var(--main-color);
                 display: block
                 margin-left: 5vw;
+                cursor: pointer
               }
               .upload-btn{
                   background: #fff;
-                  border-radius: 10px;
+                  border-radius: 4px;
                   width: 79%;
                   padding: 3%;
                   font-size: 20px;
@@ -122,7 +104,7 @@ const imageUpload = () => {
 
               .remove-btn{
                   background: #f44336;
-                  border-radius: 10px;
+                  border-radius: 4px;
                   width: 20%;
                   padding: 3% 0;
                   font-size: 20px;
@@ -151,7 +133,7 @@ const imageUpload = () => {
                   position: absolute;
                   top: -30px;
                   right: -10px;
-                  border-radius: 10em;
+                  border-radius: 4px;
                   padding: 2px 6px 3px;
                   text-decoration: none;
                   font: 700 21px/20px sans-serif;
@@ -179,11 +161,10 @@ const imageUpload = () => {
                   position: -webkit-sticky;
                   position: sticky;
                   bottom: 10px;
-                  background: #008CBA;
+                  background: green;
                   color: #fff;
                   padding: 10px 50px;
-                  border-color: #008CBA;
-                  border-radius: 10px;
+                  border-radius: 4px;
                   font-size: 20px;
               }
   `}
