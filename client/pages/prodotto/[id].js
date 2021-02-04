@@ -155,7 +155,7 @@ const Product = () => {
               text-align: center;
            }
            .plus:hover {
-            color: #222;
+              color: #222;
               border: 1px solid #222;
               cursor: pointer
            }

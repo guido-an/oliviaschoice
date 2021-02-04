@@ -25,10 +25,9 @@ const Carrello = () => {
     setProductsInCart(updateArray)
   }
 
-   const increaseQuantity = (product) => {
+  const increaseQuantity = (product) => {
     debugger
     console.log(product)
-
   }
 
   const decreaseQuantity = (product) => {
@@ -51,8 +50,8 @@ const Carrello = () => {
   }
 
   return (
-    
-    <div>      
+
+    <div>
       <style jsx>{`
           .values {
               margin-top: 140px;
@@ -393,51 +392,48 @@ const Carrello = () => {
 
           
           `}
-        </style>
-        <div className="values">
-          <h2>Carrello</h2>
-        </div>
-        <div className="container">
-          <div className="product-page-container">
-            <div className="">
-              {productsInCart && productsInCart.map(product => {
-                return (
-                  <div className="producto" key={product._id}>
-                      <div className="img-container">
-                          <img src={testImg} width="300px"></img>
-                      </div>
-                      <div className="product-container">
-                      <Link href='/prodotto/[id]' as={`/prodotto/${encodeURIComponent(product._id)}`}>
-                        <p className="name">{product.name}</p>
-                      </Link>
-                      <p className="price" ><strong>Prezzo: </strong>€ {product.price}</p>
-                      <p><strong>unità:</strong></p>
-                      <input onChange={() => inputUpdate(product)} type='number' id={product._id} min='1' />
-                      <button className="minus" onClick={decreaseQuantity(product)}>-</button>
-                      <button className="plus" 
-                      onClick={increaseQuantity(product)}>+
-                      </button>
-                      <button className="close" 
-                        onClick={() => removeProduct(product)}>x
-                      </button>
-                        {<p id={`${product._id}-msg`} />}
-                        <p className="price"><strong>Subtotale: </strong>€ {product.price * product.boughtQuantity}</p>
-                      </div>
-                    </div>
-                  )
-                })}
-            </div>
-                {totalPrice >= 1
-                  ? <div className="total">
-                    <h2 className="ml-3">Total price: {totalPrice}</h2>
-                    <Link href='/checkout'><button id='checkout-btn'>Concludi ordine</button></Link>
-                    </div>
-                  : <p>Non ci sono prodotti nel carrello <Link href='/'>Ritorna alla home</Link></p>}
-              </div>
-
-        </div>
+      </style>
+      <div className='values'>
+        <h2>Carrello</h2>
       </div>
-      
+      <div className='container'>
+        <div className='product-page-container'>
+          <div className='overflow'>
+            {productsInCart && productsInCart.map(product => {
+              return (
+                <div className='producto' key={product._id}>
+                  <div className='img-container'>
+                    <img src={testImg} width='300px' />
+                  </div>
+                  <div className='product-container'>
+                    <Link href='/prodotto/[id]' as={`/prodotto/${encodeURIComponent(product._id)}`}>
+                      <p className='name'>{product.name}</p>
+                    </Link>
+                    <p><strong>Prezzo: </strong>€ {product.price}</p>
+                    <p><strong>Subtotale: </strong>€ {product.price * product.boughtQuantity}</p>
+                    <p><input onChange={() => inputUpdate(product)} type='number' id={product._id} min='1' /></p>
+                    <button
+                                            className='plus'
+                      onClick={() => removeProduct(product)}
+                    >x
+                    </button>
+                    {<p id={`${product._id}-msg`} />}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+          {totalPrice >= 1
+            ? <div className='total'>
+              <h2 className='ml-3'>Total price: {totalPrice}</h2>
+              <Link href='/checkout'><button id='checkout-btn'>Concludi ordine</button></Link>
+              </div>
+            : <p>Non ci sono prodotti nel carrello <Link href='/'>Ritorna alla home</Link></p>}
+        </div>
+
+      </div>
+    </div>
+
   )
 }
 export default Carrello
