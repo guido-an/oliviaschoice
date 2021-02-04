@@ -237,13 +237,14 @@ const Carrello = () => {
             height: 22px;
             display: inline-block;
             border-radius: 50%;
-            border: 1px solid #fff;
-            color: #fff;
+            border: 1px solid #999;
+            color: #999;
+            background-color: #f7f7f7;
             text-align: center;
           }
           .plus:hover {
-          color: #999;
-            border: 1px solid #888;
+          color: #222;
+            border: 1px solid #2222;
             cursor: pointer
           }
           
@@ -253,16 +254,17 @@ const Carrello = () => {
              display: inline-block;
              border-radius: 50%;
              border: 1px solid #999;
-             color: #fff;
+             color: #999;
              text-align: center;
              position: relative;
             right: 55px;
             top: 35px;
+            background-color: #f7f7f7
           } 
           .minus:hover {
-            color: #999;
-            border: 1px solid #888;
-            cursor: pointer;
+            color: #222;
+            border: 1px solid #2222;
+            cursor: pointer
         }
 
           .overflow{
@@ -293,16 +295,17 @@ const Carrello = () => {
              height: 22px;
              display: inline-block;
              border-radius: 50%;
-             border: 1px solid #fff;
-             color: #fff;
+             border: 1px solid #999;
+             color: #999;
+             background-color: #f7f7f7
              text-align: center;
              position: relative;
             right: 55px;
             top: 35px;
           } 
           .minus:hover {
-             color: #999;
-             border: 1px solid #888;
+             color: #222;
+             border: 1px solid #222;
              cursor: pointer
          }
 
@@ -358,13 +361,14 @@ const Carrello = () => {
             top: -1px;
             display: inline-block;
             border-radius: 50%;
-            border: 1px solid #fff;
-            color: #fff;
+            border: 1px solid #999;
+            background-color: #f7f7f7 !important;
+            color: #999;
             text-align: center;
           }
           .plus:hover {
-          color: #999;
-            border: 1px solid #888;
+          color: #222;
+            border: 1px solid #222;
             cursor: pointer
           }
           
