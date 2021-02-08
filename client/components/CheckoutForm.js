@@ -90,7 +90,7 @@ export default function CheckoutForm () {
     // end
   }
   return (
-    <form className='container' id='payment-form' onSubmit={handleSubmit}>
+    <form className='container-card' id='payment-form' onSubmit={handleSubmit}>
       <CardElement className='card' id='card-element' options={cardStyle} onChange={handleChange} />
       <button
         disabled={processing || disabled || succeeded}
@@ -100,7 +100,7 @@ export default function CheckoutForm () {
           {processing ? (
             <div className='spinner' id='spinner' />
           ) : (
-            'Pay'
+            'Effettua Ordine'
           )}
         </span>
       </button>
@@ -126,15 +126,7 @@ export default function CheckoutForm () {
           margin-top: 30px;
           letter-spacing: 0.2px;
           box-shadow: 0px 4px 10px 0 rgba(0,0,0,0.3);
-        }
-        .container{
-          padding: 60px 80px 80px;
-          margin: 120px 85px;
-        }
-
-        .card{
-          width: 60vw;
-        }
+        }  
         
         `}
       </style>

@@ -21,7 +21,6 @@ const Navbar = ({ user }) => {
       setScroll(false)
     }
   }
-  console.log(mobileMenu, 'mobile menu')
   useEffect(() => {
     window.addEventListener('scroll', listenScrollEvent) // add event listner
   })
@@ -38,7 +37,7 @@ const Navbar = ({ user }) => {
                 className='logo'
                 src={logoMobile}
                 alt='logo-olivias-choice-mobile'
-              />
+                />
               : <img
                 style={{
                   marginTop: '10px'
@@ -48,7 +47,7 @@ const Navbar = ({ user }) => {
                 alt='logo-olivias-choice-iniziali'
                 width='152px'
                 height='57px'
-              />}
+                />}
 
           </Link>
           <div className='burger-icon-container'>
@@ -111,13 +110,13 @@ const Navbar = ({ user }) => {
                 ? <span>
                   <img className='user-icon' src={userIcon} alt='user-icon' />
                   <Link href='/login'><a className='profile-link'>Accedi</a></Link> <span>|</span> <Link href='/signup'><a className='profile-link'>Registrati</a></Link>
-                  </span>
+                </span>
                 : <div>
                   <img className='user-icon' src={userIcon} alt='user-icon' />
                   <Link href='/user/profilo'>
                     <a onClick={() => setMobileMenu(false)} className='profile-link'>Il mio account</a>
                   </Link>
-                  </div>}
+                </div>}
 
             </ul>}
         </div>
@@ -131,13 +130,13 @@ const Navbar = ({ user }) => {
               onMouseEnter={() => setDropDownMenuDesktop(true)}
               onClick={() => setDropDownMenuDesktop(!dropDownMenuDesktop)}
             >Prodotti {!dropDownMenuDesktop ? <span>></span> : <span
-                style={{
+              style={{
                   transform: 'rotate(90deg)',
                   display: 'inline-block'
 
-              }}
-                                                               >>
-                                                               </span>}
+                }}
+              >>
+              </span>}
             </li>
             <li><Link href='/faq'><a>Faq</a></Link></li>
             <li><Link href='/contatti'><a>Contatti</a></Link></li>

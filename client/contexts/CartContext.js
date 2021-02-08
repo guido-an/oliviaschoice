@@ -62,7 +62,9 @@ const CartContextProvider = props => {
     productsInCart.forEach(product => {
       sumPrice += product.boughtQuantity * product.price
     })
-    const rounded = (Math.round(sumPrice * 100) / 100).toFixed(2)
+    const shippingCost = sumPrice > 39 ? 0 : 4.90
+    const totalPrice = sumPrice + shippingCost
+    const rounded = (Math.round(totalPrice * 100) / 100).toFixed(2)
     setTotalPrice(rounded)
   }
 
