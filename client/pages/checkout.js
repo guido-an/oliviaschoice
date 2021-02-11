@@ -4,6 +4,8 @@ import { UserContext } from '../contexts/UserContext'
 import { useRouter } from 'next/router'
 import Footer from '../components/Footer'
 import axios from 'axios'
+import { postcodeValidator, postcodeValidatorExistsForCountry } from 'postcode-validator';
+
 
 const service = axios.create({
   baseURL: process.env.APP_API,
@@ -32,33 +34,35 @@ const Checkout = () => {
   const handleSubmit = async e => {
     e.preventDefault()
     try {
-      createOrder()
-      router.push('/pagamento')
+      if(postcodeValidator(form.zipCode, 'IT')){
+        createOrder()
+        router.push('/pagamento')
+      }else{alert('invalid zip code')}
     } catch (err) {
       console.log(err)
     }
   }
   const createOrder = async () => {
-    const shippingInfo = {
-      firstName: form.firstName || user.firstName,
-      lastName: form.lastName || user.lastName,
-      VAT: form.VAT || user.VAT,
-      streetAddress: form.streetAddress || user.shippingInfo && user.shippingInfo.streetAddress,
-      city: form.city || user.shippingInfo && user.shippingInfo.city,
-      province: '',
-      zipCode: form.zipCode || user.shippingInfo && user.shippingInfo.zipCode,
-      telephone: form.telephone || user.telephone,
-      email: form.email || user.email,
-      additionalNotes: form.additionalNotes
-    }
-    const response = await service.post('/create-order', {
-      shippingInfo: shippingInfo,
-      totalPrice,
-      paid: false,
-      productsInCart
-    })
-    const orderId = response.data.orderId
-    localStorage.setItem('orderId', orderId) // So later if the order succeed we can update it to paid: true
+      const shippingInfo = {
+        firstName: form.firstName || user.firstName,
+        lastName: form.lastName || user.lastName,
+        VAT: form.VAT || user.VAT,
+        streetAddress: form.streetAddress || user.shippingInfo && user.shippingInfo.streetAddress,
+        city: form.city || user.shippingInfo && user.shippingInfo.city,
+        province: '',
+        zipCode: form.zipCode || user.shippingInfo && user.shippingInfo.zipCode,
+        telephone: form.telephone || user.telephone,
+        email: form.email || user.email,
+        additionalNotes: form.additionalNotes
+      }
+      const response = await service.post('/create-order', {
+        shippingInfo: shippingInfo,
+        totalPrice,
+        paid: false,
+        productsInCart
+      })
+      const orderId = response.data.orderId
+      localStorage.setItem('orderId', orderId) // So later if the order succeed we can update it to paid: true
   }
 
   return (
