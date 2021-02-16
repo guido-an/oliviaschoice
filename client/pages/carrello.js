@@ -459,7 +459,7 @@ const Carrello = () => {
                 )
               })}
             </div>
-            {totalPrice >= 1 &&
+            {productsInCart.length > 0 &&
               <div className='shipping'>
                 <h3>Spedizione</h3>
                 {totalPrice > 39.00 ? <p>Spedizione Gratuita</p> : <p>Costo Spedizione: 4.90€</p>}
@@ -469,7 +469,7 @@ const Carrello = () => {
               ? <div className='total'>
                 <h2 className='ml-3'>Prezzo Totale: {totalPrice}€</h2>
                 <Link href='/checkout'><button id='checkout-btn'>Concludi ordine</button></Link>
-              </div>
+                </div>
               : <p>Non ci sono prodotti nel carrello <Link href='/'>Ritorna alla home</Link></p>}
           </div>
 

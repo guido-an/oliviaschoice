@@ -31,6 +31,7 @@ const Elettromedicali = () => {
     async function getProducts () {
       try {
         const response = await service.get('/api/category-products/1')
+        console.log(response, 'data')
         setProducts(response.data)
         setAccessoriAerosol(filterByCategory(response.data, '1.1'))
         setAccessoriCaraffa(filterByCategory(response.data, '1.2'))
@@ -79,7 +80,7 @@ const Elettromedicali = () => {
                 </label>
               </div>
               <div><p className='category-name'>{category}</p></div>
-            </div>
+                   </div>
           })}
         </div>
         {/* End categories wrapper */}
@@ -106,7 +107,6 @@ const Elettromedicali = () => {
                  bottom: 40px;
                  position: relative;
                  left: 10px
-                
                }
              }             
           `}

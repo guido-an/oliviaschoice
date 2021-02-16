@@ -127,7 +127,6 @@ export default function CheckoutForm () {
           letter-spacing: 0.2px;
           box-shadow: 0px 4px 10px 0 rgba(0,0,0,0.3);
         }  
-        
         `}
       </style>
 

@@ -3,6 +3,7 @@ import { Elements } from '@stripe/react-stripe-js'
 import CheckoutForm from '../components/CheckoutForm'
 import { useContext, useEffect, useState } from 'react'
 import { CartContext } from '../contexts/CartContext'
+import Link from 'next/link'
 import Footer from '../components/Footer'
 import creditCardsLogo from '../images/icons/credit-cards-logo.png'
 
@@ -26,13 +27,20 @@ const Pagamento = () => {
         <h2>Pagamento</h2>
       </div>
 
-      <div className='payment'>
-        <img src={creditCardsLogo} />
-        <Elements stripe={promise}>
-          <CheckoutForm />
-        </Elements>
-        <h4 className=''>Totale: {totalPrice}€</h4>
-      </div>
+      {productsInCart.length >= 1
+        ? <div className='payment'>
+          <img src={creditCardsLogo} />
+          <Elements stripe={promise}>
+            <CheckoutForm />
+          </Elements>
+          <h4 className=''>Totale: {totalPrice}€</h4>
+        </div> : <p style={{
+          textAlign: 'center',
+          margin: '80px 0 220px'
+          }}
+                   >Non ci sono prodotti nel carrello <Link href='/'>Ritorna alla home</Link>
+        </p>}
+
       <style jsx>{`
 
       .values {

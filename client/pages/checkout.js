@@ -4,8 +4,7 @@ import { UserContext } from '../contexts/UserContext'
 import { useRouter } from 'next/router'
 import Footer from '../components/Footer'
 import axios from 'axios'
-import { postcodeValidator, postcodeValidatorExistsForCountry } from 'postcode-validator';
-
+import { postcodeValidator, postcodeValidatorExistsForCountry } from 'postcode-validator'
 
 const service = axios.create({
   baseURL: process.env.APP_API,
@@ -34,35 +33,35 @@ const Checkout = () => {
   const handleSubmit = async e => {
     e.preventDefault()
     try {
-      if(postcodeValidator(form.zipCode, 'IT')){
+      if (postcodeValidator(form.zipCode, 'IT')) {
         createOrder()
         router.push('/pagamento')
-      }else{alert('invalid zip code')}
+      } else { alert('CAP non valido') }
     } catch (err) {
       console.log(err)
     }
   }
   const createOrder = async () => {
-      const shippingInfo = {
-        firstName: form.firstName || user.firstName,
-        lastName: form.lastName || user.lastName,
-        VAT: form.VAT || user.VAT,
-        streetAddress: form.streetAddress || user.shippingInfo && user.shippingInfo.streetAddress,
-        city: form.city || user.shippingInfo && user.shippingInfo.city,
-        province: '',
-        zipCode: form.zipCode || user.shippingInfo && user.shippingInfo.zipCode,
-        telephone: form.telephone || user.telephone,
-        email: form.email || user.email,
-        additionalNotes: form.additionalNotes
-      }
-      const response = await service.post('/create-order', {
-        shippingInfo: shippingInfo,
-        totalPrice,
-        paid: false,
-        productsInCart
-      })
-      const orderId = response.data.orderId
-      localStorage.setItem('orderId', orderId) // So later if the order succeed we can update it to paid: true
+    const shippingInfo = {
+      firstName: form.firstName || user.firstName,
+      lastName: form.lastName || user.lastName,
+      VAT: form.VAT || user.VAT,
+      streetAddress: form.streetAddress || user.shippingInfo && user.shippingInfo.streetAddress,
+      city: form.city || user.shippingInfo && user.shippingInfo.city,
+      province: '',
+      zipCode: form.zipCode || user.shippingInfo && user.shippingInfo.zipCode,
+      telephone: form.telephone || user.telephone,
+      email: form.email || user.email,
+      additionalNotes: form.additionalNotes
+    }
+    const response = await service.post('/create-order', {
+      shippingInfo: shippingInfo,
+      totalPrice,
+      paid: false,
+      productsInCart
+    })
+    const orderId = response.data.orderId
+    localStorage.setItem('orderId', orderId) // So later if the order succeed we can update it to paid: true
   }
 
   return (
@@ -75,7 +74,7 @@ const Checkout = () => {
           {/* put back required */}
           <div className='block'>
             <div className='input-box'>
-              <label>Nome</label>
+              <label>* Nome</label>
               <input
                 type='text'
                 placeholder={user && user.firstName}
@@ -86,19 +85,18 @@ const Checkout = () => {
               <input
                 type='text'
                 placeholder={user && user.VAT}
-                required={!(user && user.VAT)}
                 onChange={(e) => setForm({ ...form, VAT: e.target.value })}
               />
             </div>
             <div className='input-box'>
-              <label>Cognome</label>
+              <label>* Cognome</label>
               <input
                 type='text'
                 placeholder={user && user.lastName}
                 required={!(user && user.lastName)}
                 onChange={(e) => setForm({ ...form, lastName: e.target.value })}
               />
-              <label>Indirizzo</label>
+              <label>* Indirizzo</label>
               <input
                 type='text'
                 placeholder={user && user.shippingInfo && user.shippingInfo.streetAddress}
@@ -107,7 +105,7 @@ const Checkout = () => {
               />
             </div>
             <div className='input-box'>
-              <label>Città</label>
+              <label>* Città</label>
               <input
                 type='text'
                 placeholder={user && user.shippingInfo && user.shippingInfo.city}
@@ -115,15 +113,14 @@ const Checkout = () => {
                 onChange={(e) => setForm({ ...form, city: e.target.value })}
               />
 
-              <label>Provincia</label>
+              <label>* Provincia</label>
               <input
                 type='text'
                 placeholder={user && user.shippingInfo && user.shippingInfo.province}
                 required={!(user && user.shippingInfo && user.shippingInfo.province)}
                 onChange={(e) => setForm({ ...form, province: e.target.value })}
               />
-              {/* check zip code */}
-              <label>Zip code</label>
+              <label>* CAP</label>
               <input
                 type='text'
                 placeholder={user && user.shippingInfo && user.shippingInfo.zipCode}
@@ -138,7 +135,7 @@ const Checkout = () => {
                 placeholder={user && user.telephone}
                 onChange={(e) => setForm({ ...form, telephone: e.target.value })}
               />
-              <label>Email</label>
+              <label>* Email</label>
               <input
                 type='email'
                 placeholder={user && user.email}
