@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { UserContext } from '../../contexts/UserContext'
 import Link from 'next/link'
+import Spinner from '../../components/helpersComponent/Spinner'
 
 const service = axios.create({
   baseURL: process.env.APP_API,
@@ -39,7 +40,7 @@ const Private = () => {
   }
 
   if (!proceed) {
-    return <p>Loading...</p>
+    return <Spinner />
   }
 
   return (

@@ -2,18 +2,35 @@ const express = require('express')
 const router = express.Router()
 const axios = require('axios')
 const Product = require('../models/Product')
+var mcache = require('memory-cache')
 const { ToadScheduler, SimpleIntervalJob, AsyncTask } = require('toad-scheduler')
 
-// when we call getAndCreateProductsFromAPI() should update everything (no code) and set available to true
-// when we call the API we just cache the products with available: true
-
-let productsCache = []
+var cache = (duration) => {
+  return (req, res, next) => {
+    const key = '__express__' + req.originalUrl || req.url
+    const cachedBody = mcache.get(key)
+    if (cachedBody) {
+      console.log('sending cache')
+      res.send(cachedBody)
+    } else {
+      console.log('cache not found')
+      res.sendResponse = res.send
+      res.send = (body) => {
+        mcache.put(key, body, duration * 1000)
+        res.sendResponse(body)
+      }
+      next()
+    }
+  }
+}
 
 const getAndCreateProductsFromAPI = async () => {
   try {
+    // Call external API
     const response = await axios.get(process.env.API_URL)
     const productsFromAPI = response.data
-    console.log(productsFromAPI.length, 'products form API')
+    console.log(productsFromAPI.length, 'products from API')
+    // It CREATES the product if doesn't exists in database
     productsFromAPI.forEach(async (product, i) => {
       const dbProduct = await Product.findOne({
         codeArticle: product.MG66_CODART.replace(/\s/g, '')
@@ -29,6 +46,7 @@ const getAndCreateProductsFromAPI = async () => {
           category: product.categoria
         })
       } else {
+        // OR it UPDATES it (with new info coming from external API)
         await Product.findOneAndUpdate(
           { codeArticle: product.MG66_CODART.replace(/\s/g, '') },
           {
@@ -44,18 +62,6 @@ const getAndCreateProductsFromAPI = async () => {
     })
   } catch (err) {
     console.log(err)
-  }
-}
-const cacheProductsInServer = async () => {
-  try {
-    const products = await Product.find({ available: true })
-    console.log(products.length, 'products available in database')
-    const productsWithStock = products.filter(product => product.effectiveStock >= 1)
-    const productsWithPrice = productsWithStock.filter(product => product.price >= 0.1)
-    productsCache = productsWithPrice
-    console.log('productsCache.length', productsCache.length)
-  } catch (err) {
-    console.error(err)
   }
 }
 
@@ -74,36 +80,10 @@ const setAvailableToFalse = async () => {
   }
 }
 
-// updateDatabase()
-
-// setInterval(async () => {
-//   // var date = new Date()
-//   // await setAvailableToFalse()
-//   // await getAndCreateProductsFromAPI()
-//   console.log('RUNNING SET INTERVAL')
-//   // await cacheProductsInServer()
-//   // if (date.getHours() === 8 && date.getMinutes() === 0) {
-//   //   await setAvailableToFalse()
-//   //   await getAndCreateProductsFromAPI()
-//   //   await cacheProductsInServer()
-//   // }
-//   await updateDatabase()
-// }, 10000) // Check each minute (to be changed)
-
-// GET ALL PRODUCTS
-router.get('/products', async (req, res) => {
-  try {
-    res.status(200).send(productsCache)
-  } catch (err) {
-    res.status(500).send('Something went wrong on this call: /api/products')
-  }
-})
-
 // GET SINGLE PRODUCT
-router.get('/product/:id', async (req, res) => {
+router.get('/product/:id', cache(10), async (req, res) => {
   try {
     const product = await Product.findById({ _id: req.params.id })
-    console.log(product, 'product')
     res.status(200).send(product)
   } catch (err) {
     res.status(500).send('Something went wrong on this call: /api/product/:id')
@@ -121,7 +101,6 @@ router.post('/product/update', async (req, res) => {
     console.log(arraycontainsturtles, 'array')
     const imgNumber = req.body.name.charAt(req.body.name.length - 5)
     console.log(imgNumber, 'array')
-
     if (product.images[0] != undefined) {
       if (arraycontainsturtles >= imgNumber) {
         res.status(200).send('image exist')
@@ -139,7 +118,7 @@ router.post('/product/update', async (req, res) => {
 })
 
 // ADD PRODUCT TO SESSION
-router.get('/session-cart/:id', async (req, res) => {
+router.get('/session-cart/:id', cache(10), async (req, res) => {
   try {
     const product = await Product.findById({ _id: req.params.id })
     if (!req.session.products) {
@@ -152,16 +131,17 @@ router.get('/session-cart/:id', async (req, res) => {
 })
 
 // PRODUCTS PER CATEGORY
-router.get('/category-products/:categoryNum', (req, res) => {
-  const productsByCategory = productsCache.filter(product => {
-    if (product.category[0] === req.params.categoryNum) {
+router.get('/category-products/:categoryNum', cache(10), async (req, res) => {
+  const products = await Product.find()
+  const productsByCategory = products.filter(product => {
+    if (product.category[0] === req.params.categoryNum && product.price > 0 && product.effectiveStock > 0 && product.available) {
       return product
     }
   })
   res.status(200).json(productsByCategory)
 })
 
-router.get('/search', async (req, res) => {
+router.get('/search', cache(10), async (req, res) => {
   const searchInput = req.query.searchInput
   try {
     const products = await Product.find({
@@ -171,7 +151,12 @@ router.get('/search', async (req, res) => {
         ({ brandName: { $regex: searchInput, $options: 'i' } })
       ]
     })
-    res.send(products.slice(0, 30))
+    const fitleredProducts = products.filter(product => {
+      if (product.price > 0 && product.effectiveStock > 0 && product.available) {
+        return product
+      }
+    })
+    res.send(fitleredProducts.slice(0, 30))
   } catch (err) {
     console.log(err)
     res.status(500).send('Something went wrong on this call: /api/search')
@@ -179,30 +164,27 @@ router.get('/search', async (req, res) => {
 })
 
 const updateDatabase = async () => {
-  await setAvailableToFalse
+  await setAvailableToFalse()
   await getAndCreateProductsFromAPI()
-  await cacheProductsInServer()
-  console.log(new Date())
-  return new Date()
 }
 
 const scheduler = new ToadScheduler()
 
-// const task = new AsyncTask(
-//   'simple task',
-//   () => {
-//     return updateDatabase()
-//       .then((result) => {
-//         console.log(result, 'result')
-//       })
-//   },
-//   (err) => {
-//     console.error(err)
-//   }
-// )
-// const job = new SimpleIntervalJob({ seconds: 5 }, task)
+const task = new AsyncTask(
+  'simple task',
+  () => {
+    return updateDatabase()
+      .then((result) => {
+        console.log(result, 'result')
+      })
+  },
+  (err) => {
+    console.error(err)
+  }
+)
+const job = new SimpleIntervalJob({ seconds: 5 }, task)
 
-// scheduler.addSimpleIntervalJob(job)
+scheduler.addSimpleIntervalJob(job)
 
 // when stopping your app
 // scheduler.stop()

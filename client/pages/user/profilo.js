@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from 'react'
 import { UserContext } from '../../contexts/UserContext'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import Spinner from '../../components/helpersComponent/Spinner'
 
 const Profilo = () => {
   const { user, logout, updateUser, checkIfLoggedIn } = useContext(UserContext)
@@ -60,7 +61,7 @@ const Profilo = () => {
   }
 
   if (!proceed) {
-    return <p>Loading..</p>
+    return <Spinner />
   }
   return (
     <div>

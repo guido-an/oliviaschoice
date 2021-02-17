@@ -3,6 +3,7 @@ import PageTitle from '../components/categories/PageTitle'
 import ProductsList from '../components/categories/ProductsList'
 import Footer from '../components/Footer'
 import { filterByCategory, service, onCategoryChange } from '../components/categories/helpersFunctions/helpersFunctions'
+import Spinner from '../components/helpersComponent/Spinner'
 
 const IgieneDentale = () => {
   const [products, setProducts] = useState([])
@@ -50,6 +51,10 @@ const IgieneDentale = () => {
     // Execute the created function directly
     getProducts()
   }, [categoriesSelected])
+
+  if (!products) {
+    return <Spinner />
+  }
 
   return (
     <div>

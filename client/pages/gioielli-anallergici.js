@@ -3,6 +3,7 @@ import PageTitle from '../components/categories/PageTitle'
 import ProductsList from '../components/categories/ProductsList'
 import Footer from '../components/Footer'
 import { filterByCategory, service, onCategoryChange } from '../components/categories/helpersFunctions/helpersFunctions'
+import Spinner from '../components/helpersComponent/Spinner'
 
 const GioielliAnallergici = () => {
   const [products, setProducts] = useState([])
@@ -41,6 +42,10 @@ const GioielliAnallergici = () => {
     getProducts()
   }, [categoriesSelected])
 
+  if (!products) {
+    return <Spinner />
+  }
+
   return (
     <div>
       <PageTitle
@@ -78,7 +83,7 @@ const GioielliAnallergici = () => {
           : <p className='total-filtered-products'>{productsToDisplay.length} prodotti</p>}
         {categoriesSelected.length < 1
           ? <ProductsList products={products} />
-          :          <ProductsList products={productsToDisplay} />}
+          : <ProductsList products={productsToDisplay} />}
       </div>
       <Footer />
       <style jsx>{`

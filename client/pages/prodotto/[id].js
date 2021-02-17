@@ -6,6 +6,7 @@ import OverFooter from "../../components/OverFooter";
 import { CartContext } from '../../contexts/CartContext'
 import { ProductContext } from '../../contexts/ProductContext'
 import testImg from '../../images/test-prodotto.jpg'
+import Spinner from "../../components/helpersComponent/Spinner";
 
 function createMarkup (text) { return { __html: text } };
 
@@ -40,7 +41,7 @@ const Product = () => {
     }
 
     if(!singleProduct){
-      return <p>Loading...</p>
+      return <Spinner/>
     } 
     
     return (

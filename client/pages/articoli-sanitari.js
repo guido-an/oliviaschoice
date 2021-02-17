@@ -3,6 +3,7 @@ import PageTitle from '../components/categories/PageTitle'
 import ProductsList from '../components/categories/ProductsList'
 import Footer from '../components/Footer'
 import { filterByCategory, service, onCategoryChange } from '../components/categories/helpersFunctions/helpersFunctions'
+import Spinner from '../components/helpersComponent/Spinner'
 
 const ArticoliSanitari = () => {
   const [products, setProducts] = useState([])
@@ -37,7 +38,9 @@ const ArticoliSanitari = () => {
     getProducts()
   }, [categoriesSelected])
 
-  console.log(productsToDisplay, 'productsToDisplay')
+  if (!products) {
+    return <Spinner />
+  }
   return (
     <div>
       <PageTitle

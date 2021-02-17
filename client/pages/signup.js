@@ -31,7 +31,7 @@ const Signup = () => {
   }
 
   return (
-    <div>
+    <div className='signup'>
       <h1>Signup</h1>
       <form onSubmit={handleSubmit}>
         <input type='text' value={firstName} placeholder='* Nome' onChange={(e) => setFirstName(e.target.value)} required />
@@ -40,6 +40,43 @@ const Signup = () => {
         <input type='password' placeholder='* Password' onChange={(e) => setPassword(e.target.value)} minLength='6' required />
         <button>Signup</button>
       </form>
+      <style jsx='true'>{`
+            .signup {
+              text-align: center;
+            }
+            form {
+              margin-bottom: 180px 
+            }
+           .signup input {
+             display: block;
+             margin: 0 auto;
+             width: 80vw;
+             padding: 10px;
+             margin-bottom: 20px;
+             border-radius: 4px;
+             border: 1px solid #f7f7f7;
+             box-shadow: 0px 2px 5px 0 rgba(0,0,0,0.3);
+        
+           }
+           .signup form button{
+             margin-top: 20px;
+             width: 80vw
+           }
+           .signup form button {
+             background-color: var(--main-color);
+             color: #fff;
+             border: none;
+             height: 35px;
+             border-radius:4px
+           }
+           @media(min-width: 968px){
+             .signup form button, .signup input {
+               width: 30vw
+             }
+           }
+        
+        `}
+      </style>
     </div>
   )
 }

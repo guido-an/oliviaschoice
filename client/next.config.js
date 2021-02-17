@@ -4,7 +4,7 @@ const withImages = require('next-images')
 
 module.exports = withImages({
   env: {
-    APP_API: 'https://oliviaschoice.herokuapp.com/',
+    APP_API: 'http://localhost:5000',
     STRIPE_PK: process.env.STRIPE_PK
   },
   target: 'serverless'
