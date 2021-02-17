@@ -78,12 +78,14 @@ router.post('/login', (req, res) => {
 
 /// LOGGEDIN
 router.get('/loggedin', async (req, res) => {
+  console.log(req.session.currentUser, 'req.session.currentUser')
   try {
     const user = req.session.currentUser
     console.log(user, 'user')
     res.status(200).json({ user })
   } catch (err) {
-    res.json({ message: 'Unauthorized' })
+    console.log('not authorized')
+    res.status(401).json({ message: 'Unauthorized' })
   }
 })
 
