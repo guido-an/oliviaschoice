@@ -34,6 +34,7 @@ app.use(cors({
 app.use(logger('dev'))
 app.use(session({
   secret: 'ironhack',
+  httpOnly: false,
   store: new Mongostore({
     mongooseConnection: mongoose.connection
   })
