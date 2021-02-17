@@ -30,7 +30,7 @@ app.use(cors({
   credentials: true
 }))
 
-// Middleware Setup
+// Middleware Setup //
 app.use(logger('dev'))
 app.use(session({
   secret: 'ironhack',
