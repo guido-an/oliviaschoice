@@ -24,11 +24,24 @@ const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.
 
 const app = express()
 
-app.use(cors({
-  origin: [process.env.CLIENT_URL],
+const whitelist = process.env.CLIENT_URL ? process.env.CLIENT_URL.split(',') : [];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS - Custom Error' + origin))
+    }
+  },
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  optionsSuccessStatus: 200,
   httpOnly: false,
   credentials: true
-}))
+}
+
+app.use(cors(corsOptions))
+app.options('*', cors(corsOptions))
 
 // Middleware Setup //
 app.use(logger('dev'))
