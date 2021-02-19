@@ -24,8 +24,11 @@ const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.
 
 const app = express()
 
-const whitelist = process.env.CLIENT_URL ? process.env.CLIENT_URL.split(',') : [];
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser())
 
+const whitelist = process.env.CLIENT_URL ? process.env.CLIENT_URL.split(',') : [];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -52,10 +55,6 @@ app.use(session({
     mongooseConnection: mongoose.connection
   })
 }))
-
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(cookieParser())
 
 const api = require('./routes/api')
 app.use('/api', api)
