@@ -13,18 +13,18 @@ router.post('/signup', async (req, res) => {
   const { firstName, lastName, email, password } = req.body
 
   if (email === '' || password === '') {
-    return res.status(400).send({ message: 'Per favore indica email e password.' });
+    return res.status(400).send({ message: 'Per favore indica email e password.' })
   }
 
   if (firstName === '' || lastName === '') {
-    return res.status(400).send({ message: 'Per favore indica nome e cognome.' });
+    return res.status(400).send({ message: 'Per favore indica nome e cognome.' })
   }
 
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email })
 
     if (user !== null) {
-      return res.status(400).send({ message: 'Questa email è già esistente.' });
+      return res.status(400).send({ message: 'Questa email è già esistente.' })
     }
 
     const salt = bcrypt.genSaltSync(bcryptSalt)
@@ -35,11 +35,11 @@ router.post('/signup', async (req, res) => {
       lastName,
       email,
       password: hashPass
-    });
+    })
 
-    await newUser.save();
+    await newUser.save()
     req.session.currentUser = newUser
-    return res.status(200).send({ currentUser: newUser });
+    return res.status(200).send({ currentUser: newUser })
   } catch (error) {
     return res.status(400).send({ message: 'Qualcosa è andato storto' })
   }
@@ -48,14 +48,14 @@ router.post('/signup', async (req, res) => {
 // LOGIN
 router.post('/login', (req, res) => {
   console.log(req.body, 'req.body')
-  let currentUser;
+  let currentUser
 
   try {
     User.findOne({ email: req.body.email }).then(user => {
       if (!user) {
         return res.status(401).send({
           errorMessage: 'Questa email non esiste'
-        });
+        })
       }
       currentUser = user
       return bcrypt.compare(req.body.password, user.password)
@@ -64,13 +64,12 @@ router.post('/login', (req, res) => {
         req.session.currentUser = currentUser
         return res.status(200).send({ message: 'Loggedin succesfully', currentUser })
       } else {
-        return res.status(401).send({ errorMessage: 'Password non corretta' });
+        return res.status(401).send({ errorMessage: 'Password non corretta' })
       }
     })
   } catch (error) {
-    return res.status(400).send({ errorMessage: 'Password non corretta' });
+    return res.status(400).send({ errorMessage: 'Password non corretta' })
   }
-
 })
 
 /// LOGGEDIN
@@ -107,7 +106,7 @@ router.post('/forgotpasswordResponse', async (req, res) => {
   // sendEmail(email, title, message)
   console.log(message)
 
-  return res.status(200).send();
+  return res.status(200).send()
 })
 
 router.post('/reset/:token', async (req, res) => {
@@ -128,7 +127,7 @@ router.post('/reset/:token', async (req, res) => {
       })
     console.log(user)
   }
-  return res.status(200).send();
+  return res.status(200).send()
 })
 
 // LOGOUT

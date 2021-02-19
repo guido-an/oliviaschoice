@@ -24,11 +24,11 @@ const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.
 
 const app = express()
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 
-const whitelist = process.env.CLIENT_URL ? process.env.CLIENT_URL.split(',') : [];
+const whitelist = process.env.CLIENT_URL ? process.env.CLIENT_URL.split(',') : []
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -37,7 +37,7 @@ const corsOptions = {
       callback(new Error('Not allowed by CORS - Custom Error' + origin))
     }
   },
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   optionsSuccessStatus: 200,
   httpOnly: false,
   credentials: true
@@ -45,7 +45,7 @@ const corsOptions = {
 app.use(cors(corsOptions))
 app.options('*', cors(corsOptions))
 
-// Middleware Setup //
+// Middleware Setup
 app.use(logger('dev'))
 app.use(session({
   secret: 'ironhack',
