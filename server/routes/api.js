@@ -182,7 +182,7 @@ const task = new AsyncTask(
     console.error(err)
   }
 )
-const job = new SimpleIntervalJob({ seconds: 5 }, task)
+const job = new SimpleIntervalJob({ seconds: 86400 }, task)
 
 scheduler.addSimpleIntervalJob(job)
 

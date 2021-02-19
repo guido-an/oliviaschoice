@@ -36,7 +36,6 @@ router.post('/signup', async (req, res) => {
       email,
       password: hashPass
     })
-
     await newUser.save()
     req.session.currentUser = newUser
     return res.status(200).send({ currentUser: newUser })
