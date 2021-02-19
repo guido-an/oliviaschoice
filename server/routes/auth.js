@@ -9,23 +9,22 @@ const bcrypt = require('bcrypt')
 const bcryptSalt = 10
 
 // SIGNUP
-router.post('/signup', (req, res, next) => {
+router.post('/signup', async (req, res, next) => {
   const { firstName, lastName, email, password } = req.body
 
   if (email === '' || password === '') {
-    res.status(400).send({ message: 'Per favore indica email e password.' })
-    return
+    return res.status(400).send({ message: 'Per favore indica email e password.' });
   }
 
   if (firstName === '' || lastName === '') {
-    res.status(400).send({ message: 'Per favore indica nome e cognome.' })
-    return
+    return res.status(400).send({ message: 'Per favore indica nome e cognome.' });
   }
 
-  User.findOne({ email }, 'email', (err, user) => {
+  try {
+    const user = await User.findOne({ email });
+
     if (user !== null) {
-      res.status(400).send({ message: 'Questa email è già esistente.' })
-      return
+      return res.status(400).send({ message: 'Questa email è già esistente.' });
     }
 
     const salt = bcrypt.genSaltSync(bcryptSalt)
@@ -36,44 +35,42 @@ router.post('/signup', (req, res, next) => {
       lastName,
       email,
       password: hashPass
-    })
+    });
 
-    newUser.save()
-      .then(() => {
-        req.session.currentUser = newUser
-        res.status(200).send({ currentUser: newUser })
-      })
-      .catch(err => {
-        res.status(400).send({ message: 'Qualcosa è andato storto' })
-      })
-  })
+    await newUser.save();
+    req.session.currentUser = newUser
+    return res.status(200).send({ currentUser: newUser });
+  } catch (error) {
+    return res.status(400).send({ message: 'Qualcosa è andato storto' })
+  }
 })
 
 // LOGIN
 router.post('/login', (req, res) => {
   console.log(req.body, 'req.body')
-  let currentUser
-  User.findOne({ email: req.body.email })
-    .then(user => {
+  let currentUser;
+
+  try {
+    User.findOne({ email: req.body.email }).then(user => {
       if (!user) {
-        res.status(401).send({
+        return res.status(401).send({
           errorMessage: 'Questa email non esiste'
-        })
-        return
+        });
       }
       currentUser = user
       return bcrypt.compare(req.body.password, user.password)
-    })
-    .then(passwordCorrect => {
+    }).then(passwordCorrect => {
       if (passwordCorrect) {
         req.session.currentUser = currentUser
-        res.status(200).send({ message: 'Loggedin succesfully', currentUser })
+        return res.status(200).send({ message: 'Loggedin succesfully', currentUser })
       } else {
-        res.status(401).send({
-          errorMessage: 'Password non corretta'
-        })
+        return res.status(401).send({ errorMessage: 'Password non corretta' });
       }
     })
+  } catch (error) {
+    return res.status(400).send({ errorMessage: 'Password non corretta' });
+  }
+
 })
 
 /// LOGGEDIN
@@ -82,10 +79,10 @@ router.get('/loggedin', async (req, res) => {
   try {
     const user = req.session.currentUser
     console.log(user, 'user')
-    res.status(200).send({ user })
+    return res.status(200).send({ user })
   } catch (err) {
     console.log('not authorized')
-    res.status(401).send({ message: 'Unauthorized' })
+    return res.status(401).send({ message: 'Unauthorized' })
   }
 })
 
@@ -104,11 +101,13 @@ router.post('/forgotpasswordResponse', async (req, res, next) => {
       console.log(err)
     })
   const message = 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-  'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-   process.env.CLIENT_URL + '/user/reset/' + token + '\n\n' +
-  'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+    'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+    process.env.CLIENT_URL + '/user/reset/' + token + '\n\n' +
+    'If you did not request this, please ignore this email and your password will remain unchanged.\n'
   // sendEmail(email, title, message)
   console.log(message)
+
+  return res.status(200).send();
 })
 
 router.post('/reset/:token', async (req, res) => {
@@ -129,11 +128,12 @@ router.post('/reset/:token', async (req, res) => {
       })
     console.log(user)
   }
+  return res.status(200).send();
 })
 
 // LOGOUT
 router.get('/logout', (req, res) => {
-  req.session.destroy(err => {
+  return req.session.destroy(err => {
     res.status(200).send({ message: 'Logged out' })
   })
 })
