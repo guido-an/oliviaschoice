@@ -9,7 +9,7 @@ const bcrypt = require('bcrypt')
 const bcryptSalt = 10
 
 // SIGNUP
-router.post('/signup', async (req, res, next) => {
+router.post('/signup', async (req, res) => {
   const { firstName, lastName, email, password } = req.body
 
   if (email === '' || password === '') {
@@ -86,7 +86,7 @@ router.get('/loggedin', async (req, res) => {
   }
 })
 
-router.post('/forgotpasswordResponse', async (req, res, next) => {
+router.post('/forgotpasswordResponse', async (req, res) => {
   const email = req.body.email
   const title = 'Reset Your Password'
   const cryptoToken = crypto.randomBytes(25)
