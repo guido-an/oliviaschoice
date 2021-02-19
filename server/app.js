@@ -42,7 +42,6 @@ const corsOptions = {
   httpOnly: false,
   credentials: true
 }
-
 app.use(cors(corsOptions))
 app.options('*', cors(corsOptions))
 
