@@ -13,18 +13,18 @@ router.post('/signup', (req, res, next) => {
   const { firstName, lastName, email, password } = req.body
 
   if (email === '' || password === '') {
-    res.status(400).json({ message: 'Per favore indica email e password.' })
+    res.status(400).send({ message: 'Per favore indica email e password.' })
     return
   }
 
   if (firstName === '' || lastName === '') {
-    res.status(400).json({ message: 'Per favore indica nome e cognome.' })
+    res.status(400).send({ message: 'Per favore indica nome e cognome.' })
     return
   }
 
   User.findOne({ email }, 'email', (err, user) => {
     if (user !== null) {
-      res.status(400).json({ message: 'Questa email è già esistente.' })
+      res.status(400).send({ message: 'Questa email è già esistente.' })
       return
     }
 
@@ -41,7 +41,7 @@ router.post('/signup', (req, res, next) => {
     newUser.save()
       .then(() => {
         req.session.currentUser = newUser
-        res.status(200).json({ currentUser: newUser })
+        res.status(200).send({ currentUser: newUser })
       })
       .catch(err => {
         res.status(400).send({ message: 'Qualcosa è andato storto' })
@@ -56,7 +56,7 @@ router.post('/login', (req, res) => {
   User.findOne({ email: req.body.email })
     .then(user => {
       if (!user) {
-        res.status(401).json({
+        res.status(401).send({
           errorMessage: 'Questa email non esiste'
         })
         return
@@ -67,7 +67,7 @@ router.post('/login', (req, res) => {
     .then(passwordCorrect => {
       if (passwordCorrect) {
         req.session.currentUser = currentUser
-        res.status(200).json({ message: 'Loggedin succesfully', currentUser })
+        res.status(200).send({ message: 'Loggedin succesfully', currentUser })
       } else {
         res.status(401).send({
           errorMessage: 'Password non corretta'
@@ -82,10 +82,10 @@ router.get('/loggedin', async (req, res) => {
   try {
     const user = req.session.currentUser
     console.log(user, 'user')
-    res.status(200).json({ user })
+    res.status(200).send({ user })
   } catch (err) {
     console.log('not authorized')
-    res.status(401).json({ message: 'Unauthorized' })
+    res.status(401).send({ message: 'Unauthorized' })
   }
 })
 
@@ -134,7 +134,7 @@ router.post('/reset/:token', async (req, res) => {
 // LOGOUT
 router.get('/logout', (req, res) => {
   req.session.destroy(err => {
-    res.status(200).json({ message: 'Logged out' })
+    res.status(200).send({ message: 'Logged out' })
   })
 })
 
