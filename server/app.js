@@ -9,6 +9,7 @@ const path = require('path')
 const session = require('express-session')
 const Mongostore = require('connect-mongo')(session)
 const cors = require('cors')
+const isDevMode = process.env.NODE_ENV === 'development';
 
 mongoose
   .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
@@ -48,26 +49,27 @@ app.options('*', cors(corsOptions))
 // Middleware Setup
 app.use(logger('dev'));
 
+if (!isDevMode) {
+  app.set('trust proxy', 1); // trust first proxy
+}
+
 app.use(session({
   name: 'obcured.sid',
   secret: 'ironhack',
-  // httpOnly: false,
   resave: false,
+  proxy: true,
   saveUninitialized: true,
   unset: 'destroy',
   cookie: {
+    sameSite: 'None',
+    secure: !isDevMode,
+    httpOnly: false,
     maxAge: 6 * 60 * 60 * 1000
   },
   store: new Mongostore({
     mongooseConnection: mongoose.connection
   })
 }));
-
-if (app.get('env') === 'production') {
-  console.log('PRODUCTION');
-  app.set('trust proxy', 1); // trust first proxy
-  session.cookie.secure = true; // serve secure cookies
-}
 
 const api = require('./routes/api')
 app.use('/api', api)
