@@ -20,6 +20,9 @@ const Login = () => {
         password
       }
       const res = await login(user)
+      console.log('LOGIN RESPONSE', res);
+      console.log('LOGIN RESPONSE currentUser', res.data.currentUser);
+
       setUser(res.data.currentUser)
       if (res.data.currentUser.admin) {
         router.push('/admin/private')
@@ -30,7 +33,7 @@ const Login = () => {
       }
     } catch (err) {
       setErrorMsg(true)
-      console.log(err)
+      console.log('err', err)
     }
   }
 

@@ -1,6 +1,6 @@
 require('dotenv').config()
 const bodyParser = require('body-parser')
-const cookieParser = require('cookie-parser')
+// const cookieParser = require('cookie-parser')
 const express = require('express')
 const mongoose = require('mongoose')
 const logger = require('morgan')
@@ -26,7 +26,7 @@ const app = express()
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cookieParser())
+// app.use(cookieParser())
 
 const whitelist = process.env.CLIENT_URL ? process.env.CLIENT_URL.split(',') : []
 const corsOptions = {
@@ -46,14 +46,28 @@ app.use(cors(corsOptions))
 app.options('*', cors(corsOptions))
 
 // Middleware Setup
-app.use(logger('dev'))
+app.use(logger('dev'));
+
 app.use(session({
+  name: 'obcured.sid',
   secret: 'ironhack',
-  httpOnly: false,
+  // httpOnly: false,
+  resave: false,
+  saveUninitialized: true,
+  unset: 'destroy',
+  cookie: {
+    maxAge: 6 * 60 * 60 * 1000
+  },
   store: new Mongostore({
     mongooseConnection: mongoose.connection
   })
-}))
+}));
+
+if (app.get('env') === 'production') {
+  console.log('PRODUCTION');
+  app.set('trust proxy', 1); // trust first proxy
+  session.cookie.secure = true; // serve secure cookies
+}
 
 const api = require('./routes/api')
 app.use('/api', api)

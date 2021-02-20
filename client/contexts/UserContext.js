@@ -19,7 +19,7 @@ const UserContextProvider = props => {
 
   const login = async user => {
     const data = await service.post('/auth/login', user)
-    return data
+    return data;
   }
 
   const logout = async user => {
