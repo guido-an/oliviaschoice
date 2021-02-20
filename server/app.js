@@ -9,7 +9,6 @@ const path = require('path')
 const session = require('express-session')
 const Mongostore = require('connect-mongo')(session)
 const cors = require('cors')
-const isDevMode = process.env.NODE_ENV === 'development';
 
 mongoose
   .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
@@ -24,6 +23,7 @@ const app_name = require('./package.json').name
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`)
 
 const app = express()
+const isDevMode = app.get('env') === 'development';
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -49,8 +49,14 @@ app.options('*', cors(corsOptions))
 // Middleware Setup
 app.use(logger('dev'));
 
+let cookieForProduction = {};
+
 if (!isDevMode) {
   app.set('trust proxy', 1); // trust first proxy
+  cookieForProduction = {
+    sameSite: 'None',
+    secure: !isDevMode,
+  }
 }
 
 app.use(session({
@@ -61,8 +67,7 @@ app.use(session({
   saveUninitialized: true,
   unset: 'destroy',
   cookie: {
-    sameSite: 'None',
-    secure: !isDevMode,
+    ...cookieForProduction,
     httpOnly: false,
     maxAge: 6 * 60 * 60 * 1000
   },
