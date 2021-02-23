@@ -2,23 +2,23 @@ import cartIcon from '../images/icons/shopping-cart-icon.png'
 const Values = () => {
   return (
     <div className='values'>
-      <span className='overtitle'>LOREM ISPUM SIN AMET</span>
-      <h2 className='title-section'>LOREM ISPUMN DOLORET SENT AT</h2>
+      <span className='overtitle'>SCEGLI OLIVIA'S CHOICE PERCHÈ</span>
+      <h2 className='title-section'>ECCO PERCHÈ MOLTI CLIENTI CI SCELGONO</h2>
       <div className='icons-container'>
         <div className='icon-container'>
           <img src={cartIcon} />
-          <h3>Lorem ipsum</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          <h3>Non è una question di costi</h3>
+          <p>tutti i prodotti che troverai nel nostro shop sono di altissima qualità e te li proponiamo al migliore prezzo possibile, perché la qualità arrivi ovunque.</p>
         </div>
         <div className='icon-container'>
           <img src={cartIcon} />
-          <h3>Lorem ipsum</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          <h3>Come uno di famiglia</h3>
+          <p>Ci sono oltre 200 prodotti in ben 10 categorie diverse perché crediamo che ognuno di noi abbiamo bisogno di prodotti diversi per stare bene.</p>
         </div>
         <div className='icon-container'>
           <img src={cartIcon} />
-          <h3>Lorem ipsum</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          <h3>Ci mettiamo il cuore</h3>
+          <p>Garantiamo la qualità dei nostri prodotti, la consegna tracciata in 24/48 ore in tutta Italia e la disponibilità del nostro customer care sempre al tuo servizio.</p>
         </div>
 
       </div>
@@ -110,7 +110,10 @@ const Values = () => {
                 margin: 120px 85px;
                 border-radius: 4px;
                 margin-bottom: 40px;
-                box-shadow: 0px 5px 15px 5px rgba(0,0,0,0.4)
+                box-shadow: 0px 5px 15px 5px rgba(0,0,0,0.4);
+                position: relative;
+                bottom: 100px;
+                z-index: 99
             }
             .icons-container{
                 display: flex

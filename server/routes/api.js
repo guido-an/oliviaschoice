@@ -43,7 +43,8 @@ const getAndCreateProductsFromAPI = async () => {
           brandName: product.MG64_DESCRMARCA,
           effectiveStock: Number(product.MG70_QGIACEFF),
           description: product.descrizioneEstesa,
-          category: product.categoria
+          category: product.categoria,
+          available: true
         })
       } else {
         // OR it UPDATES it (with new info coming from external API)
@@ -133,12 +134,28 @@ router.get('/session-cart/:id', cache(10), async (req, res) => {
 // PRODUCTS PER CATEGORY
 router.get('/category-products/:categoryNum', cache(10), async (req, res) => {
   const products = await Product.find()
-  const productsByCategory = products.filter(product => {
-    if (product.category[0] === req.params.categoryNum && product.price > 0 && product.effectiveStock > 0 && product.available) {
-      return product
-    }
-  })
-  res.status(200).json(productsByCategory)
+  // All categories beside 'integratori'
+  if (req.params.categoryNum !== '10') {
+    const productsByCategory = products.filter(product => {
+      if (product.category[0] === req.params.categoryNum && product.price > 0 && product.effectiveStock > 0 && product.available) {
+        console.log('enetering other product ')
+        return product
+      }
+    })
+    res.status(200).json(productsByCategory)
+  }
+
+  // Sending 'Integratori' - Category = 10
+  if (req.params.categoryNum === '10') {
+    const integratori = products.filter(product => {
+      if (product.category[0] === '1' && product.category[1] === '0' && product.price > 0 && product.effectiveStock > 0 && product.available) {
+        console.log('entering integratori')
+        return product
+      }
+    })
+    console.log(integratori.length, 'integratori')
+    res.status(200).json(integratori)
+  }
 })
 
 router.get('/search', cache(10), async (req, res) => {

@@ -81,6 +81,12 @@ class MyApp extends App {
                     background-color: #f7f7f7;
                     margin-bottom: 30px
                 }
+                .divider-dark-grey {
+                    height: 3px;
+                    width: 120px;
+                    background-color: #777;
+                    margin-bottom: 30px
+                }
 
                 .description-section {
                   margin-bottom:40px

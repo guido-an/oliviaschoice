@@ -5,13 +5,10 @@ import PageTitle from '../components/categories/PageTitle'
 import ProductsList from '../components/categories/ProductsList'
 import Footer from '../components/Footer'
 import { filterByCategory, service, onCategoryChange } from '../components/categories/helpersFunctions/helpersFunctions'
+import Spinner from '../components/helpersComponent/Spinner'
 
 const Integratori = () => {
   const [products, setProducts] = useState([])
-
-  //   Start subcategories
-
-  //   End subcategories
 
   useEffect(() => {
     async function getProducts () {
@@ -26,10 +23,14 @@ const Integratori = () => {
     getProducts()
   }, [])
 
+  if (!products) {
+    return <Spinner />
+  }
+
   return (
     <div>
       <PageTitle
-        title='Mamma e Bimbo'
+        title='Integratori'
         subtitle='Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, alias.'
       />
       <div className='category-page-container'>
@@ -37,22 +38,9 @@ const Integratori = () => {
       </div>
       <Footer />
       <style jsx>{`
-             @media(min-width: 969px){
-              .wrapper-categories {
-                 margin: 0 10px;
-                 display: flex;
-                 overflow-x: scroll;
-                }
-                .input-wrapper {
-                   padding-right: 60px;
-               }
-               .total-filtered-products {
-                 position: relative;
-                 bottom: 40px;
-                 position: relative;
-                 left: 10px
-               }
-             }             
+            .category-page-container {
+              margin-top: 120px
+            }
           `}
       </style>
     </div>

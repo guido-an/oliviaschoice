@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import Link from 'next/link'
 
 import { ProductContext } from '../contexts/ProductContext'
-import Hero from '../components/Hero'
+import Hero2 from '../components/Hero2'
 import Values from '../components/Values'
 import Categories from '../components/Categories'
 import Testimonials from '../components/Testimonials'
@@ -25,7 +25,7 @@ const Index = () => {
 
   return (
     <div>
-      <Hero />
+      <Hero2 />
       <Values />
       <Categories />
       <Testimonials />

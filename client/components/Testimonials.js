@@ -50,7 +50,9 @@ export default class Testimonials extends Component {
         </Carousel>
         <style>{`
             .testimonials {
-                margin: 60px 80px 80px;
+                margin: 0px 80px 80px;
+                position: relative; 
+                bottom: 160px
             }
      .carousel-root {
        width: 100% !important;
@@ -192,7 +194,7 @@ export default class Testimonials extends Component {
      }
             `}
         </style>
-                {/*
+        {/*
         <style jsx='true'>{`
             .testimonials {
                 margin: 60px 80px 80px;
@@ -209,7 +211,6 @@ export default class Testimonials extends Component {
      .img-testimonial {
        width: 139px !important
      }
-
 
      .myCarousel {
        background: #fff;

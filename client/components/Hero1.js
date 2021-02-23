@@ -5,7 +5,7 @@ const Hero = () => {
     <div className='hero'>
       <span>HEALTHY WELLNESS AND BEAUTY SHOP</span>
       <h1>OLIVIA'S CHOICE</h1>
-      <p id='description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam recusandae veniam iste repellat.</p>
+      <p id='description'>La nostra selezione di prodotti per farti stare bene, ogni giorno.</p>
       <div className='cta-container'>
         <div>
           <ButtonRed link='#' text="L'OFFERTA DEL MESE" />

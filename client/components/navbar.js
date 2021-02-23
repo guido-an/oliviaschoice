@@ -191,12 +191,11 @@ const Navbar = ({ user }) => {
                  width: 100%;
                  padding: 10px 10px;
                  background-color: #fff;
-                 z-index: 90;
-              
+                 z-index: 90;              
                }
                .logo {
                  cursor: pointer;
-                 width: 110px
+                
                }
                 
                .navbar-top-mobile {
