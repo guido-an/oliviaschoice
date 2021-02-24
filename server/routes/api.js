@@ -35,7 +35,7 @@ const getAndCreateProductsFromAPI = async () => {
       const dbProduct = await Product.findOne({
         codeArticle: product.MG66_CODART.replace(/\s/g, '')
       })
-      if (!dbProduct) {
+      if (!dbProduct && product.visibile) {
         await Product.create({
           name: product.MG87_DESCART,
           codeArticle: product.MG66_CODART.replace(/\s/g, ''),
@@ -44,9 +44,11 @@ const getAndCreateProductsFromAPI = async () => {
           effectiveStock: Number(product.MG70_QGIACEFF),
           description: product.descrizioneEstesa,
           category: product.categoria,
+          details: product.dettagli,
+          howToUseIt: product.comeUsarlo,
           available: true
         })
-      } else {
+      } else if (dbProduct && product.visibile) {
         // OR it UPDATES it (with new info coming from external API)
         await Product.findOneAndUpdate(
           { codeArticle: product.MG66_CODART.replace(/\s/g, '') },
@@ -56,7 +58,9 @@ const getAndCreateProductsFromAPI = async () => {
             brandName: product.MG64_DESCRMARCA,
             effectiveStock: Number(product.MG70_QGIACEFF),
             description: product.descrizioneEstesa,
-            category: product.categoria
+            category: product.categoria,
+            details: product.dettagli,
+            howToUseIt: product.comeUsarlo
           }
         )
       }
@@ -138,7 +142,6 @@ router.get('/category-products/:categoryNum', cache(10), async (req, res) => {
   if (req.params.categoryNum !== '10') {
     const productsByCategory = products.filter(product => {
       if (product.category[0] === req.params.categoryNum && product.price > 0 && product.effectiveStock > 0 && product.available) {
-        console.log('enetering other product ')
         return product
       }
     })
@@ -149,11 +152,9 @@ router.get('/category-products/:categoryNum', cache(10), async (req, res) => {
   if (req.params.categoryNum === '10') {
     const integratori = products.filter(product => {
       if (product.category[0] === '1' && product.category[1] === '0' && product.price > 0 && product.effectiveStock > 0 && product.available) {
-        console.log('entering integratori')
         return product
       }
     })
-    console.log(integratori.length, 'integratori')
     res.status(200).json(integratori)
   }
 })
@@ -199,7 +200,7 @@ const task = new AsyncTask(
     console.error(err)
   }
 )
-const job = new SimpleIntervalJob({ seconds: 86400 }, task)
+const job = new SimpleIntervalJob({ seconds: 43200 }, task)
 
 scheduler.addSimpleIntervalJob(job)
 

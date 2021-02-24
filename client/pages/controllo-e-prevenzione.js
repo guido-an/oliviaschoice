@@ -5,25 +5,29 @@ import Footer from '../components/Footer'
 import { filterByCategory, service, onCategoryChange } from '../components/categories/helpersFunctions/helpersFunctions'
 import Spinner from '../components/helpersComponent/Spinner'
 
-const BenessereOcchi = () => {
+const ControlloEPrevenzione = () => {
   const [products, setProducts] = useState([])
   const [productsToDisplay, setProductsToDisplay] = useState([])
   const [categoriesSelected, setCategoriesSelected] = useState([])
 
   //   Start subcategories
-  const [occhialiDaLettura, setOcchialiDaLettura] = useState([])
-  const [lentiContatto, setLentiContatto] = useState([])
-  //   End subcategories
+  const [controlloDellaPressione, setControlloDellaPressione] = useState([])
+  const [controlloDelPeso, setControlloDelPeso] = useState([])
+  const [medicazioniEdEsami, setMedicazioniEdEsami] = useState([])
 
-  const categories = ['Occhiali da lettura', 'Lenti a contatto']
+  //   End subcategories
+  console.log(products.length, 'produtct')
+  const categories = ['Controllo Della Pressione', 'Controllo Del Peso', 'Medicazioni ed Esami']
 
   useEffect(() => {
     async function getProducts () {
       try {
-        const response = await service.get('/api/category-products/8')
+        const response = await service.get('/api/category-products/1')
+        console.log(response, 'data')
         setProducts(response.data)
-        setOcchialiDaLettura(filterByCategory(response.data, '8.1'))
-        setLentiContatto(filterByCategory(response.data, '8.2'))
+        setControlloDellaPressione(filterByCategory(response.data, '1.1'))
+        setControlloDelPeso(filterByCategory(response.data, '1.2'))
+        setMedicazioniEdEsami(filterByCategory(response.data, '1.3'))
         const newArray = products.filter(product => {
           if (categoriesSelected.includes(product.category)) {
             return product
@@ -45,32 +49,27 @@ const BenessereOcchi = () => {
   return (
     <div>
       <PageTitle
-        title='Benessere occhi'
+        title='Controllo e Prevenzione'
         subtitle='Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, alias.'
       />
       <div className='category-page-container'>
         <div className='wrapper-categories'>
-          {/* name to be changed for each category */}
           {categories.map((category, i = 1) => {
-            return (
-              <div key={i} className='input-wrapper'>
-                <div className='switch'>
-                  <input
-                    onChange={(e) => onCategoryChange(e, setCategoriesSelected, categoriesSelected)}
-                    name={`8.${i + 1}`}
-                    id={`switch-${i + 1}`}
-                    type='checkbox'
-                    className='switch-input'
-                  />
-                  <label htmlFor={`switch-${i + 1}`} className='switch-label'>
-                    {category}
-                  </label>
-                </div>
-                <div>
-                  <p className='category-name'>{category}</p>
-                </div>
+            return <div key={i} className='input-wrapper'>
+              <div className='switch'>
+                <input
+                  onChange={(e) => onCategoryChange(e, setCategoriesSelected, categoriesSelected)}
+                  name={`1.${i + 1}`}
+                  id={`switch-${i + 1}`}
+                  type='checkbox'
+                  className='switch-input'
+                />
+                <label htmlFor={`switch-${i + 1}`} className='switch-label'>
+                  {category}
+                </label>
               </div>
-            )
+              <div><p className='category-name'>{category}</p></div>
+            </div>
           })}
         </div>
         {/* End categories wrapper */}
@@ -104,4 +103,4 @@ const BenessereOcchi = () => {
     </div>
   )
 }
-export default BenessereOcchi
+export default ControlloEPrevenzione

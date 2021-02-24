@@ -19,7 +19,7 @@ const Categories = () => {
       <style jsx>{`
           .categories {
               text-align: center;
-              padding: 40px 10px;
+              padding: 80px 10px;
               background-color: #f4f4f2
           }
           .categories .divider {
@@ -31,7 +31,7 @@ const Categories = () => {
               position: relative;
               bottom: 220px;
               z-index: 0;
-              padding-top: 140px;
+              padding-top: 180px;
               padding-bottom: 140px
 
             }

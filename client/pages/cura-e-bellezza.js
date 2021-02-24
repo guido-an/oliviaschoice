@@ -1,43 +1,35 @@
 import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+// const { default: PageTitle } = require('../components/categories/PageTitle')
 import PageTitle from '../components/categories/PageTitle'
 import ProductsList from '../components/categories/ProductsList'
 import Footer from '../components/Footer'
 import { filterByCategory, service, onCategoryChange } from '../components/categories/helpersFunctions/helpersFunctions'
 import Spinner from '../components/helpersComponent/Spinner'
 
-const IgieneDentale = () => {
+const CuraEBellezza = () => {
   const [products, setProducts] = useState([])
   const [productsToDisplay, setProductsToDisplay] = useState([])
   const [categoriesSelected, setCategoriesSelected] = useState([])
 
   //   Start subcategories
-  const [compressePulenti, setCompressePulenti] = useState([])
-  const [cuscinetti, setCuscinetti] = useState([])
-  const [pastaAdesiva, setPastaAdesiva] = useState([])
-  const [scovolini, setScovolini] = useState([])
-  const [spazzolini, setSpazzolini] = useState([])
-  const [accessori, setAccessori] = useState([])
-  const [colluttorio, setColluttorio] = useState([])
-  const [dentifricio, setDentifricio] = useState([])
-  const [filoInterdentale, setFiloInterdentale] = useState([])
+  const [curaCorpo, setCuraCorpo] = useState([])
+  const [curaManiPiedi, setCuraManiPiedi] = useState([])
+  const [curaCapelliViso, setCuraCapelliViso] = useState([])
+  const [allergiaNichel, setAllergiaNichel] = useState([])
   //   End subcategories
 
-  const categories = ['Compresse pulenti', 'Cuscinetti', 'Pasta adesiva', 'Scovolini', 'Spazzolini', 'Accessori', 'Colluttorio', 'Dentifricio', 'Filo interdentale']
+  const categories = ['Cura del Corpo', 'Cura di Mani e Piedi', 'Cura di Capelli e Viso', 'Allergia al Nichel']
 
   useEffect(() => {
     async function getProducts () {
       try {
-        const response = await service.get('/api/category-products/6')
+        const response = await service.get('/api/category-products/2')
         setProducts(response.data)
-        setCompressePulenti(filterByCategory(response.data, '6.1'))
-        setCuscinetti(filterByCategory(response.data, '6.2'))
-        setPastaAdesiva(filterByCategory(response.data, '6.3'))
-        setScovolini(filterByCategory(response.data, '6.4'))
-        setSpazzolini(filterByCategory(response.data, '6.5'))
-        setAccessori(filterByCategory(response.data, '6.6'))
-        setColluttorio(filterByCategory(response.data, '6.7'))
-        setDentifricio(filterByCategory(response.data, '6.8'))
-        setFiloInterdentale(filterByCategory(response.data, '6.9'))
+        setCuraCorpo(filterByCategory(response.data, '2.1'))
+        setCuraManiPiedi(filterByCategory(response.data, '2.2'))
+        setCuraCapelliViso(filterByCategory(response.data, '2.3'))
+        setAllergiaNichel(filterByCategory(response.data, '2.4'))
         const newArray = products.filter(product => {
           if (categoriesSelected.includes(product.category)) {
             return product
@@ -59,19 +51,19 @@ const IgieneDentale = () => {
   return (
     <div>
       <PageTitle
-        title='Igiene dentale'
+        title='Cura e Bellezza'
         subtitle='Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, alias.'
       />
       <div className='category-page-container'>
         <div className='wrapper-categories'>
-          {/* name to be changed for each category */}
+          {/* name and onChange to be changed for each category */}
           {categories.map((category, i = 1) => {
             return (
               <div key={i} className='input-wrapper'>
                 <div className='switch'>
                   <input
                     onChange={(e) => onCategoryChange(e, setCategoriesSelected, categoriesSelected)}
-                    name={`6.${i + 1}`}
+                    name={`2.${i + 1}`}
                     id={`switch-${i + 1}`}
                     type='checkbox'
                     className='switch-input'
@@ -118,4 +110,4 @@ const IgieneDentale = () => {
     </div>
   )
 }
-export default IgieneDentale
+export default CuraEBellezza

@@ -113,7 +113,7 @@ const Values = () => {
                 box-shadow: 0px 5px 15px 5px rgba(0,0,0,0.4);
                 position: relative;
                 bottom: 100px;
-                z-index: 99
+                z-index: 89
             }
             .icons-container{
                 display: flex

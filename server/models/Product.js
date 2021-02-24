@@ -12,6 +12,8 @@ const productSchema = new Schema({
   images: Array,
   description: String,
   category: String,
+  details: String,
+  howToUseIt: String,
   productOfTheMonth: Boolean
 }, {
   timestamps: {

@@ -5,25 +5,29 @@ import Footer from '../components/Footer'
 import { filterByCategory, service, onCategoryChange } from '../components/categories/helpersFunctions/helpersFunctions'
 import Spinner from '../components/helpersComponent/Spinner'
 
-const ArticoliSanitari = () => {
+const IgieneEBenessere = () => {
   const [products, setProducts] = useState([])
   const [productsToDisplay, setProductsToDisplay] = useState([])
   const [categoriesSelected, setCategoriesSelected] = useState([])
 
   //   Start subcategories
-  const [diagnostici, setDiagnostici] = useState([])
-  const [medicazione, setMedicazione] = useState([])
+  const [vieRespiratorie, setVieRespiratorie] = useState([])
+  const [benessereOcchi, setBenessereOcchi] = useState([])
+  const [igieneBambino, setIgieneBambino] = useState([])
+  const [igieneDentale, setIgieneDentale] = useState([])
   //   End subcategories
 
-  const categories = ['Diagnostici', 'Medicazione']
+  const categories = ['Benessere Delle Vie Respiratorie', 'Benessere Degli Occhi', 'Igiene del Bambino', 'Igiene Dentale']
 
   useEffect(() => {
     async function getProducts () {
       try {
-        const response = await service.get('/api/category-products/9')
+        const response = await service.get('/api/category-products/3')
         setProducts(response.data)
-        setDiagnostici(filterByCategory(response.data, '9.1'))
-        setMedicazione(filterByCategory(response.data, '9.2'))
+        setVieRespiratorie(filterByCategory(response.data, '3.1'))
+        setBenessereOcchi(filterByCategory(response.data, '3.2'))
+        setIgieneBambino(filterByCategory(response.data, '3.3'))
+        setIgieneDentale(filterByCategory(response.data, '3.4'))
         const newArray = products.filter(product => {
           if (categoriesSelected.includes(product.category)) {
             return product
@@ -41,10 +45,11 @@ const ArticoliSanitari = () => {
   if (!products) {
     return <Spinner />
   }
+
   return (
     <div>
       <PageTitle
-        title='Articoli sanitari'
+        title='Igiene e Benessere'
         subtitle='Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, alias.'
       />
       <div className='category-page-container'>
@@ -56,7 +61,7 @@ const ArticoliSanitari = () => {
                 <div className='switch'>
                   <input
                     onChange={(e) => onCategoryChange(e, setCategoriesSelected, categoriesSelected)}
-                    name={`9.${i + 1}`}
+                    name={`3.${i + 1}`}
                     id={`switch-${i + 1}`}
                     type='checkbox'
                     className='switch-input'
@@ -96,6 +101,7 @@ const ArticoliSanitari = () => {
                  bottom: 40px;
                  position: relative;
                  left: 10px
+                
                }
              }             
           `}
@@ -103,4 +109,4 @@ const ArticoliSanitari = () => {
     </div>
   )
 }
-export default ArticoliSanitari
+export default IgieneEBenessere

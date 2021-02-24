@@ -52,7 +52,7 @@ export default class Testimonials extends Component {
             .testimonials {
                 margin: 0px 80px 80px;
                 position: relative; 
-                bottom: 160px
+                bottom: 140px
             }
      .carousel-root {
        width: 100% !important;
@@ -158,7 +158,8 @@ export default class Testimonials extends Component {
      @media only screen and (max-width: 968px) {
 
         .testimonials {
-                margin: 120px 10px 80px
+                margin: 120px 10px 80px;
+                bottom: 20px
             }
        .carousel-root {
          outline: 0;
@@ -191,6 +192,7 @@ export default class Testimonials extends Component {
          width: 24% !important;
          border-radius: 50%;
        }
+      
      }
             `}
         </style>
