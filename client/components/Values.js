@@ -70,7 +70,7 @@ const Values = () => {
       </style> */}
       <style jsx>{`
         .values {
-            margin-top: 140px;
+            margin-top: 100px;
             padding: 40px 10px 60px;
             background-color: #8c2b2f;
         }
@@ -106,13 +106,13 @@ const Values = () => {
 
         @media(min-width:968px){
             .values {
-                padding: 60px 80px 80px;
+                padding: 60px 80px 20px;
                 margin: 120px 85px;
                 border-radius: 4px;
                 margin-bottom: 40px;
                 box-shadow: 0px 5px 15px 5px rgba(0,0,0,0.4);
                 position: relative;
-                bottom: 100px;
+                bottom: 160px;
                 z-index: 89
             }
             .icons-container{

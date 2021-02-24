@@ -1,38 +1,39 @@
-import ButtonRed from './helpersComponent/ButtonWhite'
+import ButtonRed from './helpersComponent/ButtonRed'
 
-const OverFooter = () => {
+const ReminderOffer = () => {
   return (
-    <div className='overfooter'>
+    <div className='reminder-offer'>
       <div>
         <span className='overtitle'>LOREM ISPUM SIN AMET</span>
-        <h2 className='title-section'>LOREM ISPUMN DOLORET SENT AT</h2>
+        <h2 className='title-section'>LOREM ISPUMN DOLORET SENT AT?</h2>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore, excepturi.</p>
       </div>
-      <div className='btn-overfooter'>
+      <div className='btn-reminder-offer'>
         <ButtonRed
-          text='Mettiti in contatto con noi'
-          link='faq'
+          text='Offerta del Mese'
+          link='offerta'
           paddingSides='60px'
+          color='red'
         />
       </div>
       <style jsx>{`
-          .overfooter {
+          .reminder-offer {
             margin-top: 140px;
             padding: var(--container-padding);
-            background-color: #8c2b2f;
+            background-color: #E9D0CD;
           }
             h2, span, p {
-            color: #fff !important
+            color: #222 !important
           }
           p {
             font-weight: 300
           }
-          .btn-overfooter {
+          .btn-reminder-offer {
                 margin-top: 40px
             }
 
           @media(min-width: 968px){
-            .overfooter {
+            .reminder-offer {
                 margin: var(--container-margin);
                 border-radius: 4px;
                 margin-bottom: 40px;
@@ -40,7 +41,7 @@ const OverFooter = () => {
                 display: flex;
                 justify-content: space-evenly
             }
-            .btn-overfooter {
+            .btn-reminder-offer {
                 margin-top: 60px
             }
             p {
@@ -54,4 +55,4 @@ const OverFooter = () => {
   )
 }
 
-export default OverFooter
+export default ReminderOffer

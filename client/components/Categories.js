@@ -11,8 +11,8 @@ const Categories = () => {
       <h2 className='title-section'>LOREM IPSUM SIN AMET</h2>
       <p className='description-section'>Per ogni giorno, per ogni bisogno che avrai scegliamo i prodotti migliori che ti aiutino a sentirti bene.</p>
       <div className='categories-container'>
-        <CategoryContainer img={controllo} title='Controllo e Prevenzione' link='controllo-e-prevenzione' />
         <CategoryContainer img={cura} title='Cura e Bellezza' link='cura-e-bellezza' />
+        <CategoryContainer img={controllo} title='Controllo e Prevenzione' link='controllo-e-prevenzione' />
         <CategoryContainer img={igiene} title='Igiene e Benessere' link='igiene-e-benessere' />
       </div>
 
@@ -29,10 +29,10 @@ const Categories = () => {
           @media(min-width: 968px){
             .categories {
               position: relative;
-              bottom: 220px;
+              bottom: 280px;
               z-index: 0;
-              padding-top: 180px;
-              padding-bottom: 140px
+              padding-top: 130px;
+              padding-bottom: 80px
 
             }
               .categories-container {

@@ -8,6 +8,7 @@ import Categories from '../components/Categories'
 import Testimonials from '../components/Testimonials'
 import OverFooter from '../components/OverFooter'
 import Footer from '../components/Footer'
+import ReminderOffer from '../components/ReminderOffer'
 
 const Index = () => {
   const { products, getProducts } = useContext(ProductContext)
@@ -28,9 +29,47 @@ const Index = () => {
       <Hero2 />
       <Values />
       <Categories />
-      <Testimonials />
-      <OverFooter />
-      <Footer />
+      <div id='reminder-offer'>
+        <ReminderOffer />
+      </div>
+      <div id='testimonials'>
+        <Testimonials />
+      </div>
+
+      <div id='over-footer'>
+        <OverFooter />
+      </div>
+      <div id='footer'>
+        <Footer />
+      </div>
+      <style jsx='true'>
+        {`
+
+        #reminder-offer {
+          position: relative;
+          bottom: 140px
+        }
+        @media(min-width: 968px){
+          #testimonials{
+            position: relative;
+          bottom: 240px
+        }
+        #reminder-offer {
+          position: relative;
+          bottom: 280px
+        }
+        #over-footer, #footer {
+          position: relative;
+          bottom: 220px
+        }
+        #footer {
+          height: 160px
+         }
+        }
+       
+
+        `}
+      </style>
     </div>
   )
 }

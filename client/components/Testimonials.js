@@ -51,8 +51,7 @@ export default class Testimonials extends Component {
         <style>{`
             .testimonials {
                 margin: 0px 80px 80px;
-                position: relative; 
-                bottom: 140px
+                
             }
      .carousel-root {
        width: 100% !important;

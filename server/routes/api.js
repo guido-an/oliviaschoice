@@ -99,13 +99,9 @@ router.get('/product/:id', cache(10), async (req, res) => {
 router.post('/product/update', async (req, res) => {
   try {
     const code = req.body.name.slice(0, -6)
-    console.log('code', code)
     const product = await Product.findOne({ codeArticle: code })
-    console.log('roiduct', product)
     const arraycontainsturtles = (product.images.length)
-    console.log(arraycontainsturtles, 'array')
     const imgNumber = req.body.name.charAt(req.body.name.length - 5)
-    console.log(imgNumber, 'array')
     if (product.images[0] != undefined) {
       if (arraycontainsturtles >= imgNumber) {
         res.status(200).send('image exist')

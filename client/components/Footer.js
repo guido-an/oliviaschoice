@@ -59,8 +59,8 @@ const Footer = () => {
 
          .footer-logo img {
              margin: 0 auto;
-             display: block
-
+             display: block;
+  
          }
     }
          

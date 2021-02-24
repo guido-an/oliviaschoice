@@ -57,12 +57,14 @@ const Hero2 = () => {
               }
               .hero-left {
                   width: 50vw;
-                  height: 90vh
+                  height: 70vh
               }
 
               .hero-right {
                   margin: 10vh auto;
                   width: 40vw;
+                  position: relative;
+                  bottom: 30px
               }
               .hero-right p {
                  bottom: 25px;

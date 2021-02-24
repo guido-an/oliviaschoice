@@ -16,6 +16,7 @@ function displayProducts (order) {
   })
   return productsToDisplay
 }
+
 function sendEmail (order) {
   const productsToDisplay = displayProducts(order)
 
