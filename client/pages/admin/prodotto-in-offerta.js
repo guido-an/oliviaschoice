@@ -40,7 +40,7 @@ const ProductOfTheMonth = () => {
   const onSubmitHandler = async (e) => {
     try {
       e.preventDefault()
-      const res = await service.post('/product/product-of-the-month',
+      const res = await service.post('/product/product-in-offer',
         {
           codeArticle
         })

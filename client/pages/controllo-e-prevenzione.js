@@ -51,6 +51,8 @@ const ControlloEPrevenzione = () => {
       <PageTitle
         title='Controllo e Prevenzione'
         subtitle='Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, alias.'
+        bgColor='#f2977a'
+        color='#222'
       />
       <div className='category-page-container'>
         <div className='wrapper-categories'>
@@ -69,7 +71,7 @@ const ControlloEPrevenzione = () => {
                 </label>
               </div>
               <div><p className='category-name'>{category}</p></div>
-            </div>
+                   </div>
           })}
         </div>
         {/* End categories wrapper */}

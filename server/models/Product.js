@@ -14,6 +14,7 @@ const productSchema = new Schema({
   category: String,
   details: String,
   howToUseIt: String,
+  productInOffer: Boolean,
   productOfTheMonth: Boolean
 }, {
   timestamps: {

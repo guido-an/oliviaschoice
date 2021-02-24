@@ -5,7 +5,6 @@ import arrow from '../../images/icons/arrow-right.png'
 const ProductList = ({ products }) => {
   return (
     <div className='products-list-container'>
-
       {products.map(product => {
         return (
           <div key={product._id} className='product-container'>
@@ -23,12 +22,11 @@ const ProductList = ({ products }) => {
       })}
 
       <style jsx>{`
-
                .products-list-container {
                  position: relative;
-                 bottom: 40px
+                 bottom: 40px;
+    
                }
-
                  .product-title {
                      color: #222;
                      font-weight: 500
@@ -38,16 +36,15 @@ const ProductList = ({ products }) => {
                     padding: 20px 40px 80px;
                     box-shadow: 0px 4px 10px 0 rgba(0,0,0,0.3);
                     margin: 20px 10px;
-                    border-radius: 4px
+                    border-radius: 4px;
+                    background-color: #fff
                    }
                    
                    .product-container .arrow {
                       top: 22px;
                      position: relative;
                      left: 10px;
-                     cursor: pointer
-
-            
+                     cursor: pointer            
                    }
 
                  .product-container a {
@@ -56,7 +53,6 @@ const ProductList = ({ products }) => {
                      top: 20px;
                      position: relative;
                      cursor: pointer
-                   
                  }
 
                  @media(min-width: 968px){

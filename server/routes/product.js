@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Product = require('../models/Product')
 
-router.post('/product-of-the-month', async (req, res) => {
+router.post('/product-in-offer', async (req, res) => {
   console.log(req.body.codeArticle, 'code article ')
 
   try {
@@ -17,7 +17,7 @@ router.post('/product-of-the-month', async (req, res) => {
       try {
         await Product.findByIdAndUpdate(
           { _id: product._id },
-          { productOfTheMonth: false }
+          { productInOffer: false }
         )
       } catch (err) {
         console.error(err)
@@ -25,7 +25,7 @@ router.post('/product-of-the-month', async (req, res) => {
     })
     const product = await Product.findOneAndUpdate(
       { codeArticle: req.body.codeArticle },
-      { productOfTheMonth: true }
+      { productInOffer: true }
     )
     res.status(200).json({ message: 'We have a new product of the month:', product })
   } catch (err) {

@@ -177,6 +177,15 @@ router.get('/search', cache(10), async (req, res) => {
   }
 })
 
+router.get('/products-of-the-month', async (req, res) => {
+  try {
+    const productsOfTheMonth = await Product.find({ productOfTheMonth: true })
+    res.status(200).send(productsOfTheMonth)
+  } catch (err) {
+    console.error(err)
+  }
+})
+
 const updateDatabase = async () => {
   await setAvailableToFalse()
   await getAndCreateProductsFromAPI()

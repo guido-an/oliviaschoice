@@ -51,6 +51,8 @@ const IgieneEBenessere = () => {
       <PageTitle
         title='Igiene e Benessere'
         subtitle='Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, alias.'
+        bgColor='#8c2b2f'
+        color='#fff'
       />
       <div className='category-page-container'>
         <div className='wrapper-categories'>

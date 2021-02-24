@@ -9,6 +9,7 @@ import Testimonials from '../components/Testimonials'
 import OverFooter from '../components/OverFooter'
 import Footer from '../components/Footer'
 import ReminderOffer from '../components/ReminderOffer'
+import ProductsOfTheMonth from '../components/ProductsOfTheMonth'
 
 const Index = () => {
   const { products, getProducts } = useContext(ProductContext)
@@ -35,6 +36,9 @@ const Index = () => {
       <div id='testimonials'>
         <Testimonials />
       </div>
+      <div id='products-of-the-month'>
+        <ProductsOfTheMonth />
+      </div>
 
       <div id='over-footer'>
         <OverFooter />
@@ -49,6 +53,17 @@ const Index = () => {
           position: relative;
           bottom: 140px
         }
+        #testimonials, #products-of-the-month{
+          position: relative;
+          bottom: 160px
+        }
+        #over-footer, #footer {
+          position: relative;
+          bottom: 300px
+        }
+        #footer {
+          height: 440px
+         }
         @media(min-width: 968px){
           #testimonials{
             position: relative;
@@ -58,7 +73,7 @@ const Index = () => {
           position: relative;
           bottom: 280px
         }
-        #over-footer, #footer {
+        #over-footer, #footer, #products-of-the-month {
           position: relative;
           bottom: 220px
         }

@@ -20,7 +20,7 @@ const ReminderOffer = () => {
           .reminder-offer {
             margin-top: 140px;
             padding: var(--container-padding);
-            background-color: #E9D0CD;
+            background-color: #e9d0cd;
           }
             h2, span, p {
             color: #222 !important

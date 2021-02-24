@@ -53,6 +53,8 @@ const CuraEBellezza = () => {
       <PageTitle
         title='Cura e Bellezza'
         subtitle='Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, alias.'
+        bgColor='#e9d0cd;'
+        color='#222'
       />
       <div className='category-page-container'>
         <div className='wrapper-categories'>

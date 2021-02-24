@@ -86,8 +86,8 @@ const Navbar = ({ user }) => {
               <li onClick={() => setDropDownMenu((dropDownMenu = !dropDownMenu))}><Link href='#'><a>Prodotti</a></Link></li>
               {dropDownMenu && (
                 <div className='submenu' onClick={() => setMobileMenu(false)}>
-                  <Link href='/controllo-e-prevenzione'><p onClick={() => setDropDownMenuDesktop(false)}>Controllo e Prevenzione</p></Link>
                   <Link href='/cura-e-bellezza'><p onClick={() => setDropDownMenuDesktop(false)}>Cura e Bellezza</p></Link>
+                  <Link href='/controllo-e-prevenzione'><p onClick={() => setDropDownMenuDesktop(false)}>Controllo e Prevenzione</p></Link>
                   <Link href='/igiene-e-benessere'><p onClick={() => setDropDownMenuDesktop(false)}>Igiene e Benessere</p></Link>
                 </div>
               )}
@@ -126,7 +126,6 @@ const Navbar = ({ user }) => {
               style={{
                   transform: 'rotate(90deg)',
                   display: 'inline-block'
-
                 }}
               >>
               </span>}
@@ -160,8 +159,8 @@ const Navbar = ({ user }) => {
       </nav>
       {dropDownMenuDesktop && (
         <div className='submenu-desktop' onMouseEnter={() => setDropDownMenuDesktop(true)}>
-          <Link href='/controllo-e-prevenzione'><p onClick={() => setDropDownMenuDesktop(false)}>Controllo e Prevenzione</p></Link>
           <Link href='/cura-e-bellezza'><p onClick={() => setDropDownMenuDesktop(false)}>Cura e Bellezza</p></Link>
+          <Link href='/controllo-e-prevenzione'><p onClick={() => setDropDownMenuDesktop(false)}>Controllo e Prevenzione</p></Link>
           <Link href='/igiene-e-benessere'><p onClick={() => setDropDownMenuDesktop(false)}>Igiene e Benessere</p></Link>
         </div>
       )}
