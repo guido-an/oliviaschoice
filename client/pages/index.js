@@ -67,7 +67,7 @@ const Index = () => {
         @media(min-width: 968px){
           #testimonials{
             position: relative;
-          bottom: 240px
+          bottom: 260px
         }
         #reminder-offer {
           position: relative;
@@ -75,10 +75,10 @@ const Index = () => {
         }
         #over-footer, #footer, #products-of-the-month {
           position: relative;
-          bottom: 220px
+          bottom: 280px
         }
         #footer {
-          height: 160px
+          height: 100px
          }
         }
        
