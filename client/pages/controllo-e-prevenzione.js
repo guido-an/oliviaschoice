@@ -71,7 +71,7 @@ const ControlloEPrevenzione = () => {
                 </label>
               </div>
               <div><p className='category-name'>{category}</p></div>
-                   </div>
+            </div>
           })}
         </div>
         {/* End categories wrapper */}

@@ -16,7 +16,6 @@ function displayProducts (order) {
   })
   return productsToDisplay
 }
-
 function sendEmail (order) {
   const productsToDisplay = displayProducts(order)
 
@@ -44,28 +43,3 @@ function sendEmail (order) {
 }
 
 module.exports = sendEmail
-
-// const nodemailer = require('nodemailer')
-
-// function sendEmail (toEmail, title, message) {
-//   console.log('SENDEMAIL')
-//   const transporter = nodemailer.createTransport({
-//     service: 'Gmail',
-//     secure: true, // use TLS
-//     auth: {
-//       user: 'service email',
-//       pass: '*****'
-//     }
-//   })
-
-//   transporter.sendMail({
-//     // email to the USER
-//     from: '',
-//     to: '',
-//     subject: 'test email',
-//     text: 'This is the text',
-//     html: 'this is the message field'
-//   })
-// }
-
-// module.exports = sendEmail

@@ -8,19 +8,26 @@ import { ProductContext } from '../../contexts/ProductContext'
 import testImg from '../../images/test-prodotto.jpg'
 import Spinner from "../../components/helpersComponent/Spinner";
 
+
 function createMarkup (text) { return { __html: text } };
 
 const Product = () => {
+
+  
   const router = useRouter();
   const { id } = router.query; // Destructuring our router object
   const { addToCart, productsInCart } = useContext(CartContext)
   const { getSingleProduct, singleProduct } = useContext(ProductContext)
   const [addedToCartMsg, setAddedToCartMsg] = useState(false)
   const [quantity, setQuantity] = useState(1)
+  const [display, setDisplay] = useState(false)
+
+  
 
    useEffect(() => {
       async function fetchProduct () {
         await getSingleProduct(id)
+        setDisplay(true)
       }
       fetchProduct()
     }, [id])
@@ -43,7 +50,8 @@ const Product = () => {
     if(!singleProduct){
       return <Spinner/>
     } 
-    
+   
+
     return (
         <div>
            <div className="product-page-container">
@@ -51,39 +59,45 @@ const Product = () => {
                  <img src={testImg} width="300px"></img>
              </div>
             <div className="product-container">
-                 <p className="product-title">{singleProduct.name}</p>
+                 <h1 className="product-title">{singleProduct.name}</h1>
                  <p className="product-price">{singleProduct.price} €</p>
-                <div 
+                {/* <div 
                  className="product-description" 
                  dangerouslySetInnerHTML={createMarkup(singleProduct && singleProduct.description)} 
-                 />
-                 <button className="minus" onClick={decreaseQuantity}>-</button>
-                 <input id="quantity" type="number" value={quantity}></input>
-                
-                  <button className="plus" 
-                  onClick={increaseQuantity}>+
-                  </button>
+                 /> */}
+                 <div className="quantity-container">
+                    <p>Quantità:</p>
+                    <div className="quantity">
+                     <p className="minus" onClick={decreaseQuantity}>-</p>
+                     <input id="quantity" type="number" value={quantity}></input>
+                     <p className="plus" 
+                     onClick={increaseQuantity}>+
+                     </p>
+                    </div>
+                 </div>
                  <button id="add-to-cart-btn" 
                  onClick={addProductToCart}
                  disabled={quantity > singleProduct.effectiveStock && true}
                  >
                  Add to cart
                  </button>
+            
                  <p style={{
                    fontSize: '14px',
-                   marginTop: '20px'
+                   marginTop: '60px'
                  }}>{singleProduct.effectiveStock} unità rimaste</p>
-  
-                 {addedToCartMsg && <div>
-                     <p>Prodotto aggiunto al <Link href="/carrello">carrello</Link></p>
+
+                {addedToCartMsg && <div>
+                     <p>Prodotto aggiunto! Vai al <Link href="/carrello">carrello</Link></p>
                   </div>
                   }
-                 {quantity > singleProduct.effectiveStock && <p>Sono rimaste {singleProduct.effectiveStock} unità di questo prodotto</p>} 
              </div>
        <style jsx>{`
            
            .product-page-container {
-             padding: var(--container-padding)
+             padding: var(--container-padding);
+             position: relative; 
+             bottom: 140px
            }
            .product-page-container img {
              display: block;
@@ -92,11 +106,22 @@ const Product = () => {
            
            .product-page-container .product-title {
              color: #222;
-             font-weight: 600
+             font-weight: 600;
+             line-height: 36px
+           }
+           .quantity-container {
+             display: flex
+           }
+           .quantity {
+             position: relative;
+             left: 40px;
+             top: 5px
            }
             
           .product-price {
-            font-weight: 500;
+            font-weight: 400;
+            font-size: 20px;
+            color: #222
           }
            .product-description {
              margin-bottom: 60px
@@ -115,18 +140,23 @@ const Product = () => {
              border-radius: 4px;
              border: 1px solid var(--main-color);
              cursor: pointer;
-             height: 40px;
-             width: 180px;
+             height: 45px;
+             width: 100%;
              margin-left: 20px;
              letter-spacing: 0.2px;
              box-shadow: 0px 4px 10px 0 rgba(0,0,0,0.3);
              position: relative;
-             right: 130px;
+             right: 20px;
+             top: 40px
            }
 
            #add-to-cart-btn:hover {
             box-shadow: 0px 6px 15px 0 rgba(0,0,0,0.3);
-            color: #f7f7f7
+            color: #f7f7f7;
+            background-color: #E9D0CD;
+            color: #222;
+            border: 1px solid #E9D0CD
+          
            }
            
            #add-to-cart-btn:disabled {
@@ -137,42 +167,43 @@ const Product = () => {
            }
            .product-page-container input {
              height: 40px;
-             border: 1px solid #fff;
+             border: 1px solid #777;
              font-size: 16px;
              color: #222;
              font-weight: 500;
-             padding-left: 15px
+            text-align: center;
+            position: relative;
+            width: 220px;
+            bottom: 6px;
            }
            
            .plus {
-               position: relative;
-               right: 142px;
-               width: 25px;
-              height: 25px;
-              display: inline-block;
-              border-radius: 50%;
-              border: 1px solid #999;
+              position: relative;
+              display: inline-block;             
               color: #999;
-              text-align: center;
+              bottom: 6px;
+              right: 20px;
+              font-weight: 500
            }
            .plus:hover {
               color: #222;
-              border: 1px solid #222;
+             
               cursor: pointer
            }
            
             .minus {
-              width: 25px;
-              height: 25px;
               display: inline-block;
-              border-radius: 50%;
-              border: 1px solid #999;
               color: #999;
-              text-align: center;
+              bottom: 6px;
+              left: 20px;
+              position: relative;
+              z-index: 99;
+              font-weight: 500
+
            } 
            .minus:hover {
               color: #222;
-              border: 1px solid #222;
+             
               cursor: pointer
           }
 
@@ -180,13 +211,14 @@ const Product = () => {
           @media(min-width: 968px){
             .product-page-container {
              display:flex;
+             bottom: 60px
            }
 
            .product-page-container .img-container {
-             width: 40%
+             width: 50%
            }
            .product-page-container .product-container {
-             width: 50%;
+             width: 40%;
              margin-bottom: 120px
            }
           }
@@ -203,5 +235,4 @@ const Product = () => {
 
 
 export default Product
-  
-  
+ 

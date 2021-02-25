@@ -7,7 +7,9 @@ const ProductList = ({ products }) => {
     <div className='products-list-container'>
       {products.map(product => {
         return (
+
           <div key={product._id} className='product-container'>
+
             <img src={testImg} width='200' height='200px' />
             <p className='product-title'>{product.name}</p>
             <p>{product.price} €</p>
@@ -17,6 +19,7 @@ const ProductList = ({ products }) => {
             <Link href={'/prodotto/' + product._id}>
               <img className='arrow' src={arrow} />
             </Link>
+
           </div>
         )
       })}
