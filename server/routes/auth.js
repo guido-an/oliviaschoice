@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/User')
 const crypto = require('crypto')
-const sendEmail = require('../helpers/sendEmail')
+const sendResetPasswordEmail = require('../helpers/sendResetPassworEmail')
 
 // Bcrypt to encrypt passwords
 const bcrypt = require('bcrypt')
@@ -99,10 +99,9 @@ router.post('/forgotpasswordResponse', async (req, res) => {
       console.log(err)
     })
   const message = 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-    'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-    process.env.CLIENT_URL + '/user/reset/' + token + '\n\n' +
-    'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-  // sendEmail(email, title, message)
+    'Please click on the following link, or paste this into your browser to complete the process:<br>\n\n' +
+    process.env.CLIENT_URL + '/user/reset/' + token + '\n\n'
+  sendResetPasswordEmail(email, title, message)
   console.log(message)
 
   return res.status(200).send()
