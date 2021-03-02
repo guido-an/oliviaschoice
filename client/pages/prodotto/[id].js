@@ -89,6 +89,7 @@ const Product = () => {
              </div>        
       </div>
         <div id="more-info-section">
+          {/* At the bottom of the file */}
            <MoreInfo singleProduct={singleProduct}/>
         </div>
         <div id="over-footer">
@@ -289,34 +290,37 @@ const Product = () => {
                 <div className="titles-container">
                   {singleProduct.description && 
                    <div className="more-info-item">
-                     <span
+                     <h5
+                     id="description"
                      onClick={handleDescription}
                      className={displayDescription && 'active-item'}
                      >
                      Descrizione
-                     </span>
+                     </h5>
                     </div>
                    }
     
                    {singleProduct.details && 
                    <div className="more-info-item">
-                     <span
+                     <h5
+                     id="details"
                      onClick={handleDetails}
                      className={displayDetails && 'active-item'}
                      >
                      Informazioni
-                     </span>
+                     </h5>
                     </div>
                    }
     
                    {singleProduct.howToUseIt && 
                    <div className="more-info-item">
-                     <span
+                     <h5
+                     id="how-to-use-it"
                      onClick={handleHowToUseIt}
                      className={displayHowToUseIt && 'active-item'}
                      >
                      Come Usarlo
-                     </span>
+                     </h5>
                     </div>
                    }
                </div>
@@ -332,23 +336,27 @@ const Product = () => {
                  />
                 }
                 {displayHowToUseIt &&
-                  <div  
+                  <div
                  dangerouslySetInnerHTML={createMarkup(singleProduct && singleProduct.howToUseIt)} 
                  />
                 }
+                {/* More styling in _app.js, not working here for dangerouslySetInnerHTML */}
                 <style jsx="true">{`
-                  .more-info-item span {
-                    cursor: pointer;
-                    width: 33%;
-                    color: #222
+                   
+                  .more-info-item {
+                    width: 33%
                   }
-                  
+                  #description, #details, #how-to-use-it {
+                    cursor: pointer;
+                    font-size: 16px;
+                    font-weight: 400
+                  }
                   .active-item { 
                     color: var(--main-color) !important;
                     border-bottom: 3px solid var(--main-color);
                     padding-bottom: 5px;
                     width: 110px;
-                    font-weight: 500          
+                    font-weight: 500 !important        
                   }
                   .titles-container {
                     display: flex;
@@ -356,6 +364,13 @@ const Product = () => {
                     margin-bottom: 40px
                   
                   }
+
+                  #more-info-section ul{
+                       display: none !important
+                    }
+
+               
+
                   @media(min-width: 968px){
                     #more-info-section{
                        width: 50%;

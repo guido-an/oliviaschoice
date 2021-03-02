@@ -54,8 +54,11 @@ class MyApp extends App {
                   outline:0;
                   }
 
-             
-
+               
+                #more-info-section ul li {
+                  color: #777
+                }
+                
                 strong {
                   color: #222;
                   font-weight: 400
