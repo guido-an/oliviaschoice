@@ -56,9 +56,11 @@ class MyApp extends App {
 
                
                 #more-info-section ul li {
-                  color: #777
+                  color: #777;
+                  list-style-type: disc;
+                  padding-bottom: 10px
                 }
-                
+
                 strong {
                   color: #222;
                   font-weight: 400

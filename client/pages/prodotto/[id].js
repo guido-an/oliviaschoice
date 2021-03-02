@@ -349,7 +349,7 @@ const Product = () => {
                   #description, #details, #how-to-use-it {
                     cursor: pointer;
                     font-size: 16px;
-                    font-weight: 400
+                    font-weight: 500
                   }
                   .active-item { 
                     color: var(--main-color) !important;
@@ -361,7 +361,7 @@ const Product = () => {
                   .titles-container {
                     display: flex;
                     justify-content: space-evenly;
-                    margin-bottom: 40px
+                    margin-bottom: 10px
                   
                   }
 
