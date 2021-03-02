@@ -322,7 +322,9 @@ const Product = () => {
                </div>
 
                 {displayDescription &&
-                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt, eos, recusandae cupiditate neque minima dolorum soluta totam quibusdam atque, similique aut dicta fugit impedit nihil natus consequatur! Tenetur earum beatae dolore sapiente neque aliquam, quia explicabo placeat asperiores, ullam mollitia.</p>
+                  <div  
+                 dangerouslySetInnerHTML={createMarkup(singleProduct && singleProduct.description)} 
+                 />
                 }
                 {displayDetails &&
                 <div  
@@ -330,7 +332,9 @@ const Product = () => {
                  />
                 }
                 {displayHowToUseIt &&
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi ea quod mollitia temporibus quibusdam minus dolores quia voluptatibus. Quis, eum?</p>
+                  <div  
+                 dangerouslySetInnerHTML={createMarkup(singleProduct && singleProduct.howToUseIt)} 
+                 />
                 }
                 <style jsx="true">{`
                   .more-info-item span {
