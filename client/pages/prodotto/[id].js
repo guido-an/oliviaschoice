@@ -13,7 +13,6 @@ function createMarkup (text) { return { __html: text } };
 
 const Product = () => {
 
-  
   const router = useRouter();
   const { id } = router.query; // Destructuring our router object
   const { addToCart, productsInCart } = useContext(CartContext)
@@ -61,10 +60,6 @@ const Product = () => {
             <div className="product-container">
                  <h1 className="product-title">{singleProduct.name}</h1>
                  <p className="product-price">{singleProduct.price} €</p>
-                {/* <div 
-                 className="product-description" 
-                 dangerouslySetInnerHTML={createMarkup(singleProduct && singleProduct.description)} 
-                 /> */}
                  <div className="quantity-container">
                     <p>Quantità:</p>
                     <div className="quantity">
@@ -79,7 +74,7 @@ const Product = () => {
                  onClick={addProductToCart}
                  disabled={quantity > singleProduct.effectiveStock && true}
                  >
-                 Add to cart
+                 Aggiungi al Carello
                  </button>
             
                  <p style={{
@@ -91,13 +86,23 @@ const Product = () => {
                      <p>Prodotto aggiunto! Vai al <Link href="/carrello">carrello</Link></p>
                   </div>
                   }
-             </div>
-       <style jsx>{`
+             </div>        
+      </div>
+        <div id="more-info-section">
+           <MoreInfo singleProduct={singleProduct}/>
+        </div>
+        <div id="over-footer">
+           <OverFooter/>
+        </div>
+       <div id="footer">
+         <Footer/>
+       </div>
+        <style jsx>{`
            
            .product-page-container {
              padding: var(--container-padding);
              position: relative; 
-             bottom: 140px
+             bottom: 40px
            }
            .product-page-container img {
              display: block;
@@ -156,7 +161,6 @@ const Product = () => {
             background-color: #E9D0CD;
             color: #222;
             border: 1px solid #E9D0CD
-          
            }
            
            #add-to-cart-btn:disabled {
@@ -207,6 +211,21 @@ const Product = () => {
               cursor: pointer
           }
 
+          #more-info-section {
+            position: relative;
+            bottom: 60px;
+            background-color: #f4f4f2;
+            padding: 20px 10px 80px;
+          }
+
+          #over-footer, #footer {
+            position: relative;
+            bottom: 200px;
+          }
+
+          #footer {
+            height: 600px
+          }
     
           @media(min-width: 968px){
             .product-page-container {
@@ -221,18 +240,129 @@ const Product = () => {
              width: 40%;
              margin-bottom: 120px
            }
+
+           #more-info-section {
+             bottom: 180px
+           }
+           #over-footer, #footer {
+            position: relative;
+            bottom: 180px;
+          }
+
+          #footer {
+            height: 200px
+          }
+        
           }
            
            `}
         </style>
-        
-      </div>
-          <OverFooter/>
-          <Footer/>
+       
       </div>
             )
       }
 
+      const MoreInfo = ({ singleProduct }) => {
+        const [displayDescription, setDisplayDescription] = useState(true)
+        const [displayDetails, setDisplayDetails] = useState(false)
+        const [displayHowToUseIt, setHowToUseIt] = useState(false)
+      
+        const handleDescription = () => {
+          setDisplayDescription(true)
+          setDisplayDetails(false)
+          setHowToUseIt(false)
+        }
+        const handleDetails = () => {
+          setDisplayDescription(false)
+          setDisplayDetails(true)
+          setHowToUseIt(false)
+        }
+        const handleHowToUseIt = () => {
+          setDisplayDescription(false)
+          setDisplayDetails(false)
+          setHowToUseIt(true)
+        }
+
+        
+        return(
+              <div id="more-info-section">
+                <div className="titles-container">
+                  {singleProduct.description && 
+                   <div className="more-info-item">
+                     <span
+                     onClick={handleDescription}
+                     className={displayDescription && 'active-item'}
+                     >
+                     Descrizione
+                     </span>
+                    </div>
+                   }
+    
+                   {singleProduct.details && 
+                   <div className="more-info-item">
+                     <span
+                     onClick={handleDetails}
+                     className={displayDetails && 'active-item'}
+                     >
+                     Informazioni
+                     </span>
+                    </div>
+                   }
+    
+                   {singleProduct.howToUseIt && 
+                   <div className="more-info-item">
+                     <span
+                     onClick={handleHowToUseIt}
+                     className={displayHowToUseIt && 'active-item'}
+                     >
+                     Come Usarlo
+                     </span>
+                    </div>
+                   }
+               </div>
+
+                {displayDescription &&
+                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt, eos, recusandae cupiditate neque minima dolorum soluta totam quibusdam atque, similique aut dicta fugit impedit nihil natus consequatur! Tenetur earum beatae dolore sapiente neque aliquam, quia explicabo placeat asperiores, ullam mollitia.</p>
+                }
+                {displayDetails &&
+                <div  
+                 dangerouslySetInnerHTML={createMarkup(singleProduct && singleProduct.details)} 
+                 />
+                }
+                {displayHowToUseIt &&
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi ea quod mollitia temporibus quibusdam minus dolores quia voluptatibus. Quis, eum?</p>
+                }
+                <style jsx="true">{`
+                  .more-info-item span {
+                    cursor: pointer;
+                    width: 33%;
+                    color: #222
+                  }
+                  
+                  .active-item { 
+                    color: var(--main-color) !important;
+                    border-bottom: 3px solid var(--main-color);
+                    padding-bottom: 5px;
+                    width: 110px;
+                    font-weight: 500          
+                  }
+                  .titles-container {
+                    display: flex;
+                    justify-content: space-evenly;
+                    margin-bottom: 40px
+                  
+                  }
+                  @media(min-width: 968px){
+                    #more-info-section{
+                       width: 50%;
+                       margin: 0 auto
+                    }
+                  }
+                  
+                  `}</style>
+             </div>
+        )
+      }
 
 export default Product
  
