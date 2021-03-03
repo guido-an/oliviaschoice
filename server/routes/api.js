@@ -119,7 +119,7 @@ router.post('/product/update', async (req, res) => {
       }
     }
   } catch (err) {
-    res.status(500).send("the file " + req.body.name + "couldn't be add to product")
+    res.status(288).send("the file " + req.body.name + " couldn't be add to product")
   }
 })
 

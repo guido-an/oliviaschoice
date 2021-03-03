@@ -11,7 +11,7 @@ const Mongostore = require('connect-mongo')(session)
 const cors = require('cors')
 
 mongoose
-  .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+  .connect("mongodb://localhost/pharmashop", { useNewUrlParser: true })
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
