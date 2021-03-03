@@ -5,7 +5,7 @@ import Footer from "../../components/Footer";
 import OverFooter from "../../components/OverFooter";
 import { CartContext } from '../../contexts/CartContext'
 import { ProductContext } from '../../contexts/ProductContext'
-import testImg from '../../images/test-prodotto.jpg'
+// import testImg from '../../images/test-prodotto.jpg'
 import Spinner from "../../components/helpersComponent/Spinner";
 
 
@@ -55,7 +55,7 @@ const Product = () => {
         <div>
            <div className="product-page-container">
              <div className="img-container">
-                 <img src={testImg} width="300px"></img>
+                 {singleProduct.images && <img src={singleProduct.images[0]} width="300px"></img> }
              </div>
             <div className="product-container">
                  <h1 className="product-title">{singleProduct.name}</h1>

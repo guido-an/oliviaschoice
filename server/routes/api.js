@@ -36,6 +36,7 @@ const getAndCreateProductsFromAPI = async () => {
         codeArticle: product.MG66_CODART.replace(/\s/g, '')
       })
       if (!dbProduct && product.visibile) {
+        console.log('create product')
         await Product.create({
           name: product.MG87_DESCART,
           codeArticle: product.MG66_CODART.replace(/\s/g, ''),
@@ -50,6 +51,7 @@ const getAndCreateProductsFromAPI = async () => {
         })
       } else if (dbProduct && product.visibile) {
         // OR it UPDATES it (with new info coming from external API)
+        console.log('update product')
         await Product.findOneAndUpdate(
           { codeArticle: product.MG66_CODART.replace(/\s/g, '') },
           {
@@ -102,9 +104,9 @@ router.post('/product/update', async (req, res) => {
     const product = await Product.findOne({ codeArticle: code })
     const arraycontainsturtles = (product.images.length)
     const imgNumber = req.body.name.charAt(req.body.name.length - 5)
-    if ( product.pdf != undefined && imgNumber === "p" || product.pdf != undefined && imgNumber === "P"){
+    if (product.pdf != undefined && imgNumber === 'p' || product.pdf != undefined && imgNumber === 'P') {
       await Product.findOneAndUpdate({ codeArticle: code }, { pdf: req.body.url })
-    }else{
+    } else {
       if (product.images[0] != undefined) {
         if (arraycontainsturtles >= imgNumber) {
           res.status(200).send('image updated')
@@ -118,7 +120,7 @@ router.post('/product/update', async (req, res) => {
       }
     }
   } catch (err) {
-    res.status(288).send("the file " + req.body.name + " couldn't be add to product")
+    res.status(288).send('the file ' + req.body.name + " couldn't be add to product")
   }
 })
 
