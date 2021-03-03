@@ -102,19 +102,24 @@ router.post('/product/update', async (req, res) => {
     const product = await Product.findOne({ codeArticle: code })
     const arraycontainsturtles = (product.images.length)
     const imgNumber = req.body.name.charAt(req.body.name.length - 5)
-    if (product.images[0] != undefined) {
-      if (arraycontainsturtles >= imgNumber) {
-        res.status(200).send('image exist')
+    console.log('add img')
+    if ( product.pdf != undefined && imgNumber === "p" || product.pdf != undefined && imgNumber === "P"){
+      await Product.findOneAndUpdate({ codeArticle: code }, { $push: { pdf: req.body.url } })
+    }else{
+      if (product.images[0] != undefined) {
+        if (arraycontainsturtles >= imgNumber) {
+          res.status(200).send('image exist')
+        } else {
+          await Product.findOneAndUpdate({ codeArticle: code }, { $push: { images: req.body.url } })
+          res.status(200).send('image exist')
+        }
       } else {
-        await Product.findOneAndUpdate({ codeArticle: code }, { $push: { images: req.body.url } })
-        res.status(200).send('image exist')
+        const updateProduct = await Product.findOneAndUpdate({ codeArticle: code }, { images: req.body.url })
+        res.status(200).send(updateProduct)
       }
-    } else {
-      const updateProduct = await Product.findOneAndUpdate({ codeArticle: code }, { images: req.body.url })
-      res.status(200).send(updateProduct)
     }
   } catch (err) {
-    res.status(500).send('Something went wrong on this call: /api/products')
+    res.status(500).send("the file " + req.body.name + "couldn't be upload")
   }
 })
 

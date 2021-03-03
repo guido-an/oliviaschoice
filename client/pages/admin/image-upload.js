@@ -48,6 +48,7 @@ const imageUpload = () => {
       url: url,
       name: name
     })
+    console.log(response)
   }
 
   const handleUpload = imageToUpload => {
