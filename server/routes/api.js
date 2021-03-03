@@ -107,14 +107,14 @@ router.post('/product/update', async (req, res) => {
     }else{
       if (product.images[0] != undefined) {
         if (arraycontainsturtles >= imgNumber) {
-          res.status(200).send('image exist')
+          res.status(200).send('image updated')
         } else {
           await Product.findOneAndUpdate({ codeArticle: code }, { $push: { images: req.body.url } })
-          res.status(200).send('image exist')
+          res.status(200).send('image added')
         }
       } else {
         const updateProduct = await Product.findOneAndUpdate({ codeArticle: code }, { images: req.body.url })
-        res.status(200).send(updateProduct)
+        res.status(200).send('crate images for product')
       }
     }
   } catch (err) {
