@@ -48,7 +48,9 @@ const imageUpload = () => {
       url: url,
       name: name
     })
-    console.log(response)
+    if(response.status === 500){
+      alert(response.message)
+    }
   }
 
   const handleUpload = imageToUpload => {

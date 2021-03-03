@@ -104,7 +104,7 @@ router.post('/product/update', async (req, res) => {
     const imgNumber = req.body.name.charAt(req.body.name.length - 5)
     console.log('add img')
     if ( product.pdf != undefined && imgNumber === "p" || product.pdf != undefined && imgNumber === "P"){
-      await Product.findOneAndUpdate({ codeArticle: code }, { $push: { pdf: req.body.url } })
+      await Product.findOneAndUpdate({ codeArticle: code }, { pdf: req.body.url })
     }else{
       if (product.images[0] != undefined) {
         if (arraycontainsturtles >= imgNumber) {
@@ -119,7 +119,7 @@ router.post('/product/update', async (req, res) => {
       }
     }
   } catch (err) {
-    res.status(500).send("the file " + req.body.name + "couldn't be upload")
+    res.status(500).send("the file " + req.body.name + "couldn't be add to product")
   }
 })
 
