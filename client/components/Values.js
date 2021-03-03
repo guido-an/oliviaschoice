@@ -1,4 +1,4 @@
-import icon1 from '../images/icons/non-è-una-questione-di-costi.png'
+import icon1 from '../images/icons/non-e-una-questione-di-costi.png'
 import icon2 from '../images/icons/come-uno-di-famiglia.png'
 import icon3 from '../images/icons/ci-mettiamo-il-cuore.png'
 
