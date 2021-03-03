@@ -102,7 +102,6 @@ router.post('/product/update', async (req, res) => {
     const product = await Product.findOne({ codeArticle: code })
     const arraycontainsturtles = (product.images.length)
     const imgNumber = req.body.name.charAt(req.body.name.length - 5)
-    console.log('add img')
     if ( product.pdf != undefined && imgNumber === "p" || product.pdf != undefined && imgNumber === "P"){
       await Product.findOneAndUpdate({ codeArticle: code }, { pdf: req.body.url })
     }else{

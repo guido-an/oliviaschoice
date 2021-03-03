@@ -48,7 +48,6 @@ const imageUpload = () => {
       url: url,
       name: name
     })
-    console.log(response)
     if(response.status === 288){
       alert(response.data)
     }
