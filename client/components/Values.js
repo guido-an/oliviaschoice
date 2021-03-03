@@ -1,4 +1,7 @@
-import cartIcon from '../images/icons/shopping-cart-icon.png'
+import icon1 from '../images/icons/non-è-una-questione-di-costi.png'
+import icon2 from '../images/icons/come-uno-di-famiglia.png'
+import icon3 from '../images/icons/ci-mettiamo-il-cuore.png'
+
 const Values = () => {
   return (
     <div className='values'>
@@ -6,17 +9,17 @@ const Values = () => {
       <h2 className='title-section'>ECCO PERCHÈ MOLTI CLIENTI CI SCELGONO</h2>
       <div className='icons-container'>
         <div className='icon-container'>
-          <img src={cartIcon} />
+          <img src={icon1} />
           <h3>Non è una question di costi</h3>
-          <p>tutti i prodotti che troverai nel nostro shop sono di altissima qualità e te li proponiamo al migliore prezzo possibile, perché la qualità arrivi ovunque.</p>
+          <p>Tutti i prodotti che troverai nel nostro shop sono di altissima qualità e te li proponiamo al migliore prezzo possibile, perché la qualità arrivi ovunque.</p>
         </div>
         <div className='icon-container'>
-          <img src={cartIcon} />
+          <img src={icon2} />
           <h3>Come uno di famiglia</h3>
           <p>Ci sono oltre 200 prodotti in ben 10 categorie diverse perché crediamo che ognuno di noi abbiamo bisogno di prodotti diversi per stare bene.</p>
         </div>
         <div className='icon-container'>
-          <img src={cartIcon} />
+          <img src={icon3} />
           <h3>Ci mettiamo il cuore</h3>
           <p>Garantiamo la qualità dei nostri prodotti, la consegna tracciata in 24/48 ore in tutta Italia e la disponibilità del nostro customer care sempre al tuo servizio.</p>
         </div>
@@ -93,7 +96,7 @@ const Values = () => {
           margin-top: 40px
         }
         .icon-container img {
-            padding: 25px;
+            padding: 10px;
             border-radius: 50%;
             background-color: #FDFAFA;
 

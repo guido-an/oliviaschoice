@@ -147,7 +147,7 @@ const Product = () => {
              border: 1px solid var(--main-color);
              cursor: pointer;
              height: 45px;
-             width: 100%;
+             width: 90%;
              margin-left: 20px;
              letter-spacing: 0.2px;
              box-shadow: 0px 4px 10px 0 rgba(0,0,0,0.3);
@@ -178,7 +178,7 @@ const Product = () => {
              font-weight: 500;
             text-align: center;
             position: relative;
-            width: 220px;
+            width: 100px;
             bottom: 6px;
            }
            
@@ -240,6 +240,10 @@ const Product = () => {
            .product-page-container .product-container {
              width: 40%;
              margin-bottom: 120px
+           }
+
+           #add-to-cart-btn {
+             width: 85%
            }
 
            #more-info-section {
@@ -324,28 +328,30 @@ const Product = () => {
                     </div>
                    }
                </div>
-
-                {displayDescription &&
-                  <div  
-                 dangerouslySetInnerHTML={createMarkup(singleProduct && singleProduct.description)} 
-                 />
-                }
-                {displayDetails &&
-                <div  
-                 dangerouslySetInnerHTML={createMarkup(singleProduct && singleProduct.details)} 
-                 />
-                }
-                {displayHowToUseIt &&
-                  <div
-                 dangerouslySetInnerHTML={createMarkup(singleProduct && singleProduct.howToUseIt)} 
-                 />
-                }
+                <div className="additional-info-tab">
+                    {displayDescription &&
+                      <div  
+                     dangerouslySetInnerHTML={createMarkup(singleProduct && singleProduct.description)} 
+                     />
+                    }
+                    {displayDetails &&
+                    <div  
+                     dangerouslySetInnerHTML={createMarkup(singleProduct && singleProduct.details)} 
+                     />
+                    }
+                    {displayHowToUseIt &&
+                      <div
+                     dangerouslySetInnerHTML={createMarkup(singleProduct && singleProduct.howToUseIt)} 
+                     />
+                    }
+                </div>
                 {/* More styling in _app.js, not working here for dangerouslySetInnerHTML */}
                 <style jsx="true">{`
                    
                   .more-info-item {
                     width: 33%
                   }
+
                   #description, #details, #how-to-use-it {
                     cursor: pointer;
                     font-size: 16px;
@@ -361,16 +367,16 @@ const Product = () => {
                   .titles-container {
                     display: flex;
                     justify-content: space-evenly;
-                    margin-bottom: 10px
-                  
+                    margin-bottom: 10px;
                   }
-
+                  .additional-info-tab {
+                    background-color: #fff;
+                    padding: 20px 40px
+                  }
                   #more-info-section ul{
                        display: none !important
                     }
-
-               
-
+                    
                   @media(min-width: 968px){
                     #more-info-section{
                        width: 50%;
