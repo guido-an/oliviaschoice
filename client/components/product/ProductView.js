@@ -1,5 +1,3 @@
-import Product from '../../../server/models/Product'
-
 import { useContext, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { CartContext } from '../../contexts/CartContext'
@@ -82,7 +80,7 @@ const ProductView = ({ productId }) => {
 
           {addedToCartMsg && <div>
             <p>Prodotto aggiunto! Vai al <Link href='/carrello'>carrello</Link></p>
-                             </div>}
+          </div>}
         </div>
       </div>
       <MoreInfo singleProduct={singleProduct} />
