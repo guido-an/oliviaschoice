@@ -12,23 +12,6 @@ const service = axios.create({
 const imageUpload = () => {
   const [images, setImages] = React.useState([])
   const maxNumber = 1000
-  // useEffect(() => {
-  //   // Create an scoped async function in the hook
-  //   async function checkIfAdmin () {
-  //     try {
-  //       const res = await service.get('/admin/get-admin')
-  //       if (res.data.admin) {
-  //         setProceed(true)
-  //       } else {
-  //         router.push('/')
-  //       }
-  //     } catch (e) {
-  //       console.log(e)
-  //     }
-  //   }
-  //   // Execute the created function directly
-  //   checkIfAdmin()
-  // }, [])
 
   const onChange = (imageList) => {
     setImages(imageList)
@@ -43,10 +26,11 @@ const imageUpload = () => {
     })
   }
 
-  const putImageOnProduct = async (url, name) => {
+  const putImageOnProduct = async (url, name, type) => {
     const response = await service.post('/api/product/update', {
       url: url,
-      name: name
+      name: name,
+      type: type
     })
     if(response.status === 288){
       alert(response.data)
@@ -54,7 +38,9 @@ const imageUpload = () => {
   }
 
   const handleUpload = imageToUpload => {
+    console.log(imageToUpload)
     if (imageToUpload) {
+      console.log(imageToUpload)
       const image = imageToUpload.file
       const uploadTask = storage.ref(`images/${image.name}`).put(image)
       uploadTask.on(
@@ -77,12 +63,34 @@ const imageUpload = () => {
             .child(image.name)
             .getDownloadURL()
             .then(url => {
-              putImageOnProduct(url, image.name)
+              putImageOnProduct(url, image.name, "img")
             })
         }
       )
     }
   }
+
+  const handlePdfUpload = async data => {   
+    console.log(data)
+      const pdf = data.target.files[0];
+      console.log(pdf)
+
+      const uploadTask = storage.ref(`pdf/${pdf.name}`).put(pdf);
+      uploadTask.on(
+        "state_changed",
+        () => {
+          // complete function ...
+          storage
+            .ref("pdf")
+            .child(pdf.name)
+            .getDownloadURL()
+            .then(url => {
+              console.log(url)
+              putImageOnProduct(url, pdf.name, "pdf")
+            })
+        }
+      );
+    };
 
   return (
     <div>
@@ -176,6 +184,7 @@ const imageUpload = () => {
         <Link href='/admin/private' as='/admin/private'>
           <p className='link-btn'> Back to private area</p>
         </Link>
+        <input type="file" onChange={handlePdfUpload} />
         <ImageUploading
           multiple
           value={images}
