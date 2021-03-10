@@ -17,6 +17,7 @@ const CategoryContainer = ({ title, img, link }) => {
           src={img}
         />
         <h3>{title}</h3>
+
         <style jsx>{`
           .category-container {
               box-shadow: 0px 4px 10px 0 rgba(0,0,0,0.3);

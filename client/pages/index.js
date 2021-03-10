@@ -12,7 +12,7 @@ import ReminderOffer from '../components/ReminderOffer'
 import ProductsOfTheMonth from '../components/ProductsOfTheMonth'
 
 const Index = () => {
-  const { products, getProducts } = useContext(ProductContext)
+  // const { products, getProducts } = useContext(ProductContext)
 
   // useEffect(() => {
   //   // Create an scoped async function in the hook
@@ -23,7 +23,7 @@ const Index = () => {
   //   fetchProducts()
   // }, [])
 
-  function createMarkup (text) { return { __html: text } };
+  // function createMarkup (text) { return { __html: text } };
 
   return (
     <div>
