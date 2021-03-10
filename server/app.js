@@ -1,6 +1,6 @@
 require('dotenv').config()
 const bodyParser = require('body-parser')
-// const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser')
 const express = require('express')
 const mongoose = require('mongoose')
 const logger = require('morgan')
@@ -23,11 +23,10 @@ const app_name = require('./package.json').name
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`)
 
 const app = express()
-const isDevMode = app.get('env') === 'development';
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-// app.use(cookieParser())
+app.use(cookieParser())
 
 const whitelist = process.env.CLIENT_URL ? process.env.CLIENT_URL.split(',') : []
 const corsOptions = {
@@ -47,34 +46,14 @@ app.use(cors(corsOptions))
 app.options('*', cors(corsOptions))
 
 // Middleware Setup
-app.use(logger('dev'));
-
-let cookieForProduction = {};
-
-if (!isDevMode) {
-  app.set('trust proxy', 1); // trust first proxy
-  cookieForProduction = {
-    sameSite: 'None',
-    secure: !isDevMode,
-  }
-}
-
+app.use(logger('dev'))
 app.use(session({
-  name: 'obcured.sid',
   secret: 'ironhack',
-  resave: false,
-  proxy: true,
-  saveUninitialized: true,
-  unset: 'destroy',
-  cookie: {
-    ...cookieForProduction,
-    httpOnly: false,
-    maxAge: 6 * 60 * 60 * 1000
-  },
+  httpOnly: false,
   store: new Mongostore({
     mongooseConnection: mongoose.connection
   })
-}));
+}))
 
 const api = require('./routes/api')
 app.use('/api', api)

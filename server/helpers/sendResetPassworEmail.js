@@ -5,7 +5,7 @@ const nodemailer = require('nodemailer')
   const transporter = nodemailer.createTransport({
     host: 'hostingweb31.netsons.net',
     port: 465,
-    secure: true, // use TLS
+    secure: true, // use TLS-mm
     auth: {
       user: 'info@oliviaschoice.it',
       pass: process.env.NODEMAILER_PSW

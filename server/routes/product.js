@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Product = require('../models/Product')
 
-router.post('/product-in-offer', async (req, res) => {
+router.post('/product-of-the-month', async (req, res) => {
   console.log(req.body.codeArticle, 'code article ')
 
   try {
@@ -17,7 +17,7 @@ router.post('/product-in-offer', async (req, res) => {
       try {
         await Product.findByIdAndUpdate(
           { _id: product._id },
-          { productInOffer: false }
+          { productOfTheMonth: false }
         )
       } catch (err) {
         console.error(err)
@@ -25,7 +25,7 @@ router.post('/product-in-offer', async (req, res) => {
     })
     const product = await Product.findOneAndUpdate(
       { codeArticle: req.body.codeArticle },
-      { productInOffer: true }
+      { productOfTheMonth: true }
     )
     res.status(200).json({ message: 'We have a new product of the month:', product })
   } catch (err) {
@@ -34,13 +34,4 @@ router.post('/product-in-offer', async (req, res) => {
   }
 })
 
-router.get('/product-in-offer', async (req, res) => {
-  try {
-    const productInOffer = await Product.findOne({ productInOffer: true })
-    res.status(200).send(productInOffer)
-  } catch (err) {
-    console.error(err)
-    res.status(500).send({ message: 'Something went wrong' })
-  }
-})
 module.exports = router

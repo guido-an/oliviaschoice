@@ -35,8 +35,7 @@ const getAndCreateProductsFromAPI = async () => {
       const dbProduct = await Product.findOne({
         codeArticle: product.MG66_CODART.replace(/\s/g, '')
       })
-      if (!dbProduct && product.visibile) {
-        console.log('create product')
+      if (!dbProduct) {
         await Product.create({
           name: product.MG87_DESCART,
           codeArticle: product.MG66_CODART.replace(/\s/g, ''),
@@ -44,14 +43,10 @@ const getAndCreateProductsFromAPI = async () => {
           brandName: product.MG64_DESCRMARCA,
           effectiveStock: Number(product.MG70_QGIACEFF),
           description: product.descrizioneEstesa,
-          category: product.categoria,
-          details: product.dettagli,
-          howToUseIt: product.comeUsarlo,
-          available: true
+          category: product.categoria
         })
-      } else if (dbProduct && product.visibile) {
+      } else {
         // OR it UPDATES it (with new info coming from external API)
-        console.log('update product')
         await Product.findOneAndUpdate(
           { codeArticle: product.MG66_CODART.replace(/\s/g, '') },
           {
@@ -60,9 +55,7 @@ const getAndCreateProductsFromAPI = async () => {
             brandName: product.MG64_DESCRMARCA,
             effectiveStock: Number(product.MG70_QGIACEFF),
             description: product.descrizioneEstesa,
-            category: product.categoria,
-            details: product.dettagli,
-            howToUseIt: product.comeUsarlo
+            category: product.categoria
           }
         )
       }
@@ -99,30 +92,28 @@ router.get('/product/:id', cache(10), async (req, res) => {
 
 // UPDATE SINGLE PRODUCT
 router.post('/product/update', async (req, res) => {
-  try { 
-    if (req.body.type === "pdf") {
-      console.log("im here")
-      const code = req.body.name.slice(0, -4)
-      await Product.findOneAndUpdate({ codeArticle: code }, { pdf: req.body.url })
-    } else if(req.body.type === "img"){
-      const code = req.body.name.slice(0, -6)
-      const product = await Product.findOne({ codeArticle: code })
-      const arraycontainsturtles = (product.images.length)
-      const imgNumber = req.body.name.charAt(req.body.name.length - 5)
-      if (product.images[0] != undefined) {
-        if (arraycontainsturtles >= imgNumber) {
-          res.status(200).send('image updated')
-        } else {
-          await Product.findOneAndUpdate({ codeArticle: code }, { $push: { images: req.body.url } })
-          res.status(200).send('image added')
-        }
+  try {
+    const code = req.body.name.slice(0, -6)
+    console.log('code', code)
+    const product = await Product.findOne({ codeArticle: code })
+    console.log('roiduct', product)
+    const arraycontainsturtles = (product.images.length)
+    console.log(arraycontainsturtles, 'array')
+    const imgNumber = req.body.name.charAt(req.body.name.length - 5)
+    console.log(imgNumber, 'array')
+    if (product.images[0] != undefined) {
+      if (arraycontainsturtles >= imgNumber) {
+        res.status(200).send('image exist')
       } else {
-        const updateProduct = await Product.findOneAndUpdate({ codeArticle: code }, { images: req.body.url })
-        res.status(200).send('crate images for product')
+        await Product.findOneAndUpdate({ codeArticle: code }, { $push: { images: req.body.url } })
+        res.status(200).send('image exist')
       }
+    } else {
+      const updateProduct = await Product.findOneAndUpdate({ codeArticle: code }, { images: req.body.url })
+      res.status(200).send(updateProduct)
     }
   } catch (err) {
-    res.status(288).send('the file ' + req.body.name + " couldn't be add to product")
+    res.status(500).send('Something went wrong on this call: /api/products')
   }
 })
 
@@ -142,25 +133,12 @@ router.get('/session-cart/:id', cache(10), async (req, res) => {
 // PRODUCTS PER CATEGORY
 router.get('/category-products/:categoryNum', cache(10), async (req, res) => {
   const products = await Product.find()
-  // All categories beside 'integratori'
-  if (req.params.categoryNum !== '10') {
-    const productsByCategory = products.filter(product => {
-      if (product.category[0] === req.params.categoryNum && product.price > 0 && product.effectiveStock > 0 && product.available) {
-        return product
-      }
-    })
-    res.status(200).json(productsByCategory)
-  }
-
-  // Sending 'Integratori' - Category = 10
-  if (req.params.categoryNum === '10') {
-    const integratori = products.filter(product => {
-      if (product.category[0] === '1' && product.category[1] === '0' && product.price > 0 && product.effectiveStock > 0 && product.available) {
-        return product
-      }
-    })
-    res.status(200).json(integratori)
-  }
+  const productsByCategory = products.filter(product => {
+    if (product.category[0] === req.params.categoryNum && product.price > 0 && product.effectiveStock > 0 && product.available) {
+      return product
+    }
+  })
+  res.status(200).json(productsByCategory)
 })
 
 router.get('/search', cache(10), async (req, res) => {
@@ -185,27 +163,6 @@ router.get('/search', cache(10), async (req, res) => {
   }
 })
 
-router.get('/products-of-the-month', async (req, res) => {
-  console.log('GETTING HERE')
-  try {
-    const productsOfTheMonth = await Product.find({ productOfTheMonth: true })
-    console.log(productsOfTheMonth, 'productsOfTheMonth')
-    res.status(200).send(productsOfTheMonth)
-  } catch (err) {
-    console.error(err)
-    res.status(500).send(err)
-  }
-})
-router.get('/product-in-offer', async (req, res) => {
-  try {
-    const productsOfTheMonth = await Product.findOne({ productInOffer: true })
-    res.status(200).send(productsOfTheMonth)
-  } catch (err) {
-    console.error(err)
-    res.status(500).send(err)
-  }
-})
-
 const updateDatabase = async () => {
   await setAvailableToFalse()
   await getAndCreateProductsFromAPI()
@@ -225,7 +182,7 @@ const task = new AsyncTask(
     console.error(err)
   }
 )
-const job = new SimpleIntervalJob({ seconds: 43200 }, task)
+const job = new SimpleIntervalJob({ seconds: 5 }, task)
 
 scheduler.addSimpleIntervalJob(job)
 

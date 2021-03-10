@@ -10,12 +10,8 @@ const productSchema = new Schema({
   brandName: String,
   effectiveStock: Number,
   images: Array,
-  pdf: String,
   description: String,
   category: String,
-  details: String,
-  howToUseIt: String,
-  productInOffer: Boolean,
   productOfTheMonth: Boolean
 }, {
   timestamps: {
