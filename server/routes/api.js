@@ -99,14 +99,16 @@ router.get('/product/:id', cache(10), async (req, res) => {
 
 // UPDATE SINGLE PRODUCT
 router.post('/product/update', async (req, res) => {
-  try {
-    const code = req.body.name.slice(0, -6)
-    const product = await Product.findOne({ codeArticle: code })
-    const arraycontainsturtles = (product.images.length)
-    const imgNumber = req.body.name.charAt(req.body.name.length - 5)
-    if (product.pdf != undefined && imgNumber === 'p' || product.pdf != undefined && imgNumber === 'P') {
+  try { 
+    if (req.body.type === "pdf") {
+      console.log("im here")
+      const code = req.body.name.slice(0, -4)
       await Product.findOneAndUpdate({ codeArticle: code }, { pdf: req.body.url })
-    } else {
+    } else if(req.body.type === "img"){
+      const code = req.body.name.slice(0, -6)
+      const product = await Product.findOne({ codeArticle: code })
+      const arraycontainsturtles = (product.images.length)
+      const imgNumber = req.body.name.charAt(req.body.name.length - 5)
       if (product.images[0] != undefined) {
         if (arraycontainsturtles >= imgNumber) {
           res.status(200).send('image updated')
