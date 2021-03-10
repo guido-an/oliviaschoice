@@ -37,6 +37,7 @@ const imageUpload = () => {
     }
   }
 
+  //images
   const handleUpload = imageToUpload => {
     console.log(imageToUpload)
     if (imageToUpload) {
@@ -70,6 +71,7 @@ const imageUpload = () => {
     }
   }
 
+  // pdf
   const handlePdfUpload = async data => {   
     console.log(data)
       const pdf = data.target.files[0];
