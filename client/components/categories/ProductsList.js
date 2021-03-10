@@ -3,6 +3,7 @@ import testImg from '../../images/test-prodotto.jpg'
 import arrow from '../../images/icons/arrow-right.png'
 
 const ProductList = ({ products }) => {
+  console.log(products, 'products')
   return (
     <div className='products-list-container'>
       {products.map(product => {

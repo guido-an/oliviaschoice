@@ -184,11 +184,23 @@ router.get('/search', cache(10), async (req, res) => {
 })
 
 router.get('/products-of-the-month', async (req, res) => {
+  console.log('GETTING HERE')
   try {
     const productsOfTheMonth = await Product.find({ productOfTheMonth: true })
+    console.log(productsOfTheMonth, 'productsOfTheMonth')
     res.status(200).send(productsOfTheMonth)
   } catch (err) {
     console.error(err)
+    res.status(500).send(err)
+  }
+})
+router.get('/product-in-offer', async (req, res) => {
+  try {
+    const productsOfTheMonth = await Product.findOne({ productInOffer: true })
+    res.status(200).send(productsOfTheMonth)
+  } catch (err) {
+    console.error(err)
+    res.status(500).send(err)
   }
 })
 

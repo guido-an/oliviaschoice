@@ -34,4 +34,13 @@ router.post('/product-in-offer', async (req, res) => {
   }
 })
 
+router.get('/product-in-offer', async (req, res) => {
+  try {
+    const productInOffer = await Product.findOne({ productInOffer: true })
+    res.status(200).send(productInOffer)
+  } catch (err) {
+    console.error(err)
+    res.status(500).send({ message: 'Something went wrong' })
+  }
+})
 module.exports = router

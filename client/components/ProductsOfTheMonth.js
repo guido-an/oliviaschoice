@@ -17,7 +17,6 @@ const ProductsOfTheMonth = () => {
     async function getProducts () {
       try {
         const response = await service.get('/api/products-of-the-month')
-
         setProductsOfTheMonth(response.data)
         console.log(response.data, 'montnh')
       } catch (err) {

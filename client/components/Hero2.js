@@ -8,16 +8,15 @@ const Hero2 = () => {
       <div className='hero-left' />
       <div className='hero-right'>
         <h1>La rivoluzione della skincare</h1>
-        <p>Prenditi cura della tua pelle ogni giorno comodamente a casa.
-          <div id='btn-container'>
-            <ButtonRed
-              text='Acquista Ora'
-              link='offerta'
-              paddingSides='60px'
-              color='red'
-            />
-          </div>
-        </p>
+        <p>Prenditi cura della tua pelle ogni giorno comodamente a casa. </p>
+        <div id='btn-container'>
+          <ButtonRed
+            text='Acquista Ora'
+            link='offerta'
+            paddingSides='60px'
+            color='red'
+          />
+        </div>
       </div>
       <style jsx>{`
            .hero-left {
