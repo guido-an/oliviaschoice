@@ -33,7 +33,7 @@ const Product = () => {
 
 
     return (
-      <div>
+      <div className='login'>
         <h1>reset page</h1>
         <form onSubmit={handleSubmit}>
         <input type='password' placeholder='*Password' required onChange={(e) => setPassword(e.target.value)} />
@@ -41,6 +41,43 @@ const Product = () => {
         <p>{cheked == true ? "las passwords no son iguales" : ""}</p>
         <button>Set Password</button>
       </form>
+      <style jsx='true'>{`
+            .login {
+              text-align: center;
+            }
+            form {
+              margin-bottom: 180px 
+            }
+           .login input {
+             display: block;
+             margin: 0 auto;
+             width: 80vw;
+             padding: 10px;
+             margin-bottom: 10px;
+             border-radius: 4px;
+             border: 1px solid #f7f7f7;
+             box-shadow: 0px 2px 5px 0 rgba(0,0,0,0.3);
+        
+           }
+           .login form button{
+             margin-top: 20px;
+             width: 80vw
+           }
+           .login form button {
+             background-color: var(--main-color);
+             color: #fff;
+             border: none;
+             height: 35px;
+             border-radius:4px
+           }
+           @media(min-width: 968px){
+             .login form button, .login input {
+               width: 40vw
+             }
+           }
+        
+        `}
+      </style>
       </div>
     )
   }
