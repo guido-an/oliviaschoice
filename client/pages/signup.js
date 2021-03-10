@@ -62,6 +62,7 @@ const Signup = () => {
              margin-top: 20px;
              width: 80vw
            }
+           
            .signup form button {
              background-color: var(--main-color);
              color: #fff;

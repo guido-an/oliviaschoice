@@ -28,7 +28,6 @@ const isDevMode = app.get('env') === 'development';
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 // app.use(cookieParser())
-
 const whitelist = process.env.CLIENT_URL ? process.env.CLIENT_URL.split(',') : []
 const corsOptions = {
   origin: function (origin, callback) {

@@ -33,7 +33,7 @@ function sendEmail (order) {
     // email to the USER
     from: 'info@oliviaschoice.it',
     to: 'carucciguido@gmail.com',
-    subject: 'Grazie per il tuo ordine',
+    subject: 'Grazie per il tuo ordine!',
     text: '',
     html: templates.templateExample(order, productsToDisplay)
   }, (error, result) => {
