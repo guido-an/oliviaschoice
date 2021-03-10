@@ -28,8 +28,8 @@ const ProductsOfTheMonth = () => {
 
   return (
     <div className='products-of-the-month'>
-      <h1>Prodotti del Mese</h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, eveniet!</p>
+      <h1>PRODOTTI DEL MESE</h1>
+      <p>I migliori prodotti scelti da noi per te per questo mese.</p>
       <div id='products-list'>
         <ProductList products={productsOfTheMonth} />
       </div>
@@ -46,7 +46,7 @@ const ProductsOfTheMonth = () => {
               .products-of-the-month {
                   padding: 40px 80px 80px;
               }
-          }
+           }
           `}
       </style>
     </div>

@@ -7,8 +7,8 @@ import igiene from '../images/igiene-e-benessere.jpg'
 const Categories = () => {
   return (
     <div className='categories'>
-      <span className='overtitle'>Lorem ipsunm</span>
-      <h2 className='title-section'>LOREM IPSUM SIN AMET</h2>
+      <span className='overtitle'>SCELTI PER TE DA OLIVIA</span>
+      <h2 className='title-section'>TUTTO QUELLO DI CUI HAI BISOGNO</h2>
       <p className='description-section'>Per ogni giorno, per ogni bisogno che avrai scegliamo i prodotti migliori che ti aiutino a sentirti bene.</p>
       <div className='categories-container'>
         <CategoryContainer img={cura} title='Cura e Bellezza' link='cura-e-bellezza' />
