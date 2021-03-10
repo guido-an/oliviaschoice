@@ -8,6 +8,7 @@ const SecondBlock = () => {
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit nisi expedita vel suscipit eum itaque atque numquam quisquam error, laborum in mollitia repellat perspiciatis esse amet illum aperiam provident impedit, fugiat illo ducimus porro! Sit, ab. Consequuntur aspernatur amet voluptatum sit maxime nisi dolores fugit iure ratione at nobis, minima possimus assumenda nesciunt illo omnis dicta modi nemo porro. Sequi laudantium quas atque voluptas incidunt ad. Cupiditate suscipit autem sunt.</p>
       </div>
       <div className='section-right' />
+      
       <style jsx='true'>{`
           .section-container {
               background-color: #f4f4f2;
