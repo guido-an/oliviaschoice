@@ -48,7 +48,7 @@ const Hero2 = () => {
               .hero {
                   display: flex;
                   position: relative;
-                  bottom: 40px
+                  bottom: 40px;
               }
               .hero h1 {
                   font-size: 50px;

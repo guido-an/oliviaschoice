@@ -21,7 +21,7 @@ export default class Testimonials extends Component {
               <h3>Laura L.</h3>
               {/* <h4>Designer</h4> */}
               <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti ullam officiis repellendus error minima. Voluptate ipsa harum rem ullam officiis.
+              Ho ordinato un misuratore di pressione Accumed, in meno di due giorni mi è arrivato a casa e mi trovo molto bene!
               </p>
             </div>
           </div>
@@ -29,10 +29,10 @@ export default class Testimonials extends Component {
           <div className='container-slides'>
             <img className='img-testimonial' src={testimonial} />
             <div className='myCarousel'>
-              <h3>Daniel Keystone</h3>
+              <h3>Daniele P.</h3>
               {/* <h4>Designer</h4> */}
               <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia ad officia quia exercitationem sed a expedita nesciunt consequuntur incidunt error.
+              Ho conosciuto questo sito cercando una soluzione per la mia allergia al nichel. Ho comprato due paia di orecchini Blomdahl e adesso non posso più farne a meno.              
               </p>
             </div>
           </div>
@@ -40,10 +40,10 @@ export default class Testimonials extends Component {
           <div className='container-slides'>
             <img className='img-testimonial' src={testimonial} />
             <div className='myCarousel'>
-              <h3>Theo Sorel</h3>
+              <h3>Giulia N.</h3>
               {/* <h4>Designer</h4> */}
               <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus reiciendis aliquam perferendis nisi dolorum a nam, dolor voluptatum odit asperiores.
+              Sono un cliente da tanto tempo, compro di tutto e mi trovo sempre molto bene. I prodotti sono di ottima qualità e quando mi è capitato di aver bisogno di un aiuto il customer care è sempre stato gentilissimo e velocissimo!              
               </p>
             </div>
           </div>

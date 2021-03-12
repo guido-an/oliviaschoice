@@ -1,20 +1,19 @@
 
-import heroImg from '../../images/hero-img.jpg'
+import img1 from '../../images/offer/mewa-1.png'
+import img2 from '../../images/offer/mewa-2.png'
+import img3 from '../../images/offer/mewa-3.png'
 
 const HeroOffer = () => {
   return (
     <div className='gallery-offer'>
       <div className='img-container'>
-        <img src={heroImg} />
+        <img src={img1} />
       </div>
       <div className='img-container'>
-        <img src={heroImg} />
+        <img src={img2} />
       </div>
       <div className='img-container'>
-        <img src={heroImg} />
-      </div>
-      <div className='img-container'>
-        <img src={heroImg} />
+        <img src={img3} />
       </div>
       <style jsx>{`
          .img-container img {

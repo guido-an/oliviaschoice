@@ -1,4 +1,4 @@
-import heroImg from '../../images/hero-img.jpg'
+import img from '../../images/offer/mewa-offerta.jpg'
 
 const FirstBlock = () => {
   return (
@@ -13,12 +13,13 @@ const FirstBlock = () => {
               background-color: #f4f4f2
           }
           .section-left {
-              background: url('${heroImg}');
-              height: 60vh;
+              background: url('${img}');
+              height: 80vh;
               background-size: cover;
+              background-position: center
            }
            .section-right {
-               padding: 0 15px 20px
+               padding: 20px 15px 60px
            }
            @media(min-width: 968px){
                .section-container{
@@ -26,7 +27,6 @@ const FirstBlock = () => {
                }
                .section-left{
                    width: 50%;
-                   height: 70vh
                }
                .section-right {
                  width: 50%;

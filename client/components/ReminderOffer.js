@@ -4,9 +4,9 @@ const ReminderOffer = () => {
   return (
     <div className='reminder-offer'>
       <div>
-        <span className='overtitle'>LOREM ISPUM SIN AMET</span>
-        <h2 className='title-section'>LOREM ISPUMN DOLORET SENT AT?</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore, excepturi.</p>
+        <span className='overtitle'>L'OFFERTA DEL MESE DEDICATA A TE</span>
+        <h2 className='title-section'>SOFFRI DI ALLERGIE ALLA PELLE?</h2>
+        <p>Scopri la linea di gioielli anallergici Blomdahl 0% nichel adatti anche alle pelli più sensibili.</p>
       </div>
       <div className='btn-reminder-offer'>
         <ButtonRed

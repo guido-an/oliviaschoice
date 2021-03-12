@@ -25,52 +25,6 @@ const Values = () => {
         </div>
 
       </div>
-      {/* <style jsx>{`
-        .values {
-            padding: 40px 80px 60px;
-            margin: 80px 10px 60px;
-            border-radius: 4px;
-            margin-bottom: 40px;
-            box-shadow: 0px 5px 15px 5px rgba(0,0,0,0.4);
-            background-color: #fafafa
-        }
-        .values h3 {
-            color: #222;
-        }
-        .icons-container {
-          margin-top: 40px
-        }
-        .icon-container img {
-            box-shadow: 0px 4px 10px 0 rgba(0,0,0,0.3);
-            padding: 25px;
-            border-radius: 50%
-        }
-        .icon-container p {
-            position: relative;
-            bottom: 15px;
-            margin-bottom: 40px
-        }
-
-        @media(min-width:968px){
-            .values {
-              padding: 60px 80px 80px;
-              margin: 120px 85px;
-              border-radius: 4px;
-              margin-bottom: 40px;
-            }
-            .icons-container{
-                display: flex
-            }
-            .icons-container {
-                margin-top: 60px
-            }
-            .icon-container {
-                width: 30%;
-                margin: 0 auto
-            }
-        }
-        `}
-      </style> */}
       <style jsx>{`
         .values {
             margin-top: 100px;
@@ -110,7 +64,7 @@ const Values = () => {
         @media(min-width:968px){
             .values {
                 padding: 60px 80px 20px;
-                margin: 120px 85px;
+                margin: 160px 85px;
                 border-radius: 4px;
                 margin-bottom: 40px;
                 box-shadow: 0px 5px 15px 5px rgba(0,0,0,0.4);

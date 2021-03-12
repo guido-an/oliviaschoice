@@ -1,14 +1,14 @@
-import heroImg from '../../images/hero-img.jpg'
+import img from '../../images/offer/mewa-offerta-2.jpg'
 
 const SecondBlock = () => {
   return (
     <div className='section-container'>
       <div className='section-left'>
-        <h2>Lorem ipsum doloret sin amet</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit nisi expedita vel suscipit eum itaque atque numquam quisquam error, laborum in mollitia repellat perspiciatis esse amet illum aperiam provident impedit, fugiat illo ducimus porro! Sit, ab. Consequuntur aspernatur amet voluptatum sit maxime nisi dolores fugit iure ratione at nobis, minima possimus assumenda nesciunt illo omnis dicta modi nemo porro. Sequi laudantium quas atque voluptas incidunt ad. Cupiditate suscipit autem sunt.</p>
+        <h2>Rimuove trucco e impurità per una pelle morbida e levigata.</h2>
+        <p>Pulisce delicatamente le impurità come le cellule morte, lo smog e i residui di trucco esfoliando e detergendo in profondità la pelle per renderla più fresca, pulita e compatta. Inoltre, grazie alla sua caratteristica Waterproof, MEWA è comodissimo da risciacquare alla fine del trattamento.</p>
       </div>
       <div className='section-right' />
-      
+
       <style jsx='true'>{`
           .section-container {
               background-color: #f4f4f2;
@@ -16,12 +16,13 @@ const SecondBlock = () => {
               flex-direction: column-reverse
           }
           .section-right {
-              background: url('${heroImg}');
-              height: 60vh;
+              background: url('${img}');
+              height: 80vh;
               background-size: cover;
+              background-position: center
            }
            .section-left {
-               padding: 0 15px 20px
+               padding: 20px 15px 60px
            }
            @media(min-width: 968px){
                .section-container{

@@ -4,9 +4,9 @@ const OverFooter = () => {
   return (
     <div className='overfooter'>
       <div>
-        <span className='overtitle'>LOREM ISPUM SIN AMET</span>
-        <h2 className='title-section'>LOREM ISPUMN DOLORET SENT AT</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore, excepturi.</p>
+        <span className='overtitle'>HAI BISOGNO DI ASSISTENZA?</span>
+        <h2 className='title-section'>CONTATTA IL NOSTRO CUSTOMER CARE</h2>
+        <p>Saremo felici di risolvere ogni tuo problema.</p>
       </div>
       <div className='btn-overfooter'>
         <ButtonRed
